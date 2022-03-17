@@ -1,0 +1,1345 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>。。。。。 | fengyun's Blog</title><meta name="keywords" content="C++"><meta name="author" content="长烟"><meta name="copyright" content="长烟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="[TOC] C++基础[TOC] 面向对象的三大特性：封装、继承、多态封装 把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。关键字：public, protected, private。不写默认为 private。  public 成员：可以被任意实体访问 protected 成员：只允许被子类及本类的成员函数访问 private 成员：只允">
+<meta property="og:type" content="article">
+<meta property="og:title" content="。。。。。">
+<meta property="og:url" content="http://yunf194.github.io/2022/03/02/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/index.html">
+<meta property="og:site_name" content="fengyun&#39;s Blog">
+<meta property="og:description" content="[TOC] C++基础[TOC] 面向对象的三大特性：封装、继承、多态封装 把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。关键字：public, protected, private。不写默认为 private。  public 成员：可以被任意实体访问 protected 成员：只允许被子类及本类的成员函数访问 private 成员：只允">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yunf194.github.io/images/cover/p11.jpg">
+<meta property="article:published_time" content="2022-03-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-17T06:45:03.531Z">
+<meta property="article:author" content="长烟">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yunf194.github.io/images/cover/p11.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="http://yunf194.github.io/2022/03/02/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5b5317a4316878223f02ccad7d028fa5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '。。。。。',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-17 14:45:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yunf194.github.io/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">76</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover/p11.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">fengyun's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">。。。。。</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-01T16:00:00.000Z" title="发表于 2022-03-02 00:00:00">2022-03-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-17T06:45:03.531Z" title="更新于 2022-03-17 14:45:03">2022-03-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C++</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">30.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>95分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="。。。。。"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>[TOC]</p>
+<h2 id="C-基础"><a href="#C-基础" class="headerlink" title="C++基础"></a>C++基础</h2><p>[TOC]</p>
+<h3 id="面向对象的三大特性：封装、继承、多态"><a href="#面向对象的三大特性：封装、继承、多态" class="headerlink" title="面向对象的三大特性：封装、继承、多态"></a>面向对象的三大特性：封装、继承、多态</h3><p><strong>封装</strong></p>
+<p>把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。关键字：public, protected, private。不写默认为 private。</p>
+<ul>
+<li><code>public</code> 成员：可以被任意实体访问</li>
+<li><code>protected</code> 成员：只允许被子类及本类的成员函数访问</li>
+<li><code>private</code> 成员：只允许被本类的成员函数、友元类或友元函数访问</li>
+</ul>
+<p><strong>继承</strong></p>
+<ul>
+<li>基类（父类）——&gt; 派生类（子类）</li>
+</ul>
+<p><strong>多态</strong></p>
+<ul>
+<li>多态，即多种状态（形态）。简单来说，我们可以将多态定义为消息以多种形式显示的能力。</li>
+<li>多态是以封装和继承为基础的。</li>
+<li>C++ 多态分类及实现：<ol>
+<li>重载多态（Ad-hoc Polymorphism，编译期）：函数重载、运算符重载</li>
+<li>子类型多态（Subtype Polymorphism，运行期）：虚函数</li>
+<li>参数多态性（Parametric Polymorphism，编译期）：类模板、函数模板</li>
+<li>强制多态（Coercion Polymorphism，编译期/运行期）：基本类型转换、自定义类型转换</li>
+</ol>
+</li>
+</ul>
+<h3 id="类的构造函数、析构函数、赋值函数、拷贝函数"><a href="#类的构造函数、析构函数、赋值函数、拷贝函数" class="headerlink" title="类的构造函数、析构函数、赋值函数、拷贝函数"></a>类的构造函数、析构函数、赋值函数、拷贝函数</h3><ul>
+<li>构造函数：一个类对象创建时自动调用的方法，用来完成初始化得工作。</li>
+<li> 析构函数：当类对象生命周期结束时，自动销毁对象占有的内存。 </li>
+<li>拷贝构造函数：参数为类的引用，即用一个类对象复制构造一个新的类对象。 </li>
+<li>赋值函数：将一个类对象成员的值赋给当前对象。</li>
+</ul>
+<h3 id="移动构造函数与拷贝构造函数对比"><a href="#移动构造函数与拷贝构造函数对比" class="headerlink" title="移动构造函数与拷贝构造函数对比"></a>移动构造函数与拷贝构造函数对比</h3><ol>
+<li><p>拷贝赋值是通过拷贝构造函数来赋值，在创建对象时，使用同一类中之前创建的对象来初始化新创建的对象。</p>
+</li>
+<li><p>移动赋值是通过移动构造函数来赋值，二者的主要区别在于</p>
+<p>1）拷贝构造函数的形参是一个<strong>左值引用</strong>，而移动构造函数的形参是一个右值引用；</p>
+<p>2）拷贝构造函数完成的<strong>是整个对象或变量的拷贝</strong>，而移动构造函数是<strong>生成一个指针指向源对象或变量的地址</strong>，接管源对象的内存，相对于大量数据的拷贝节省时间和内存空间。</p>
+</li>
+</ol>
+<h3 id="深拷贝与浅拷贝的区别"><a href="#深拷贝与浅拷贝的区别" class="headerlink" title="深拷贝与浅拷贝的区别"></a>深拷贝与浅拷贝的区别</h3><ol>
+<li>浅拷贝：又称值拷贝，将源对象的值拷贝到目标对象中去，本质上来说源对象和目标对象共用一份实体，只是所引用的变量名不同，地址其实还是相同的。举个简单的例子，你的小名叫西西，大名叫冬冬，当别人叫你西西或者冬冬的时候你都会答应，这两个名字虽然不相同，但是都指的是你。</li>
+<li>深拷贝，拷贝的时候先开辟出和源对象大小一样的空间，然后将源对象里的内容拷贝到目标对象中去，这样两个指针就指向了不同的内存位置。并且里面的内容是一样的，这样不但达到了我们想要的目的，还不会出现问题，两个指针先后去调用析构函数，分别释放自己所指向的位置。即为每次增加一个指针，便申请一块新的内存，并让这个指针指向新的内存，深拷贝情况下，不会出现重复释放同一块内存的错误。</li>
+<li>深拷贝的实现：深拷贝的拷贝构造函数和赋值运算符的重载传统实现：</li>
+</ol>
+<h3 id="空类有哪些函数？空类的大小？"><a href="#空类有哪些函数？空类的大小？" class="headerlink" title="空类有哪些函数？空类的大小？"></a>空类有哪些函数？空类的大小？</h3><p>定义一个空类</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Empty</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>默认会生成以下几个函数</p>
+<p>1.无参的构造函数</p>
+<p>在定义类的对象的时候，完成对象的初始化工作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Empty</span>()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.拷贝构造函数</p>
+<p>拷贝构造函数用于复制本类的对象</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Empty</span>(<span class="keyword">const</span> Empty&amp; copy)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.赋值运算符</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Empty&amp; <span class="keyword">operator</span> = (<span class="keyword">const</span> Empty&amp; copy)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.析构函数（非虚）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~<span class="built_in">Empty</span>()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="内存分区：全局区、堆区、栈区、常量区、代码区"><a href="#内存分区：全局区、堆区、栈区、常量区、代码区" class="headerlink" title="内存分区：全局区、堆区、栈区、常量区、代码区"></a>内存分区：全局区、堆区、栈区、常量区、代码区</h3><ol>
+<li><blockquote>
+<p>栈区（stack）:存放函数形参和局部变量（auto类型），由编译器自动分配和释放</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>堆区（heap）:该区由程序员申请后使用，需要手动释放否则会造成内存泄漏。如果程序员没有手动释放，那么程序结束时可能由OS回收。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>全局/静态存储区：存放全局变量和静态变量（包括静态全局变量与静态局部变量），初始化的全局变量和静态局部变量放在一块，未初始化的放在另一块</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>文字常量区：常量在统一运行被创建，常量区的内存是只读的，程序结束后由系统释放。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>程序代码区：存放程序的二进制代码，内存由系统管理</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/image-20220302172646048.png" alt="image-20220302172646048"></p>
+<p>一个程序的3个基本段：text段，data段，bss段</p>
+<ul>
+<li>text段在内存中被映射为只读，但date段与bss段是可写的</li>
+<li>text段：代码段，就是放程序代码的，编译时确定，只读</li>
+<li>data段：存放在编译阶段（而非运行时）就能确定的数据，可读可写。也就是通常所说的静态存储区，赋了初值的全局变量和赋初值的静态变量存放在这个区域，常量也存在这个区域</li>
+<li>bss段：已经定义但没赋初值的全局变量和静态变量存放在这个区域。</li>
+</ul>
+<h3 id="C-与C的区别"><a href="#C-与C的区别" class="headerlink" title="C++与C的区别"></a>C++与C的区别</h3><ol>
+<li>C语言是C++的子集，C++可以很好兼容C语言。但是C++又有很多<strong>新特性</strong>，如引用、智能指针、auto变量等。</li>
+<li>C++是<strong>面对对象</strong>的编程语言；C语言是<strong>面对过程</strong>的编程语言。</li>
+<li>C语言有一些不安全的语言特性，如指针使用的潜在危险、强制转换的不确定性、内存泄露等。而C++对此增加了不少新特性来<strong>改善安全性</strong>，如const常量、引用、cast转换、智能指针、try—catch等等；</li>
+<li>C++<strong>可复用性</strong>高，C++引入了<strong>模板</strong>的概念，后面在此基础上，实现了方便开发的标准模板库STL。C++的STL库相对于C语言的函数库<strong>更灵活、更通用</strong>。</li>
+</ol>
+<h3 id="struct与class的区别-4点"><a href="#struct与class的区别-4点" class="headerlink" title="struct与class的区别(4点)"></a>struct与class的区别(4点)</h3><ol>
+<li><p>struct 一般用于描述一个数据结构集合，而 class 是对一个对象数据的封装；</p>
+</li>
+<li><p>struct 中默认的访问控制权限是 public 的，而 class 中默认的访问控制权限是 private 的，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> iNum; <span class="comment">// 默认访问控制权限是 public </span></span><br><span class="line">&#125; </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>&#123;</span>  </span><br><span class="line">    <span class="keyword">int</span> iNum; <span class="comment">// 默认访问控制权限是 private </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>在继承关系中，struct 默认是公有继承，而 class 是私有继承；</p>
+</li>
+<li><p>class 关键字可以用于定义模板参数，就像 typename，而 struct 不能用于定义模板参数，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span></span><br><span class="line">&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Y&gt; <span class="comment">// 可以把typename 换成 class  </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Func</span><span class="params">(<span class="keyword">const</span> T&amp; t, <span class="keyword">const</span> Y&amp; y)</span> </span></span><br><span class="line"><span class="function"></span>&#123;      <span class="comment">//TODO  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>答案解析</strong></p>
+<ol>
+<li><p>C++ 中的 struct 是对 C 中的 struct 进行了扩充，它们在声明时的区别如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center">C</th>
+<th align="center">C++</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">成员函数</td>
+<td align="center">不能有</td>
+<td align="center">可以</td>
+</tr>
+<tr>
+<td align="left">静态成员</td>
+<td align="center">不能有</td>
+<td align="center">可以</td>
+</tr>
+<tr>
+<td align="left">访问控制</td>
+<td align="center">默认public，不能修改</td>
+<td align="center">public/private/protected</td>
+</tr>
+<tr>
+<td align="left">继承关系</td>
+<td align="center">不可以继承</td>
+<td align="center">可从类或者其他结构体继承</td>
+</tr>
+<tr>
+<td align="left">初始化</td>
+<td align="center">不能直接初始化数据成员</td>
+<td align="center">可以</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>使用时的区别：C 中使用结构体需要加上 struct 关键字，或者对结构体使用 typedef 取别名，而 C++ 中可以省略 struct 关键字直接使用，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span>&#123;</span>  </span><br><span class="line">	<span class="keyword">int</span>  iAgeNum;  </span><br><span class="line">    string strName; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Student</span> <span class="title">Student2</span>;</span> <span class="comment">//C中取别名  </span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span> <span class="title">stu1</span>;</span> <span class="comment">// C 中正常使用 </span></span><br><span class="line">Student2 stu2;   <span class="comment">// C 中通过取别名的使用 </span></span><br><span class="line">Student stu3;   <span class="comment">// C++ 中使用</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>C++结构体和C结构体的区别：</strong></p>
+<p>（1）C的结构体内不允许有函数存在，C++允许有内部成员函数，且允许该函数是虚函数。</p>
+<p>（2）C的结构体对内部成员变量的访问权限只能是public，而C++允许public,protected,private三种。</p>
+<p>（3）C语言的结构体是不可以继承的，C++的结构体是可以从其他的结构体或者类继承过来的。</p>
+<p>（4）C 中使用结构体需要加上 struct 关键字，或者对结构体使用 typedef 取别名，而 C++ 中可以省略 struct 关键字直接使用。</p>
+<h3 id="pragma-pack-n"><a href="#pragma-pack-n" class="headerlink" title="#pragma pack(n)"></a>#pragma pack(n)</h3><p>设定结构体、联合以及类成员变量以 n 字节方式对齐</p>
+<p>#pragma pack(n) 使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(push)  <span class="comment">// 保存对齐状态</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(4)     <span class="comment">// 设定为 4 字节对齐</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> m1;</span><br><span class="line">    <span class="keyword">double</span> m4;</span><br><span class="line">    <span class="keyword">int</span> m3;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(pop)   <span class="comment">// 恢复对齐状态</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="位域"><a href="#位域" class="headerlink" title="位域"></a>位域</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bit mode: <span class="number">2</span>;    <span class="comment">// mode 占 2 位</span></span><br></pre></td></tr></table></figure>
+
+<p>类可以将其（非静态）数据成员定义为位域（bit-field），在一个位域中含有一定数量的二进制位。当一个程序需要向其他程序或硬件设备传递二进制数据时，通常会用到位域。</p>
+<ul>
+<li>位域在内存中的布局是与机器有关的</li>
+<li>位域的类型必须是整型或枚举类型，带符号类型中的位域的行为将因具体实现而定</li>
+<li>取地址运算符（&amp;）不能作用于位域，任何指针都无法指向类的位域</li>
+</ul>
+<h3 id="extern-“C”"><a href="#extern-“C”" class="headerlink" title="extern “C”"></a>extern “C”</h3><ul>
+<li>被 extern 限定的函数或变量是 extern 类型的</li>
+<li>被 <code>extern &quot;C&quot;</code> 修饰的变量和函数是按照 C 语言方式编译和链接的</li>
+</ul>
+<p><code>extern &quot;C&quot;</code> 的作用是让 C++ 编译器将 <code>extern &quot;C&quot;</code> 声明的代码当作 C 语言代码处理，可以避免 C++ 因符号修饰导致代码不能和C语言库中的符号进行链接的问题。</p>
+<p>extern “C” 使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memset</span><span class="params">(<span class="keyword">void</span> *, <span class="keyword">int</span>, <span class="keyword">size_t</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="explicit（显式）关键字"><a href="#explicit（显式）关键字" class="headerlink" title="explicit（显式）关键字"></a>explicit（显式）关键字</h3><ul>
+<li>explicit 修饰构造函数时，可以防止隐式转换和复制初始化</li>
+<li>explicit 修饰转换函数时，可以防止隐式转换，但 <a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/language/implicit_conversion">按语境转换</a> 除外</li>
+</ul>
+<p>explicit 使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="built_in">A</span>(<span class="keyword">int</span>) &#123; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">operator</span> <span class="title">bool</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="literal">true</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">B</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">explicit</span> <span class="title">B</span><span class="params">(<span class="keyword">int</span>)</span> </span>&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">explicit</span> <span class="keyword">operator</span> <span class="title">bool</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="literal">true</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doA</span><span class="params">(A a)</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doB</span><span class="params">(B b)</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">A <span class="title">a1</span><span class="params">(<span class="number">1</span>)</span></span>;		<span class="comment">// OK：直接初始化</span></span><br><span class="line">	A a2 = <span class="number">1</span>;		<span class="comment">// OK：复制初始化</span></span><br><span class="line">	A a3&#123; <span class="number">1</span> &#125;;		<span class="comment">// OK：直接列表初始化</span></span><br><span class="line">	A a4 = &#123; <span class="number">1</span> &#125;;		<span class="comment">// OK：复制列表初始化</span></span><br><span class="line">	A a5 = (A)<span class="number">1</span>;		<span class="comment">// OK：允许 static_cast 的显式转换 </span></span><br><span class="line">	<span class="built_in">doA</span>(<span class="number">1</span>);			<span class="comment">// OK：允许从 int 到 A 的隐式转换</span></span><br><span class="line">	<span class="keyword">if</span> (a1);		<span class="comment">// OK：使用转换函数 A::operator bool() 的从 A 到 bool 的隐式转换</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">a6</span><span class="params">(a1)</span></span>;		<span class="comment">// OK：使用转换函数 A::operator bool() 的从 A 到 bool 的隐式转换</span></span><br><span class="line">	<span class="keyword">bool</span> a7 = a1;		<span class="comment">// OK：使用转换函数 A::operator bool() 的从 A 到 bool 的隐式转换</span></span><br><span class="line">	<span class="keyword">bool</span> a8 = <span class="keyword">static_cast</span>&lt;<span class="keyword">bool</span>&gt;(a1);  <span class="comment">// OK ：static_cast 进行直接初始化</span></span><br><span class="line"></span><br><span class="line">	<span class="function">B <span class="title">b1</span><span class="params">(<span class="number">1</span>)</span></span>;		<span class="comment">// OK：直接初始化</span></span><br><span class="line">	B b2 = <span class="number">1</span>;		<span class="comment">// 错误：被 explicit 修饰构造函数的对象不可以复制初始化</span></span><br><span class="line">	B b3&#123; <span class="number">1</span> &#125;;		<span class="comment">// OK：直接列表初始化</span></span><br><span class="line">	B b4 = &#123; <span class="number">1</span> &#125;;		<span class="comment">// 错误：被 explicit 修饰构造函数的对象不可以复制列表初始化</span></span><br><span class="line">	B b5 = (B)<span class="number">1</span>;		<span class="comment">// OK：允许 static_cast 的显式转换</span></span><br><span class="line">	<span class="built_in">doB</span>(<span class="number">1</span>);			<span class="comment">// 错误：被 explicit 修饰构造函数的对象不可以从 int 到 B 的隐式转换</span></span><br><span class="line">	<span class="keyword">if</span> (b1);		<span class="comment">// OK：被 explicit 修饰转换函数 B::operator bool() 的对象可以从 B 到 bool 的按语境转换</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">b6</span><span class="params">(b1)</span></span>;		<span class="comment">// OK：被 explicit 修饰转换函数 B::operator bool() 的对象可以从 B 到 bool 的按语境转换</span></span><br><span class="line">	<span class="keyword">bool</span> b7 = b1;		<span class="comment">// 错误：被 explicit 修饰转换函数 B::operator bool() 的对象不可以隐式转换</span></span><br><span class="line">	<span class="keyword">bool</span> b8 = <span class="keyword">static_cast</span>&lt;<span class="keyword">bool</span>&gt;(b1);  <span class="comment">// OK：static_cast 进行直接初始化</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="struct内存对齐"><a href="#struct内存对齐" class="headerlink" title="struct内存对齐"></a>struct内存对齐</h3><p>内存对齐应用于三种数据类型中：<strong>struct/class/union</strong></p>
+<p>struct/class/union内存对齐原则有四个：</p>
+<ol>
+<li>数据成员对齐规则：结构(struct)或联合(union)的数据成员，第一个数据成员放在offset为0的地方，以后每个数据成员存储的起始位置要从该成员大小或者成员的子成员大小的整数倍开始。</li>
+<li>结构体作为成员:如果一个结构里有某些结构体成员,则结构体成员要从其内部”最宽基本类型成员”的整数倍地址开始存储。(struct a里存有struct b,b里有char,int ,double等元素,那b应该从8的整数倍开始存储)。</li>
+<li>收尾工作:结构体的总大小，也就是sizeof的结果，必须是其内部最大成员的”最宽基本类型成员”的整数倍。不足的要补齐。(基本类型不包括struct/class/uinon)。</li>
+<li>sizeof(union)，以结构里面size最大元素为union的size，因为在某一时刻，union只有一个成员真正存储于该地址。</li>
+</ol>
+<h3 id="new-delete与malloc-free的区别-5点"><a href="#new-delete与malloc-free的区别-5点" class="headerlink" title="new/delete与malloc/free的区别(5点)"></a>new/delete与malloc/free的区别(5点)</h3><ul>
+<li>malloc是C语言定义的库函数，new是C++定义的运算符； </li>
+<li>malloc由程序员指定分配内存的大小，而new由编译器自动计算指定类型的内存大小； </li>
+<li>new会调用构造函数，并返回对象内存大小,malloc不会； </li>
+<li>malloc返回类型是void*指针，需要强转换，new的返回类型是对象类型的指针； </li>
+<li>malloc不能重载，new可以重载operator new。</li>
+</ul>
+<p><strong>new一个对象可以用free释放内存嘛？</strong></p>
+<p>不可以。new一个对象，delete时会先调用类的析构函数再释放内存，而free仅仅释放内存，会出现错误。</p>
+<h3 id="内存泄露的情况"><a href="#内存泄露的情况" class="headerlink" title="内存泄露的情况"></a>内存泄露的情况</h3><p><strong>什么是内存泄露？</strong></p>
+<p>简单地说就是申请了一块内存空间，使用完毕后没有释放掉。（1）new和malloc申请资源使用后，没有用delete和free释放； 使用智能指针shared_ptr时，产生循环引用，导致内存无法释放，会造成内存泄漏；（2）子类继承父类时，父类析构函数不是虚函数。（3）Windows句柄资源使用后没有释放。</p>
+<p><strong>怎么检测？</strong></p>
+<p>第一：良好的编码习惯，使用了内存分配的函数，一旦使用完毕,要记得使用其相应的函数释放掉。</p>
+<p>第二：将分配的内存的指针以链表的形式自行管理，使用完毕之后从链表中删除，程序结束时可检查改链表。</p>
+<p>第三：使用智能指针。</p>
+<p>第四：一些常见的工具插件，如ccmalloc、Dmalloc、Leaky、Valgrind等等。</p>
+<h3 id="sizeof与strlen对比"><a href="#sizeof与strlen对比" class="headerlink" title="sizeof与strlen对比"></a>sizeof与strlen对比</h3><p><strong>sizeof()</strong></p>
+<ul>
+<li>sizeof 对数组，得到整个数组所占空间大小。</li>
+<li>sizeof 对指针，得到指针本身所占空间大小。</li>
+</ul>
+<p><strong>strlen()</strong></p>
+<p>strlen 是一个函数，它用来计算指定字符串 str 的长度，但不包括结束字符（即 null 字符）。</p>
+<p><strong>区别</strong></p>
+<ul>
+<li>strlen和sizeof区别？<ul>
+<li>sizeof是运算符，并不是函数，结果在编译时得到而非运行中获得；strlen是字符处理的库函数。</li>
+<li>sizeof参数可以是任何数据的类型或者数据（sizeof参数不退化）；strlen的参数只能是字符指针且结尾是’\0’的字符串。</li>
+<li>因为sizeof值在编译时确定，所以不能用来得到动态分配（运行时分配）存储空间的大小。</li>
+</ul>
+</li>
+</ul>
+<h3 id="指针与引用的区别"><a href="#指针与引用的区别" class="headerlink" title="指针与引用的区别"></a>指针与引用的区别</h3><ul>
+<li>指针是一个变量<br>值为一个内存地址,不需要初始化，可以保存不同的地址<br>通过指针可以访问对应内存地址中的值<br>指针可以被const修饰成为常量或者只读变量</li>
+<li>引用只是一个变量的新名字<br>对引用的操作(赋值,取地址等)都会传递到代表的变量.上<br>const引用使其代表的变量具有只读属性<br>引用必须在定义时初始化,之后无法代表其它变量</li>
+<li>从使用C++语言的角度来看<br>引用与指针没有任何的关系<br>引用是变量的新名字,操作引用就是操作对应的变量</li>
+<li>从C++编译器的角度来看<br>为了支持新概念“引用”必须要一个有效的解决方案<br>在编译器内部,使用指针常量来实现“引用”<br>因此“引用”在定义时必须初始化</li>
+</ul>
+<h3 id="野指针产生与避免"><a href="#野指针产生与避免" class="headerlink" title="野指针产生与避免"></a>野指针产生与避免</h3><p>野指针产生的原因：</p>
+<ul>
+<li>创建指针时没有对指针进行初始化，导致指针指向一个随机的位置；</li>
+<li>释放指针指向的内存后没有置空，从而指向垃圾内存；</li>
+<li>在超越变量作用域下使用指针，如：在栈内存被释放之后，指向栈内存的指针会指向垃圾内存；</li>
+</ul>
+<p>野指针的避免方法：</p>
+<ul>
+<li>在创建指针时必须进行初始化；</li>
+<li>使用delete释放指针指向的内存之后必须将指针置空；</li>
+</ul>
+<h3 id="多态：动态多态、静态多态"><a href="#多态：动态多态、静态多态" class="headerlink" title="多态：动态多态、静态多态"></a>多态：动态多态、静态多态</h3><p><strong>静态多态（编译期/早绑定）</strong></p>
+<p>静态多态：编译时多态，模板、函数重载均为静态多态。</p>
+<p><strong>动态多态（运行期期/晚绑定）</strong></p>
+<ul>
+<li>虚函数：用 virtual 修饰成员函数，使其成为虚函数</li>
+<li>动态绑定：当使用基类的引用或指针调用一个虚函数时将发生动态绑定</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>可以将派生类的对象赋值给基类的指针或引用，反之不可</li>
+<li>普通函数（非类成员函数）不能是虚函数</li>
+<li>静态函数（static）不能是虚函数</li>
+<li>构造函数不能是虚函数（因为在调用构造函数时，虚表指针并没有在对象的内存空间中，必须要构造函数调用完成后才会形成虚表指针）</li>
+<li>内联函数不能是表现多态性时的虚函数，解释见：<a target="_blank" rel="noopener" href="https://github.com/huihut/interview#%E8%99%9A%E5%87%BD%E6%95%B0virtual%E5%8F%AF%E4%BB%A5%E6%98%AF%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0inline%E5%90%97">虚函数（virtual）可以是内联函数（inline）吗？</a></li>
+</ul>
+<p>动态多态使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span>                     // 形状类</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">calcArea</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Shape</span>();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> :</span> <span class="keyword">public</span> Shape     <span class="comment">// 圆形类</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">calcArea</span><span class="params">()</span></span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rect</span> :</span> <span class="keyword">public</span> Shape       <span class="comment">// 矩形类</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">calcArea</span><span class="params">()</span></span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Shape * shape1 = <span class="keyword">new</span> <span class="built_in">Circle</span>(<span class="number">4.0</span>);</span><br><span class="line">    Shape * shape2 = <span class="keyword">new</span> <span class="built_in">Rect</span>(<span class="number">5.0</span>, <span class="number">6.0</span>);</span><br><span class="line">    shape1-&gt;<span class="built_in">calcArea</span>();         <span class="comment">// 调用圆形类里面的方法</span></span><br><span class="line">    shape2-&gt;<span class="built_in">calcArea</span>();         <span class="comment">// 调用矩形类里面的方法</span></span><br><span class="line">    <span class="keyword">delete</span> shape1;</span><br><span class="line">    shape1 = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">delete</span> shape2;</span><br><span class="line">    shape2 = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="虚函数实现动态多态的原理"><a href="#虚函数实现动态多态的原理" class="headerlink" title="虚函数实现动态多态的原理"></a>虚函数实现动态多态的原理</h3><h3 id="虚函数、纯虚函数"><a href="#虚函数、纯虚函数" class="headerlink" title="虚函数、纯虚函数"></a>虚函数、纯虚函数</h3><ul>
+<li>类里如果声明了虚函数，这个函数是实现的，哪怕是空实现，它的作用就是为了能让这个函数在它的子类里面可以被覆盖（override），这样的话，编译器就可以使用后期绑定来达到多态了。纯虚函数只是一个接口，是个函数的声明而已，它要留到子类里去实现。</li>
+<li>虚函数在子类里面可以不重写；但纯虚函数必须在子类实现才可以实例化子类。</li>
+<li>虚函数的类用于 “实作继承”，继承接口的同时也继承了父类的实现。纯虚函数关注的是接口的统一性，实现由子类完成。</li>
+<li>带纯虚函数的类叫抽象类，这种类不能直接生成对象，而只有被继承，并重写其虚函数后，才能使用。抽象类被继承后，子类可以继续是抽象类，也可以是普通类。</li>
+<li>虚基类是虚继承中的基类，具体见下文虚继承。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012260238/article/details/53610462">CSDN . C++ 中的虚函数、纯虚函数区别和联系</a></p>
+</blockquote>
+<h3 id="虚函数指针、虚函数表"><a href="#虚函数指针、虚函数表" class="headerlink" title="虚函数指针、虚函数表"></a>虚函数指针、虚函数表</h3><ul>
+<li>虚函数指针：在含有虚函数类的对象中，指向虚函数表，在运行时确定。</li>
+<li>虚函数表：在程序只读数据段（<code>.rodata section</code>，见：<a target="_blank" rel="noopener" href="https://github.com/huihut/interview#%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84">目标文件存储结构</a>），存放虚函数指针，如果派生类实现了基类的某个虚函数，则在虚表中覆盖原本基类的那个虚函数指针，在编译时根据类的声明创建。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.twofei.com/496/">C++中的虚函数(表)实现机制以及用C语言对其进行的模拟实现</a></p>
+</blockquote>
+<h3 id="继承时，父类的析构函数是否为虚函数？构造函数能不能为虚函数？为什么？"><a href="#继承时，父类的析构函数是否为虚函数？构造函数能不能为虚函数？为什么？" class="headerlink" title="继承时，父类的析构函数是否为虚函数？构造函数能不能为虚函数？为什么？"></a>继承时，父类的析构函数是否为虚函数？构造函数能不能为虚函数？为什么？</h3><p>在构造函数执行结束后 ， <strong>虚函数表指针才会被正确的初始化</strong></p>
+<p>构造函数用来创建一个新的对象,而虚函数的运行是建立在对象的基础上,在构造函数执行时,对象尚未形成,所以不能将构造函数定义为虚函数</p>
+<p><strong>虚析构函数</strong></p>
+<p>虚析构函数是为了解决基类的指针指向派生类对象，并用基类的指针删除派生类对象。</p>
+<p>虚析构函数使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Shape</span>();                    <span class="comment">// 构造函数不能是虚函数</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">calcArea</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Shape</span>();           <span class="comment">// 虚析构函数</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> :</span> <span class="keyword">public</span> Shape     <span class="comment">// 圆形类</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">calcArea</span><span class="params">()</span></span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Shape * shape1 = <span class="keyword">new</span> <span class="built_in">Circle</span>(<span class="number">4.0</span>);</span><br><span class="line">    shape1-&gt;<span class="built_in">calcArea</span>();    </span><br><span class="line">    <span class="keyword">delete</span> shape1;  <span class="comment">// 因为Shape有虚析构函数，所以delete释放内存时，先调用子类析构函数，再调用基类析构函数，防止内存泄漏。</span></span><br><span class="line">    shape1 = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="抽象类与纯虚函数"><a href="#抽象类与纯虚函数" class="headerlink" title="抽象类与纯虚函数"></a>抽象类与纯虚函数</h3><ul>
+<li>C+ + 语言中<strong>没有抽象类的概念</strong></li>
+<li>C+ + 中<strong>通过纯虚函数实现抽象类</strong></li>
+<li>纯虚函数是指<strong>只定义原型</strong>的成员函数</li>
+<li>一个 C+ + 类中<strong>存在纯虚函数就成为了抽象类</strong></li>
+</ul>
+<p>满足下面条件的 C+ + 类则称为接口</p>
+<ul>
+<li>类中<strong>没有</strong>定义任何的<strong>成员变量</strong></li>
+<li>所有的<strong>成员函数都是公有的</strong></li>
+<li>所有的<strong>成员函数都是纯虚函数</strong></li>
+<li>接口是一种<strong>特殊的抽象类</strong></li>
+</ul>
+<h3 id="19、静态多态：重写、重载、模板"><a href="#19、静态多态：重写、重载、模板" class="headerlink" title="19、静态多态：重写、重载、模板"></a>19、静态多态：重写、重载、模板</h3><h3 id="static关键字：修饰局部变量、全局变量、类中成员变量、类中成员函数"><a href="#static关键字：修饰局部变量、全局变量、类中成员变量、类中成员函数" class="headerlink" title="static关键字：修饰局部变量、全局变量、类中成员变量、类中成员函数"></a>static关键字：修饰局部变量、全局变量、类中成员变量、类中成员函数</h3><p><strong>作用</strong></p>
+<ol>
+<li><p><strong>定义全局静态变量和局部静态变量</strong>：在变量前面加上static关键字。初始化的静态变量会在数据段.data分配内存，未初始化的静态变量会在BSS段分配内存。直到程序结束，静态变量始终会维持前值。只不过全局静态变量和局部静态变量的作用域不一样；</p>
+</li>
+<li><p><strong>定义静态函数</strong>：在函数返回类型前加上static关键字，函数即被定义为静态函数。静态函数只能在<strong>本源文件</strong>中使用；</p>
+</li>
+<li><p>在变量类型前加上static关键字，变量即被定义为静态变量。<strong>静态变量只能在本源文件中使用</strong>；</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> a; <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">func</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>在c++中，<strong>static关键字可以用于定义类中的静态成员变量</strong>：使用静态数据成员，<strong>它既可以被当成全局变量那样去存储，但又被隐藏在类的内部</strong>。类中的static静态数据成员拥有一块单独的存储区，而不管创建了多少个该类的对象。所有这些对象的静态数据成员都<strong>共享</strong>这一块静态存储空间。</p>
+</li>
+<li><p>在c++中，<strong>static关键字可以用于定义类中的静态成员函数</strong>：与静态成员变量类似，类里面同样可以定义静态成员函数。只需要在函数前加上关键字static即可。如静态成员函数也是类的一部分，而不是对象的一部分。所有这些对象的静态数据成员都<strong>共享</strong>这一块静态存储空间。</p>
+</li>
+<li><p>当调用一个对象的非静态成员函数时，系统会把该对象的起始地址赋给成员函数的this指针。而<strong>静态成员函数不属于任何一个对象，因此C++规定静态成员函数没有this指针</strong>（划重点，面试题常考）。既然它没有指向某一对象，也就无法对一个对象中的非静态成员进行访问。</p>
+</li>
+</ol>
+<h3 id="const关键字：修饰变量、指针、类对象、类中成员函数"><a href="#const关键字：修饰变量、指针、类对象、类中成员函数" class="headerlink" title="const关键字：修饰变量、指针、类对象、类中成员函数"></a>const关键字：修饰变量、指针、类对象、类中成员函数</h3><p><strong>作用</strong></p>
+<ol>
+<li>修饰变量，说明该变量不可以被改变；</li>
+<li>修饰指针，分为指向常量的指针（pointer to const）和自身是常量的指针（常量指针，const pointer）；</li>
+<li>修饰引用，指向常量的引用（reference to const），用于形参类型，即避免了拷贝，又避免了函数对值的修改；</li>
+<li>修饰成员函数，说明该成员函数内不能修改成员变量。</li>
+</ol>
+<p><strong>const 的指针与引用</strong></p>
+<ul>
+<li>指针<ul>
+<li>指向常量的指针（pointer to const）</li>
+<li>自身是常量的指针（常量指针，const pointer）</li>
+</ul>
+</li>
+<li>引用<ul>
+<li>指向常量的引用（reference to const）</li>
+<li>没有 const reference，因为引用只是对象的别名，引用不是对象，不能用 const 修饰</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>（为了方便记忆可以想成）被 const 修饰（在 const 后面）的值不可改变，如下文使用例子中的 <code>p2</code>、<code>p3</code></p>
+</blockquote>
+<p><strong>使用</strong></p>
+<p>const 使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> a;                <span class="comment">// 常对象成员，可以使用初始化列表或者类内初始化</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="built_in">A</span>() : <span class="built_in">a</span>(<span class="number">0</span>) &#123; &#125;;</span><br><span class="line">    <span class="built_in">A</span>(<span class="keyword">int</span> x) : <span class="built_in">a</span>(x) &#123; &#125;;        <span class="comment">// 初始化列表</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// const可用于对重载函数的区分*****</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span></span>;             <span class="comment">// 普通成员函数</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> <span class="keyword">const</span></span>;       <span class="comment">// 常成员函数，不得修改类中的任何数据成员的值******</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">function</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 对象</span></span><br><span class="line">    A b;                        <span class="comment">// 普通对象，可以调用全部成员函数</span></span><br><span class="line">    <span class="keyword">const</span> A a;                  <span class="comment">// 常对象，只能调用常成员函数</span></span><br><span class="line">    <span class="keyword">const</span> A *p = &amp;a;            <span class="comment">// 指针变量，指向常对象</span></span><br><span class="line">    <span class="keyword">const</span> A &amp;q = a;             <span class="comment">// 指向常对象的引用</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 指针</span></span><br><span class="line">    <span class="keyword">char</span> greeting[] = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">    <span class="keyword">char</span>* p1 = greeting;                <span class="comment">// 指针变量，指向字符数组变量</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* p2 = greeting;          <span class="comment">// 指针变量，指向字符数组常量（const 后面是 char，说明指向的字符（char）不可改变）</span></span><br><span class="line">    <span class="keyword">char</span>* <span class="keyword">const</span> p3 = greeting;          <span class="comment">// 自身是常量的指针，指向字符数组变量（const 后面是 p3，说明 p3 指针自身不可改变）</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> p4 = greeting;    <span class="comment">// 自身是常量的指针，指向字符数组常量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">function1</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> Var)</span></span>;           <span class="comment">// 传递过来的参数在函数内不可变</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">function2</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* Var)</span></span>;         <span class="comment">// 参数指针所指内容为常量</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">function3</span><span class="params">(<span class="keyword">char</span>* <span class="keyword">const</span> Var)</span></span>;         <span class="comment">// 参数指针为常量</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">function4</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; Var)</span></span>;          <span class="comment">// 引用参数在函数内为常量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数返回值</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">int</span> <span class="title">function5</span><span class="params">()</span></span>;      <span class="comment">// 返回一个常数</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">int</span>* <span class="title">function6</span><span class="params">()</span></span>;     <span class="comment">// 返回一个指向常量的指针变量，使用：const int *p = function6();</span></span><br><span class="line"><span class="function"><span class="keyword">int</span>* <span class="keyword">const</span> <span class="title">function7</span><span class="params">()</span></span>;     <span class="comment">// 返回一个指向变量的常指针，使用：int* const p = function7();</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>宏定义 #define 和 const 常量</strong></p>
+<table>
+<thead>
+<tr>
+<th>宏定义 #define</th>
+<th>const 常量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏定义，相当于字符替换</td>
+<td>常量声明</td>
+</tr>
+<tr>
+<td>预处理器处理</td>
+<td>编译器处理</td>
+</tr>
+<tr>
+<td>无类型安全检查</td>
+<td>有类型安全检查</td>
+</tr>
+<tr>
+<td>不分配内存</td>
+<td>要分配内存</td>
+</tr>
+<tr>
+<td>存储在代码段</td>
+<td>存储在数据段</td>
+</tr>
+<tr>
+<td>可通过 <code>#undef</code> 取消</td>
+<td>不可取消</td>
+</tr>
+</tbody></table>
+<h3 id="inline-内联函数"><a href="#inline-内联函数" class="headerlink" title="inline 内联函数"></a>inline 内联函数</h3><p><strong>特征</strong></p>
+<ul>
+<li>相当于把内联函数里面的内容写在调用内联函数处；</li>
+<li>相当于不用执行进入函数的步骤，直接执行函数体；</li>
+<li><strong>相当于宏，却比宏多了类型检查，真正具有函数特性；</strong></li>
+<li>编译器一般不内联包含循环、递归、switch 等复杂操作的内联函数；</li>
+<li>在类声明中定义的函数，除了虚函数的其他函数都会自动隐式地当成内联函数。</li>
+</ul>
+<p> 使用</p>
+<p>inline 使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明1（加 inline，建议使用）</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">functionName</span><span class="params">(<span class="keyword">int</span> first, <span class="keyword">int</span> second,...)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明2（不加 inline）</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">functionName</span><span class="params">(<span class="keyword">int</span> first, <span class="keyword">int</span> second,...)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">functionName</span><span class="params">(<span class="keyword">int</span> first, <span class="keyword">int</span> second,...)</span> </span>&#123;<span class="comment">/****/</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类内定义，隐式内联</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">doA</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;         <span class="comment">// 隐式内联</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类外定义，需要显式内联</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">doA</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">A::doA</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;   <span class="comment">// 需要显式内联</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>编译器对 inline 函数的处理步骤</strong></p>
+<ol>
+<li>将 inline 函数体复制到 inline 函数调用点处；</li>
+<li>为所用 inline 函数中的局部变量分配内存空间；</li>
+<li>将 inline 函数的的输入参数和返回值映射到调用方法的局部变量空间中；</li>
+<li>如果 inline 函数有多个返回点，将其转变为 inline 函数代码块末尾的分支（使用 GOTO）。</li>
+</ol>
+<p><strong>优缺点</strong></p>
+<p>优点</p>
+<ol>
+<li>内联函数<strong>同宏函数一样将在被调用处进行代码展开</strong>，省去了参数压栈、栈帧开辟与回收，结果返回等，从而提高程序运行速度。</li>
+<li>内联函数相比宏函数来说，在代码展开时，会做安全检查或自动类型转换（同普通函数），而宏定义则不会。</li>
+<li>在类中声明同时定义的成员函数，自动转化为内联函数，因此内联函数可以访问类的成员变量，宏定义则不能。</li>
+<li>内联函数在运行时可调试，而宏定义不可以。</li>
+</ol>
+<p>缺点</p>
+<ol>
+<li>代码膨胀。内联是以代码膨胀（复制）为代价，消除函数调用带来的开销。如果执行函数体内代码的时间，相比于函数调用的开销较大，那么效率的收获会很少。另一方面，<strong>每一处内联函数的调用都要复制代码，将使程序的总代码量增大，消耗更多的内存空间</strong>。</li>
+<li>inline 函数无法随着函数库升级而升级。<strong>inline函数的改变需要重新编译，不像 non-inline 可以直接链接。</strong></li>
+<li>是否内联，程序员不可控。<strong>内联函数只是对编译器的建议，是否对函数内联，决定权在于编译器。</strong></li>
+</ol>
+<p><strong>虚函数（virtual）可以是内联函数（inline）吗？</strong></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.cs.technion.ac.il/users/yechiel/c++-faq/inline-virtuals.html">Are “inline virtual” member functions ever actually “inlined”?</a></p>
+</blockquote>
+<ul>
+<li>虚函数可以是内联函数，内联是可以修饰虚函数的，但是当虚函数表现多态性的时候不能内联。</li>
+<li>内联是在编译器建议编译器内联，而虚函数的多态性在运行期，编译器无法知道运行期调用哪个代码，因此虚函数表现为多态性时（运行期）不可以内联。</li>
+<li><code>inline virtual</code> 唯一可以内联的时候是：编译器知道所调用的对象是哪个类（如 <code>Base::who()</code>），这只有在编译器具有实际对象而不是对象的指针或引用时才会发生。</li>
+</ul>
+<p>虚函数内联使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span>  </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">who</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;I am Base\n&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">virtual</span> ~<span class="built_in">Base</span>() &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derived</span> :</span> <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">who</span><span class="params">()</span>  <span class="comment">// 不写inline时隐式内联</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;I am Derived\n&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 此处的虚函数 who()，是通过类（Base）的具体对象（b）来调用的，编译期间就能确定了，所以它可以是内联的，但最终是否内联取决于编译器。 </span></span><br><span class="line">	Base b;</span><br><span class="line">	b.<span class="built_in">who</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 此处的虚函数是通过指针调用的，呈现多态性，需要在运行时期间才能确定，所以不能为内联。  </span></span><br><span class="line">	Base *ptr = <span class="keyword">new</span> <span class="built_in">Derived</span>();</span><br><span class="line">	ptr-&gt;<span class="built_in">who</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 因为Base有虚析构函数（virtual ~Base() &#123;&#125;），所以 delete 时，会先调用派生类（Derived）析构函数，再调用基类（Base）析构函数，防止内存泄漏。</span></span><br><span class="line">	<span class="keyword">delete</span> ptr;</span><br><span class="line">	ptr = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>22、extern关键字：修饰全局变量</p>
+<h3 id="volatile关键字：避免编译器指令优化"><a href="#volatile关键字：避免编译器指令优化" class="headerlink" title="volatile关键字：避免编译器指令优化"></a>volatile关键字：避免编译器指令优化</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="keyword">int</span> i = <span class="number">10</span>; </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>volatile 关键字是一种类型修饰符，用它声明的类型变量表示可以被某些编译器未知的因素（操作系统、硬件、其它线程等）更改。所以使用 volatile 告诉编译器不应对这样的对象进行优化。</li>
+<li>volatile 关键字声明的变量，<strong>每次访问时都必须从内存中取出值</strong>（没有被 volatile 修饰的变量，可能由于编译器的优化，从 CPU 寄存器中取值）</li>
+<li>const 可以是 volatile （如只读的状态寄存器）</li>
+<li>指针可以是 volatile</li>
+</ul>
+<h3 id="assert-宏而非函数"><a href="#assert-宏而非函数" class="headerlink" title="assert() 宏而非函数"></a>assert() 宏而非函数</h3><p>断言，是宏，而非函数。assert 宏的原型定义在 <code>&lt;assert.h&gt;</code>（C）、<code>&lt;cassert&gt;</code>（C++）中，其作用是如果它的条件返回错误，则终止程序执行。可以通过定义 <code>NDEBUG</code> 来关闭 assert，但是需要在源代码的开头，<code>include &lt;assert.h&gt;</code> 之前。</p>
+<p>assert() 使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NDEBUG          <span class="comment">// 加上这行，则 assert 不可用</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="built_in">assert</span>( p != <span class="literal">NULL</span> );    <span class="comment">// assert 不可用</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="四种类型转换：static-cast、dynamic-cast、const-cast、reinterpret-cast"><a href="#四种类型转换：static-cast、dynamic-cast、const-cast、reinterpret-cast" class="headerlink" title="四种类型转换：static_cast、dynamic_cast、const_cast、reinterpret_cast"></a>四种类型转换：static_cast、dynamic_cast、const_cast、reinterpret_cast</h3><p><strong>static_cast</strong></p>
+<ul>
+<li>用于非多态类型的转换</li>
+<li>不执行运行时类型检查（转换安全性不如 dynamic_cast）</li>
+<li>通常用于转换数值数据类型（如 float -&gt; int）</li>
+<li>可以在整个类层次结构中移动指针，子类转化为父类安全（向上转换），父类转化为子类不安全（因为子类可能有不在父类的字段或方法）</li>
+</ul>
+<blockquote>
+<p>向上转换是一种隐式转换。</p>
+</blockquote>
+<p><strong>dynamic_cast</strong></p>
+<ul>
+<li>用于多态类型的转换</li>
+<li>执行行运行时类型检查</li>
+<li>只适用于指针或引用</li>
+<li>对不明确的指针的转换将失败（返回 nullptr），但不引发异常</li>
+<li>可以在整个类层次结构中移动指针，包括向上转换、向下转换</li>
+</ul>
+<p><strong>const_cast</strong></p>
+<ul>
+<li>用于删除 const、volatile 和 __unaligned 特性（如将 const int 类型转换为 int 类型 ）</li>
+</ul>
+<p><strong>reinterpret_cast</strong></p>
+<ul>
+<li>用于位的简单重新解释</li>
+<li>滥用 reinterpret_cast 运算符可能很容易带来风险。 除非所需转换本身是低级别的，否则应使用其他强制转换运算符之一。</li>
+<li>允许将任何指针转换为任何其他指针类型（如 <code>char*</code> 到 <code>int*</code> 或 <code>One_class*</code> 到 <code>Unrelated_class*</code> 之类的转换，但其本身并不安全）</li>
+<li>也允许将任何整数类型转换为任何指针类型以及反向转换。</li>
+<li>reinterpret_cast 运算符不能丢掉 const、volatile 或 __unaligned 特性。</li>
+<li>reinterpret_cast 的一个实际用途是在哈希函数中，即，通过让两个不同的值几乎不以相同的索引结尾的方式将值映射到索引。</li>
+</ul>
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><p>右值引用就是必须绑定到右值（一个临时对象、将要销毁的对象）的引用，一般表示对象的值。</p>
+<p>右值引用可实现转移语义（Move Sementics）和精确传递（Perfect Forwarding），它的主要目的有两个方面：</p>
+<ul>
+<li>消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。</li>
+<li>能够更简洁明确地定义泛型函数。</li>
+</ul>
+<h3 id="std-move函数"><a href="#std-move函数" class="headerlink" title="std::move函数"></a>std::move函数</h3><p>move告诉编译器<strong>将左值像对待同类型右值一样处理</strong>，但是被调用后的左值将不能再被使用（编译器希望我们这样做）。常用于内存资源所有权的转移，避免内存重复拷贝及释放。</p>
+<p>std::move，将左值转换为右值，从而将转移内存资源的所有权，不用进行内存拷贝。<br>std::forward，完美转发，参数为左值时返回左值引用，参数为右值时返回右值引用。<br>万能引用：当一个参数或变量被声明为T&amp;&amp;，其中T是被推导的类型，那么这个参数或变量就是万能引用。即传入的可以是左值也可以是右值。</p>
+<h3 id="四种智能指针及底层实现：auto-ptr、unique-ptr、shared-ptr、weak-ptr"><a href="#四种智能指针及底层实现：auto-ptr、unique-ptr、shared-ptr、weak-ptr" class="headerlink" title="四种智能指针及底层实现：auto_ptr、unique_ptr、shared_ptr、weak_ptr"></a>四种智能指针及底层实现：auto_ptr、unique_ptr、shared_ptr、weak_ptr</h3><h3 id="28、shared-ptr中的循环引用怎么解决？（weak-ptr）"><a href="#28、shared-ptr中的循环引用怎么解决？（weak-ptr）" class="headerlink" title="28、shared_ptr中的循环引用怎么解决？（weak_ptr）"></a>28、shared_ptr中的循环引用怎么解决？（weak_ptr）</h3><h3 id="vector与list比较"><a href="#vector与list比较" class="headerlink" title="vector与list比较"></a>vector与list比较</h3><p>vector和list区别在于<strong>底层实现机理不同</strong>，因而特性和适用场景也有所不同。</p>
+<p>  <strong>vector：一维数组</strong></p>
+<p>  特点：元素在内存连续存放，动态数组，在堆中分配内存，元素连续存放，有保留内存，如果减少大小后内存也不会释放。</p>
+<p>  优点：和数组类似开辟一段连续的空间，并且支持随机访问，所以它的查找效率高其时间复杂度O(1)。</p>
+<p>  缺点：由于开辟一段连续的空间，所以插入删除会需要对数据进行移动比较麻烦，时间复杂度O（n），另外当空间不足时还需要进行扩容。</p>
+<p>  <strong>list：双向链表</strong></p>
+<p>  特点：元素在堆中存放，每个元素都是存放在一块内存中，它的内存空间可以是不连续的，通过指针来进行数据的访问。</p>
+<p>  优点：底层实现是循环双链表，当对大量数据进行插入删除时，其时间复杂度O(1)。</p>
+<p>  缺点：底层没有连续的空间，只能通过指针来访问，所以查找数据需要遍历其时间复杂度O（n），没有提供[]操作符的重载。</p>
+<p><strong>应用场景</strong></p>
+<p>  vector拥有一段连续的内存空间，因此支持随机访问，如果需要高效的随即访问，而不在乎插入和删除的效率，使用vector。</p>
+<p>  list拥有一段不连续的内存空间，如果需要高效的插入和删除，而不关心随机访问，则应使用list。</p>
+<h3 id="vector扩容"><a href="#vector扩容" class="headerlink" title="vector扩容"></a>vector扩容</h3><p>是动态空间，随着元素的加⼊，它的内部机制会⾃⾏扩充空间以容纳新元素。 vector 维护的是⼀个连续的线性空间，⽽且普通指针就可以满⾜要求作为 vector 的迭代器（RandomAccessIterator）。</p>
+<p>vector 的数据结构中其实就是三个迭 代器构成的，⼀个指向⽬前使⽤空间头的 iterator，⼀个指向⽬前使⽤空间尾的iterator，⼀个指向⽬前可⽤空间尾的 iterator。当有新的元素插⼊时，如果⽬前容量够⽤则直接插⼊，如果容量不够，则容量扩充⾄两倍，如果两倍容量不⾜， 就扩张⾄⾜够⼤的容量。</p>
+<p>扩充的过程并不是直接在原有空间后⾯追加容量，⽽是重新申请⼀块连续空间，将原有的数据拷⻉到新空间中，再释放原有空间，完成⼀次扩充。需要注意的是，每次扩充是重新开辟的空间，所以扩充后，原有的迭代器将会失效。  </p>
+<h3 id="STL-迭代器删除元素"><a href="#STL-迭代器删除元素" class="headerlink" title="STL 迭代器删除元素"></a>STL 迭代器删除元素</h3><p>这个主要考察的是迭代器失效的问题。</p>
+<p>对于序列容器 vector， deque来说，使⽤ erase(itertor) 后，后边的每个元素的迭代器都会失效，但是后边每个元素都会往前移动⼀个位置，但是 erase 会返回下⼀个有效的迭代器；</p>
+<p>对于关联容器 map set 来说，使⽤了 erase(iterator) 后，当前元素的迭代器失效，但是其结构是红⿊树，删除当前元素的，不会影响到下⼀个元素的迭代器，所以在调⽤ erase 之前，记录下⼀个元素的迭代器即可。</p>
+<p>对于 list 来说，它使⽤了不连续分配的内存，并且它的 erase ⽅法也会返回下⼀个有效的iterator，因此上⾯两种正确的⽅法都可以使⽤。  </p>
+<h3 id="map与unordered-map对比"><a href="#map与unordered-map对比" class="headerlink" title="map与unordered_map对比"></a>map与unordered_map对比</h3><ol>
+<li><p>map实现机理</p>
+<p>  map内部实现了一个<strong>红黑树</strong>（红黑树是非严格平衡的二叉搜索树，而AVL是严格平衡二叉搜索树），红黑树有自动排序的功能，因此map内部所有元素都是有序的，红黑树的每一个节点都代表着map的一个元素。因此，对于map进行的查找、删除、添加等一系列的操作都相当于是对红黑树进行的操作。map中的元素是按照二叉树（又名二叉查找树、二叉排序树）存储的，特点就是左子树上所有节点的键值都小于根节点的键值，右子树所有节点的键值都大于根节点的键值。使用中序遍历可将键值按照从小到大遍历出来。</p>
+</li>
+<li><p>unordered_map实现机理</p>
+<p>unordered_map内部实现了一个<strong>哈希表</strong>（也叫散列表），通过把关键码值映射到Hash表中一个位置来访问记录，查找时间复杂度可达O（1），其中在海量数据处理中有着广泛应用。因此，元素的排列顺序是无序的。</p>
+</li>
+</ol>
+<h3 id="set与unordered-set对比"><a href="#set与unordered-set对比" class="headerlink" title="set与unordered_set对比"></a>set与unordered_set对比</h3><h3 id="回答⼀下-STL-⾥-resize-和-reserve-的区别"><a href="#回答⼀下-STL-⾥-resize-和-reserve-的区别" class="headerlink" title="回答⼀下 STL ⾥ resize 和 reserve 的区别"></a>回答⼀下 STL ⾥ resize 和 reserve 的区别</h3><p>resize()：改变当前容器内含有元素的数量(size())， eg: vectorv; v.resize(len);v的size变为len,如果原来v的size⼩于len，那么容器新增（len-size）个元素，元素的值为默认为0.当v.push_back(3);之后，则是3是放在了v的末尾，即下标为len，此时容器是size为len+1；</p>
+<p>reserve()：改变当前容器的最⼤容量（capacity） ,它不会⽣成元素，只是确定这个容器允许放⼊多少对象，如果reserve(len)的值⼤于当前的capacity()，那么会重新分配⼀块能存len个对象的空间，然后把之前v.size()个对象通过 copy construtor 复制过来，销毁之前的内存；  </p>
+<h3 id="map-和-set-有什么区别，分别⼜是怎么实现的？"><a href="#map-和-set-有什么区别，分别⼜是怎么实现的？" class="headerlink" title="map 和 set 有什么区别，分别⼜是怎么实现的？"></a>map 和 set 有什么区别，分别⼜是怎么实现的？</h3><p>map 和 set 都是 C++ 的关联容器，其底层实现都是红⿊树（RB-Tree）。<br>由于 map 和 set 所开放的各种操作接⼝， RB-tree 也都提供了，所以⼏乎所有的 map 和 set的操作⾏为，都只是转调 RB-tree 的操作⾏为。<br>map 和 set 区别在于：</p>
+<p>（1） map 中的元素是 key-value（关键字—值）对：关键字起到索引的作⽤，值则表示与索引相关联的数据； Set与之相对就是关键字的简单集合， set 中每个元素只包含⼀个关键字。</p>
+<p>（2） set 的迭代器是 const 的，不允许修改元素的值； map允许修改value，但不允许修改key。其原因是因为map和set是根据关键字排序来保证其有序性的，如果允许修改key的话，那么⾸先需要删除该键，然后调节平衡，再插⼊修改后的键值，调节平衡，如此⼀来，严重破坏了map和set的结构，导致iterator失效，不知道应该指向改变前的位置，还是指向改变后的位置。所以STL中将set的迭代器设置成const，不允许修改迭代器的值；⽽map的迭代器则不允许修改key值，允许修改value值。</p>
+<p>（3） map⽀持下标操作， set不⽀持下标操作。 map可以⽤key做下标， map的下标运算符[ ]将关键码作为下标去执⾏查找，如果关键码不存在，则插⼊⼀个具有该关键码和mapped_type类型默认值的元素⾄map中，因此下标运算符[ ]在map应⽤中需要慎⽤，onst_map不能⽤，只希望确定某⼀个关键值是否存在⽽不希望插⼊元素时也不应该使⽤，mapped_type类型没有默认值也不应该使⽤。如果find能解决需要，尽可能⽤find。  </p>
+<h3 id="STL容器空间配置器"><a href="#STL容器空间配置器" class="headerlink" title="STL容器空间配置器"></a>STL容器空间配置器</h3><h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><p> 1、OSI7层网络模型：应用层、表示层、会话层、运输层、网络层、链路层、物理层<br> 2、TCP/IP四层网络模型：应用层、运输层、网际层、接口层<br> 综合OSI与TCP/IP模型，学习五层网络模型：<br> 从上向下架构：应用层、运输层、网络层、链路层、物理层<br> 链路层：<br> 3、MTU</p>
+<h3 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h3><h3 id="说说-MAC地址和IP地址分别有什么作用"><a href="#说说-MAC地址和IP地址分别有什么作用" class="headerlink" title="说说 MAC地址和IP地址分别有什么作用"></a>说说 MAC地址和IP地址分别有什么作用</h3><p><strong>参考回答</strong></p>
+<ol>
+<li>IP地址是IP协议提供的一种统一的地址格式，它为互联网上的每一个网络和每一台主机分配一个逻辑地址，以此来屏蔽物理地址的差异。而MAC地址，指的是物理地址，用来定义网络设备的位置。</li>
+<li>IP地址的分配是<strong>根据网络的拓扑结构</strong>，而不是根据谁制造了网络设置。若将高效的路由选择方案建立在设备制造商的基础上而不是网络所处的拓朴位置基础上，这种方案是不可行的。</li>
+<li>当存在一个附加层的地址寻址时，设备更易于移动和维修。例如，如果一个以太网卡坏了，可以被更换，而无须取得一个新的IP地址。如果一个IP主机从一个网络移到另一个网络，可以给它一个新的IP地址，而无须换一个新的网卡。</li>
+<li>无论是局域网，还是广域网中的计算机之间的通信，最终都表现为将数据包从某种形式的链路上的初始节点出发，从一个节点传递到另一个节点，最终传送到目的节点。数据包在这些节点之间的移动都是由<strong>ARP</strong>（Address Resolution Protocol：地址解析协议）负责<strong>将IP地址映射到MAC地址上来完成的</strong>。</li>
+</ol>
+<p> 网络层：</p>
+<h3 id="什么是ARP协议-Address-Resolution-Protocol-？"><a href="#什么是ARP协议-Address-Resolution-Protocol-？" class="headerlink" title="什么是ARP协议 (Address Resolution Protocol)？"></a>什么是ARP协议 (Address Resolution Protocol)？</h3><p>ARP解决了<strong>同一个局域网</strong>上的主机和路由器IP和MAC地址的解析。</p>
+<ul>
+<li>每台主机都会在自己的ARP缓冲区中建立一个ARP列表，以表示IP地址和MAC地址的对应关系。 </li>
+<li>当源主机需要将一个数据包要发送到目的主机时，会首先检查自己 ARP列表中是否存在该 IP地址对应的MAC地址，如果有，就直接将数据包发送到这个MAC地址；如果没有，就向本地网段发起一个ARP请求的广播包，查询此目的主机对应的MAC地址。此ARP请求数据包里包括源主机的IP地址、硬件地址、以及目的主机的IP地址。 </li>
+<li>网络中所有的主机收到这个ARP请求后，会检查数据包中的目的IP是否和自己的IP地址一致。如果不相同就忽略此数据包；如果相同，该主机首先将发送端的MAC地址和IP地址添加到自己的ARP列表中，如果ARP表中已经存在该IP的信息，则将其覆盖，然后给源主机发送一个 ARP响应数据包，告诉对方自己是它需要查找的MAC地址。 </li>
+<li>源主机收到这个ARP响应数据包后，将得到的目的主机的IP地址和MAC地址添加到自己的ARP列表中，并利用此信息开始数据的传输。 </li>
+<li>如果源主机一直没有收到ARP响应数据包，表示ARP查询失败。</li>
+</ul>
+<h3 id="6、为啥有IP地址还需要MAC地址？同理，为啥有了MAC地址还需要IP地址？"><a href="#6、为啥有IP地址还需要MAC地址？同理，为啥有了MAC地址还需要IP地址？" class="headerlink" title="6、为啥有IP地址还需要MAC地址？同理，为啥有了MAC地址还需要IP地址？"></a>6、为啥有IP地址还需要MAC地址？同理，为啥有了MAC地址还需要IP地址？</h3><p>如果我们只使用 MAC 地址进行寻址的话，我们需要路由器记住每个 MAC 地址属于哪一个子网，不然每一次路由器收到数据包时都要满世界寻找目的 MAC 地址。而我们知道 MAC 地址的长度为 48 位，也就是说最多总共有 2 的 48 次方个 MAC 地址，这就意味着每个路由器需要 256 T 的内存，这显然是不现实的。</p>
+<p>和 MAC 地址不同，IP 地址是和地域相关的，在一个子网中的设备，我们给其分配的 IP 地址前缀都是一样的，这样路由器就能根据 IP 地址的前缀知道这个设备属于哪个子网，剩下的寻址就交给子网内部实现，从而大大减少了路由器所需要的内存。</p>
+<p>只有当设备连入网络时，才能根据他进入了哪个子网来为其分配 IP 地址，在设备还没有 IP 地址的时候或者在分配 IP 地址的过程中，我们需要 MAC 地址来区分不同的设备。</p>
+<h3 id="7、网络层转发数据报的流程"><a href="#7、网络层转发数据报的流程" class="headerlink" title="7、网络层转发数据报的流程"></a>7、网络层转发数据报的流程</h3><h3 id="8、子网划分、子网掩码"><a href="#8、子网划分、子网掩码" class="headerlink" title="8、子网划分、子网掩码"></a>8、子网划分、子网掩码</h3><h3 id="9、网络控制报文协议ICMP"><a href="#9、网络控制报文协议ICMP" class="headerlink" title="9、网络控制报文协议ICMP"></a>9、网络控制报文协议ICMP</h3><p>ICMP（Internet Control Message Protocol）是因特网控制报文协议，主要是实现 IP 协议中未实现的部分功能，是一种网络层协议。该协议并不传输数据，只传输控制信息来辅助网络层通信。主机或路由器用ICMP来发送<strong>差错报告报文和询问报文</strong>，其主要的功能是验证网络是否畅通（确认接收方是否成功接收到 IP 数据包）以及辅助 IP 协议实现可靠传输（若发生 IP 丢包，ICMP 会通知发送方 IP 数据包被丢弃的原因，之后发送方会进行相应的处理）。</p>
+<h3 id="10、ICMP应用举例：PING、traceroute"><a href="#10、ICMP应用举例：PING、traceroute" class="headerlink" title="10、ICMP应用举例：PING、traceroute"></a>10、ICMP应用举例：PING、traceroute</h3><p><strong>Ping</strong><br>Ping（Packet Internet Groper），即因特网包探测器，是一种工作在网络层的服务命令，主要用于测试网络连接量。本地主机通过向目的主机发送 ICMP Echo 请求报文，目的主机收到之后会发送 Echo 响应报文，Ping 会根据时间和成功响应的次数估算出数据包往返时间以及丢包率从而推断网络是否通畅、运行是否正常等。</p>
+<p><strong>TraceRoute</strong><br>TraceRoute 是 ICMP 的另一个应用，其主要用来跟踪一个分组从源点耗费最少 TTL 到达目的地的路径。TraceRoute 通过逐渐增大 TTL 值并重复发送数据报来实现其功能，首先，TraceRoute 会发送一个 TTL 为 1 的 IP 数据报到目的地，当路径上的第一个路由器收到这个数据报时，它将 TTL 的值减 1，此时 TTL = 0，所以路由器会将这个数据报丢掉，并返回一个差错报告报文，之后源主机会接着发送一个 TTL 为 2 的数据报，并重复此过程，直到数据报能够刚好到达目的主机。此时 TTL = 0，因此目的主机要向源主机发送 ICMP 终点不可达差错报告报文，之后源主机便知道了到达目的主机所经过的路由器 IP 地址以及到达每个路由器的往返时间。</p>
+<h3 id="路由器与交换机的区别"><a href="#路由器与交换机的区别" class="headerlink" title="路由器与交换机的区别"></a>路由器与交换机的区别</h3><ul>
+<li>交换机：交换机用于局域网，利用主机的物理地址（MAC 地址）确定数据转发的目的地址，它工作于数据链路层。</li>
+<li>路由器：路由器通过数据包中的目的 IP 地址识别不同的网络从而确定数据转发的目的地址，网络号是唯一的。路由器根据路由选择协议和路由表信息从而确定数据的转发路径，直到到达目的网络，它工作于网络层。</li>
+</ul>
+<h3 id="运输层："><a href="#运输层：" class="headerlink" title="运输层："></a>运输层：</h3><h3 id="TCP与UDP的区别及应用场景（建立连接、一对一、字节流、流量控制、拥塞控制、首部字节、所需资源）"><a href="#TCP与UDP的区别及应用场景（建立连接、一对一、字节流、流量控制、拥塞控制、首部字节、所需资源）" class="headerlink" title="TCP与UDP的区别及应用场景（建立连接、一对一、字节流、流量控制、拥塞控制、首部字节、所需资源）"></a>TCP与UDP的区别及应用场景（建立连接、一对一、字节流、流量控制、拥塞控制、首部字节、所需资源）</h3><p><strong>用户数据报协议 UDP（User Datagram Protocol）</strong></p>
+<p>是无连接的，尽最大可能交付，没有拥塞控制，面向报文（对于应用程序传下来的报文不合并也不拆分，只是添加 UDP 首部），支持一对一、一对多、多对一和多对多的交互通信。</p>
+<p><strong>传输控制协议 TCP（Transmission Control Protocol）</strong></p>
+<p>是面向连接的，提供可靠交付，有流量控制，拥塞控制，提供全双工通信，面向字节流（把应用层传下来的报文看成字节流，把字节流组织成大小不等的数据块），每一条 TCP 连接只能是点对点的（一对一）。</p>
+<h3 id="UDP、TCP首部报文格式（SYN、ACK、FIN、RST必须知道）"><a href="#UDP、TCP首部报文格式（SYN、ACK、FIN、RST必须知道）" class="headerlink" title="UDP、TCP首部报文格式（SYN、ACK、FIN、RST必须知道）"></a>UDP、TCP首部报文格式（SYN、ACK、FIN、RST必须知道）</h3><h3 id=""><a href="#" class="headerlink" title=""></a></h3><p><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/v2-c01a6511abf81f867fd0e531bd51af2c_r.jpg" alt="img"></p>
+<p>UDP 首部字段<strong>只有 8 个字节</strong>，包括源端口、目的端口、长度、检验和。12 字节的伪首部是为了计算检验和临时添加的。</p>
+<p><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/v2-3bd45a13afe868cae6225d75b85e9c36_r.jpg" alt="img"></p>
+<p>TCP 首部格式比 UDP 复杂。</p>
+<p><strong>序号：</strong>用于对字节流进行编号，例如序号为 301，表示第一个字节的编号为 301，如果携带的数据长度为 100 字节，那么下一个报文段的序号应为 401。</p>
+<p><strong>确认号：</strong>期望收到的下一个报文段的序号。例如 B 正确收到 A 发送来的一个报文段，序号为 501，携带的数据长度为 200 字节，因此 B 期望下一个报文段的序号为 701，B 发送给 A 的确认报文段中确认号就为 701。</p>
+<p><strong>数据偏移：</strong>指的是数据部分距离报文段起始处的偏移量，实际上指的是首部的长度。</p>
+<p><strong>控制位：</strong>八位从左到右分别是 CWR，ECE，URG，ACK，PSH，RST，SYN，FIN。</p>
+<p><strong>CWR：</strong>CWR 标志与后面的 ECE 标志都用于 IP 首部的 ECN 字段，ECE 标志为 1 时，则通知对方已将拥塞窗口缩小；</p>
+<p><strong>ECE：</strong>若其值为 1 则会通知对方，从对方到这边的网络有阻塞。在收到数据包的 IP 首部中 ECN 为 1 时将 TCP 首部中的 ECE 设为 1；</p>
+<p><strong>URG：</strong>该位设为 1，表示包中有需要紧急处理的数据，对于需要紧急处理的数据，与后面的紧急指针有关；</p>
+<p><strong>ACK：</strong>该位设为 1，确认应答的字段有效，TCP规定除了最初建立连接时的 SYN 包之外该位必须设为 1；</p>
+<p><strong>PSH：</strong>该位设为 1，表示需要将收到的数据立刻传给上层应用协议，若设为 0，则先将数据进行缓存；</p>
+<p><strong>RST：</strong>该位设为 1，表示 TCP 连接出现异常必须强制断开连接；</p>
+<p><strong>SYN：</strong>用于建立连接，该位设为 1，表示希望建立连接，并在其序列号的字段进行序列号初值设定；</p>
+<p><strong>FIN：</strong>该位设为 1，表示今后不再有数据发送，希望断开连接。当通信结束希望断开连接时，通信双方的主机之间就可以相互交换 FIN 位置为 1 的 TCP 段。</p>
+<p>每个主机又对对方的 FIN 包进行确认应答之后可以断开连接。不过，主机收到 FIN 设置为 1 的 TCP 段之后不必马上回复一个 FIN 包，而是可以等到缓冲区中的所有数据都因为已成功发送而被自动删除之后再发 FIN 包；</p>
+<p><strong>窗口：</strong>窗口值作为接收方让发送方设置其发送窗口的依据。之所以要有这个限制，是因为接收方的数据缓存空间是有限的。</p>
+<p> 13、TCP滑动窗口原理<br> 14、TCP超时重传时间选择</p>
+<h3 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h3><p>流量控制是为了控制发送方发送速率，保证接收方来得及接收。</p>
+<p>接收方发送的确认报文中的窗口字段可以用来控制发送方窗口大小，从而影响发送方的发送速率。将窗口字段设置为 0，则发送方不能发送数据。</p>
+<p><strong>实际上，为了避免此问题的产生，发送端主机会时不时的发送一个叫做窗口探测的数据段</strong>，此数据段仅包含一个字节来获取最新的窗口大小信息。</p>
+<p><strong>流量控制</strong><br>所谓流量控制就是让发送方的发送速率不要太快，让接收方来得及接收。如果接收方来不及接收发送方发送的数据，那么就会有分组丢失。在 TCP 中利用可变长的滑动窗口机制可以很方便的在 TCP 连接上实现对发送方的流量控制。主要的方式是接收方返回的 ACK 中会包含自己的接收窗口大小，以控制发送方此次发送的数据量大小（发送窗口大小）。</p>
+<p><strong>拥塞控制</strong><br>在实际的网络通信系统中，除了发送方和接收方外，还有路由器，交换机等复杂的网络传输线路，此时就需要拥塞控制。拥塞控制是作用于网络的，它是防止过多的数据注入到网络中，避免出现网络负载过大的情况。常用的解决方法有：慢开始和拥塞避免、快重传和快恢复。</p>
+<p><strong>拥塞控制和流量控制的区别</strong><br>拥塞控制往往是一种全局的，防止过多的数据注入到网络之中，而TCP连接的端点只要不能收到对方的确认信息，猜想在网络中发生了拥塞，但并不知道发生在何处，因此，流量控制往往指点对点通信量的控制，是端到端的问题。</p>
+<h3 id="TCP拥塞控制（慢开始、拥塞避免、快重传、快恢复。）"><a href="#TCP拥塞控制（慢开始、拥塞避免、快重传、快恢复。）" class="headerlink" title="TCP拥塞控制（慢开始、拥塞避免、快重传、快恢复。）"></a>TCP拥塞控制（<strong>慢开始、拥塞避免、快重传、快恢复。</strong>）</h3><p>如果网络出现拥塞，分组将会丢失，此时发送方会继续重传，从而导致网络拥塞程度更高。因此当出现拥塞时，应当控制发送方的速率。这一点和流量控制很像，但是出发点不同。流量控制是为了让接收方能来得及接收，而拥塞控制是为了降低整个网络的拥塞程度。</p>
+<p><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/v2-62529f3bda992dc7035dcb13ef0da8b7_r.jpg" alt="img"></p>
+<p>TCP 主要通过四个算法来进行拥塞控制：</p>
+<p><strong>慢开始、拥塞避免、快重传、快恢复。</strong></p>
+<p>发送方需要维护一个叫做拥塞窗口（cwnd）的状态变量，注意拥塞窗口与发送方窗口的区别：拥塞窗口只是一个状态变量，实际决定发送方能发送多少数据的是发送方窗口。</p>
+<p>为了便于讨论，做如下假设：</p>
+<ul>
+<li>接收方有足够大的接收缓存，因此不会发生流量控制；</li>
+<li>虽然 TCP 的窗口基于字节，但是这里设窗口的大小单位为报文段。</li>
+</ul>
+<p><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/image-20220315133525026.png" alt="image-20220315133525026"></p>
+<p><strong>慢开始与拥塞避免</strong></p>
+<p>发送的最初执行慢开始，令 cwnd = 1，发送方只能发送 1 个报文段；当收到确认后，将 cwnd 加倍，因此之后发送方能够发送的报文段数量为：2、4、8 …</p>
+<p>注意到慢开始每个轮次都将 cwnd 加倍，这样会让 cwnd 增长速度非常快，从而使得发送方发送的速度增长速度过快，网络拥塞的可能性也就更高。设置一个慢开始门限 ssthresh，当 cwnd &gt;= ssthresh 时，进入拥塞避免，每个轮次只将 cwnd 加 1。</p>
+<p>如果出现了超时，则令 ssthresh = cwnd / 2，然后重新执行慢开始。</p>
+<p><strong>快重传与快恢复</strong></p>
+<p>在接收方，要求每次接收到报文段都应该对最后一个已收到的有序报文段进行确认。例如已经接收到 M1 和 M2，此时收到 M4，应当发送对 M2 的确认。</p>
+<p>在发送方，如果收到三个重复确认，那么可以知道下一个报文段丢失，此时执行快重传，立即重传下一个报文段。例如收到三个 M2，则 M3 丢失，立即重传 M3。</p>
+<p>在这种情况下，只是丢失个别报文段，而不是网络拥塞。因此执行快恢复，令 ssthresh = cwnd / 2 ，cwnd = ssthresh，注意到此时直接进入拥塞避免。</p>
+<p>慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh。</p>
+<p><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/v2-1cc37f757263f3cd58e917059cedc7b5_r.jpg" alt="img"></p>
+<h3 id="TCP三次握手及状态变化。为啥不是两2次握手？"><a href="#TCP三次握手及状态变化。为啥不是两2次握手？" class="headerlink" title="TCP三次握手及状态变化。为啥不是两2次握手？"></a>TCP三次握手及状态变化。为啥不是两2次握手？</h3><p><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/image-20220304101418589.png" alt="image-20220304101418589"></p>
+<p>三次握手是 TCP 连接的建立过程。在握手之前，主动打开连接的客户端结束 CLOSE 阶段，被动打开的服务器也结束 CLOSE 阶段，并进入 LISTEN 阶段。随后进入三次握手阶段：</p>
+<p>① 首先客户端向服务器发送一个 SYN 包，并等待服务器确认，其中：</p>
+<p>标志位为 SYN，表示请求建立连接；<br>序号为 Seq = x（x 一般取随机数）；<br>随后客户端进入 SYN-SENT 阶段。<br>② 服务器接收到客户端发来的 SYN 包后，对该包进行确认后结束 LISTEN 阶段，并返回一段 TCP 报文，其中：</p>
+<p>标志位为 SYN 和 ACK，表示确认客户端的报文 Seq 序号有效，服务器能正常接收客户端发送的数据，并同意创建新连接；<br>序号为 Seq = y；<br>确认号为 Ack = x + 1，表示收到客户端的序号 Seq 并将其值加 1 作为自己确认号 Ack 的值，随后服务器端进入 SYN-RECV 阶段。</p>
+<p>③ 客户端接收到发送的 SYN + ACK 包后，明确了从客户端到服务器的数据传输是正常的，从而结束 SYN-SENT 阶段。并返回最后一段报文。其中：</p>
+<p>标志位为 ACK，表示确认收到服务器端同意连接的信号；<br>序号为 Seq = x + 1，表示收到服务器端的确认号 Ack，并将其值作为自己的序号值；<br>确认号为 Ack= y + 1，表示收到服务器端序号 seq，并将其值加 1 作为自己的确认号 Ack 的值。<br>随后客户端进入 ESTABLISHED。<br>当服务器端收到来自客户端确认收到服务器数据的报文后，得知从服务器到客户端的数据传输是正常的，从而结束 SYN-RECV 阶段，进入 ESTABLISHED 阶段，从而完成三次握手。</p>
+<p>两次握手？</p>
+<p>客户端第一个报文滞留了，</p>
+<p><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/image-20220303192958246.png" alt="image-20220303192958246"></p>
+<p>第 2 次握手传回了 ACK，为什么还要传回 SYN</p>
+<p>ACK 是为了告诉客户端发来的数据已经接收无误，而传回 SYN 是为了把自己的初始序列号（Seq）同步给客户端。</p>
+<h3 id="TCP四次挥手及状态变化。为啥不是三次挥手？"><a href="#TCP四次挥手及状态变化。为啥不是三次挥手？" class="headerlink" title="TCP四次挥手及状态变化。为啥不是三次挥手？"></a>TCP四次挥手及状态变化。为啥不是三次挥手？</h3><p><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/image-20220303193846259.png" alt="image-20220303193846259"></p>
+<p>这是因为<strong>服务端在LISTEN状态下，收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端。而关闭连接是，当收到对方的FIN报文是，仅仅表示对方不再发送数据了，但是还能接收数据</strong>，已方也未必全部数据都发送给对方了，所以已方可以立即close，也可以发送一些数据给对方后，再发送FIN报文给对方来表示同意现在关闭连接，因此，已方ACK和FIN一般都会分开发送。</p>
+<p>在服务器收到客户端关闭连接的请求并告诉客户端自己已经成功收到了该请求之后，服务器进入了 CLOSE-WAIT 状态，然而此时有可能服务端还有一些数据没有传输完成，因此不能立即关闭连接，而 CLOSE-WAIT 状态就是为了保证服务器在关闭连接之前将待发送的数据发送完成。</p>
+<h3 id="TCP连接释放中TIME-WAIT状态的作用"><a href="#TCP连接释放中TIME-WAIT状态的作用" class="headerlink" title="TCP连接释放中TIME_WAIT状态的作用"></a>TCP连接释放中TIME_WAIT状态的作用</h3><p>最后一次挥手报文丢失？</p>
+<p><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/image-20220303193741054.png" alt="image-20220303193741054"></p>
+<p>客户端接收到服务器端的 FIN 报文后进入此状态，此时并不是直接进入 CLOSED 状态，还需要等待一个时间计时器设置的时间 2MSL。这么做有两个理由：</p>
+<ul>
+<li><strong>确保最后一个确认报文能够到达。</strong>如果 B 没收到 A 发送来的确认报文，那么就会重新发送连接释放请求报文，A 等待一段时间就是为了处理这种情况的发生。</li>
+<li>等待一段时间是为了让本连接持续时间内所产生的所有报文都从网络中消失，使得下一个新的连接不会出现旧的连接请求报文。</li>
+</ul>
+<p><strong>TIME_WAIT 状态会导致什么问题，怎么解决？</strong></p>
+<p>我们考虑高并发短连接的业务场景，在高并发短连接的 TCP 服务器上，当服务器处理完请求后主动请求关闭连接，这样服务器上会有大量的连接处于 TIME_WAIT 状态，服务器维护每一个连接需要一个 socket，也就是每个连接会占用一个文件描述符，而文件描述符的使用是有上限的，如果持续高并发，会导致一些正常的 连接失败。</p>
+<p>解决方案：修改配置或设置 SO_REUSEADDR 套接字，使得服务器处于 TIME-WAIT 状态下的端口能够快速回收和重用。</p>
+<p><strong>TIME-WAIT 为什么是 2MSL？</strong></p>
+<p>当客户端发出最后的 ACK 确认报文时，并不能确定服务器端能够收到该段报文。所以客户端在发送完 ACK 确认报文之后，会设置一个时长为 2 MSL 的计时器。MSL（Maximum Segment Lifetime），指一段 TCP 报文在传输过程中的最大生命周期。2 MSL 即是服务器端发出 FIN 报文和客户端发出的 ACK 确认报文所能保持有效的最大时长。</p>
+<p>若服务器在 1 MSL 内没有收到客户端发出的 ACK 确认报文，再次向客户端发出 FIN 报文。如果客户端在 2 MSL 内收到了服务器再次发来的 FIN 报文，说明服务器由于一些原因并没有收到客户端发出的 ACK 确认报文。客户端将再次向服务器发出 ACK 确认报文，并重新开始 2 MSL 的计时。</p>
+<p>若客户端在 2MSL 内没有再次收到服务器发送的 FIN 报文，则说明服务器正常接收到客户端 ACK 确认报文，客户端可以进入 CLOSE 阶段，即完成四次挥手。</p>
+<p>所以客户端要经历 2 MSL 时长的 TIME-WAIT 阶段，为的是确认服务器能否接收到客户端发出的 ACK 确认报文。</p>
+<h3 id="TCP如何保证可靠性的？"><a href="#TCP如何保证可靠性的？" class="headerlink" title="TCP如何保证可靠性的？"></a>TCP如何保证可靠性的？</h3><ul>
+<li><strong>数据分块</strong>：应用数据被分割成 TCP 认为最适合发送的数据块。</li>
+<li><strong>序列号和确认应答</strong>：TCP 给发送的每一个包进行编号，在传输的过程中，每次接收方收到数据后，都会对传输方进行确认应答，即发送 ACK 报文，这个 ACK 报文当中带有对应的确认序列号，告诉发送方成功接收了哪些数据以及下一次的数据从哪里开始发。除此之外，接收方可以根据序列号对数据包进行排序，把有序数据传送给应用层，并丢弃重复的数据。</li>
+<li><strong>校验和</strong>： TCP 将保持它首部和数据部分的检验和。这是一个端到端的检验和，目的是检测数据在传输过程中的任何变化。如果收到报文段的检验和有差错，TCP 将丢弃这个报文段并且不确认收到此报文段。</li>
+<li><strong>流量控制</strong>： TCP 连接的双方都有一个固定大小的缓冲空间，发送方发送的数据量不能超过接收端缓冲区的大小。当接收方来不及处理发送方的数据，会提示发送方降低发送的速率，防止产生丢包。TCP 通过滑动窗口协议来支持流量控制机制。</li>
+<li><strong>拥塞控制</strong>： 当网络某个节点发生拥塞时，减少数据的发送。</li>
+<li><strong>ARQ协议</strong>： 也是为了实现可靠传输的，它的基本原理就是每发完一个分组就停止发送，等待对方确认。在收到确认后再发下一个分组。</li>
+<li><strong>超时重传</strong>： 当 TCP 发出一个报文段后，它启动一个定时器，等待目的端确认收到这个报文段。如果超过某个时间还没有收到确认，将重发这个报文段。</li>
+</ul>
+<h3 id="UDP为什么是不可靠的？"><a href="#UDP为什么是不可靠的？" class="headerlink" title="UDP为什么是不可靠的？"></a>UDP为什么是不可靠的？</h3><p>UDP 只有一个 socket 接收缓冲区，没有 socket 发送缓冲区，即只要有数据就发，不管对方是否可以正确接收。而在对方的 socket 接收缓冲区满了之后，新来的数据报无法进入到 socket 接受缓冲区，此数据报就会被丢弃，因此 UDP 不能保证数据能够到达目的地，此外，UDP 也没有流量控制和重传机制，故UDP的数据传输是不可靠的。</p>
+<p>和 TCP 建立连接时采用三次握手不同，UDP 中调用 connect 只是把对端的 IP 和 端口号记录下来，并且 UDP 可多多次调用 connect 来指定一个新的 IP 和端口号，或者断开旧的 IP 和端口号（通过设置 connect 函数的第二个参数）。和普通的 UDP 相比，调用 connect 的 UDP 会提升效率，并且在高并发服务中会增加系统稳定性。</p>
+<p>当 UDP 的发送端调用 bind 函数时，就会将这个套接字指定一个端口，若不调用 bind 函数，系统内核会随机分配一个端口给该套接字。当手动绑定时，能够避免内核来执行这一操作，从而在一定程度上提高性能。</p>
+<h3 id="TCP-最大连接数限制"><a href="#TCP-最大连接数限制" class="headerlink" title="TCP 最大连接数限制"></a>TCP 最大连接数限制</h3><p><strong>Client 最大 TCP 连接数</strong><br>client 在每次发起 TCP 连接请求时，如果自己并不指定端口的话，系统会随机选择一个本地端口（local port），该端口是独占的，不能和其他 TCP 连接共享。TCP 端口的数据类型是 unsigned short，因此本地端口个数最大只有 65536，除了端口 0不能使用外，其他端口在空闲时都可以正常使用，这样可用端口最多有 65535 个。</p>
+<p><strong>Server最大 TCP 连接数</strong><br>server 通常固定在某个本地端口上监听，等待 client 的连接请求。不考虑地址重用（Unix 的 SO_REUSEADDR 选项）的情况下，即使 server 端有多个 IP，本地监听端口也是独占的，因此 server 端 TCP 连接 4 元组中只有客户端的 IP 地址和端口号是可变的，因此最大 TCP 连接为客户端 IP 数 × 客户端 port 数，对 IPV4，在不考虑 IP 地址分类的情况下，最大 TCP 连接数约为 2 的 32 次方（IP 数）× 2 的 16 次方（port 数），也就是 server 端单机最大 TCP 连接数约为 2 的 48 次方。</p>
+<p>然而上面给出的是只是理论上的单机最大连接数，在实际环境中，受到明文规定（一些 IP 地址和端口具有特殊含义，没有对外开放）、机器资源、操作系统等的限制，特别是 sever 端，其最大并发 TCP 连接数远不能达到理论上限。对 server 端，通过增加内存、修改最大文件描述符个数等参数，单机最大并发 TCP 连接数超过 10 万 是没问题的。</p>
+<h3 id="SYN泛洪攻击。如何解决？"><a href="#SYN泛洪攻击。如何解决？" class="headerlink" title="SYN泛洪攻击。如何解决？"></a>SYN泛洪攻击。如何解决？</h3><p>SYN Flood 是种典型的 DoS（拒绝服务）攻击，其目的是通过消耗服务器所有可用资源使服务器无法用于处理合法请求。通过重复发送初始连接请求（SYN）数据包，攻击者能够压倒目标服务器上的所有可用端口，导致目标设备根本不响应合法请求。</p>
+<p>在 TCP 建立连接的过程中，因为服务端不确定自己发给客户端的 SYN-ACK 消息或客户端反馈的 ACK 消息是否会丢在半路，所以会给每个待完成的半开连接状态设一个定时器，如果超过时间还没有收到客户端的 ACK 消息，则重新发送一次 SYN-ACK 消息给客户端，直到重试超过一定次数时才会放弃。</p>
+<p>服务端为了维持半开连接状态，需要分配内核资源维护半开连接。当攻击者伪造海量的虚假 IP 向服务端发送 SYN 包时，就形成了 SYN FLOOD 攻击。攻击者故意不响应 ACK 消息，导致服务端被大量注定不能完成的半开连接占据，直到资源耗尽，停止响应正常的连接请求。</p>
+<p><strong>解决方法：</strong></p>
+<ul>
+<li><p>直接的方法是提高 TCP 端口容量的同时减少半开连接的资源占用时间，然而该方法只是稍稍提高了防御能力；</p>
+</li>
+<li><p>部署能够辨别恶意 IP 的路由器，将伪造 IP 地址的发送方发送的 SYN 消息过滤掉，该方案作用一般不是太大；</p>
+</li>
+</ul>
+<p>上述两种方法虽然在一定程度上能够提高服务器的防御能力，但是没有从根本上解决服务器资源消耗殆尽的问题，而以下几种方法的出发点都是在发送方发送确认回复后才开始分配传输资源，从而避免服务器资源消耗殆尽。</p>
+<p><strong>SYN Cache：</strong>该方法首先构造一个全局 Hash Table，用来缓存系统当前所有的半开连接信息。在 Hash Table 中的每个桶的容量大小是有限制的，当桶满时，会主动丢掉早来的信息。当服务端收到一个 SYN 消息后，会通过一个映射函数生成一个相应的 Key 值，使得当前半连接信息存入相应的桶中。当收到客户端正确的确认报文后，服务端才开始分配传输资源块，并将相应的半开连接信息从表中删除。和服务器传输资源相比，维护表的开销要小得多。</p>
+<p>SYN Cookies：该方案原理和 HTTP Cookies 技术类似，服务端通过特定的算法将半开连接信息编码成序列号或者时间戳，用作服务端给客户端的消息编号，随 SYN-ACK 消息一同返回给连接发起方，这样在连接建立完成前服务端不保存任何信息，直到发送方发送 ACK 确认报文并且服务端成功验证编码信息后，服务端才开始分配传输资源。若请求方是攻击者，则不会向服务端会 ACK 消息，由于未成功建立连接，因此服务端并没有花费任何额外的开销。</p>
+<p>然而该方案也存在一些缺点，由于服务端并不保存半开连接状态，因此也就丧失了超时重传的能力，这在一定程度上降低了正常用户的连接成功率。此外，客户端发送给服务端的确认报文存在传输丢失的可能，当 ACK 确认报文丢失时，服务端和客户端会对连接的成功与否产生歧义，此时就需要上层应用采取相应的策略进行处理了。</p>
+<p>SYN Proxy：在客户端和服务器之间部署一个代理服务器，类似于防火墙的作用。通过代理服务器与客户端进行建立连接的过程，之后代理服务器充当客户端将成功建立连接的客户端信息发送给服务器。这种方法基本不消耗服务器的资源，但是建立连接的时间变长了（总共需要 6 次握手）。</p>
+<h3 id="TCP粘包"><a href="#TCP粘包" class="headerlink" title="TCP粘包"></a>TCP粘包</h3><p>为什么会发生TCP粘包和拆包?</p>
+<p>① 发送方写入的数据大于套接字缓冲区的大小，此时将发生拆包。</p>
+<p>② 发送方写入的数据小于套接字缓冲区大小，由于 TCP 默认使用 Nagle 算法，只有当收到一个确认后，才将分组发送给对端，当发送方收集了多个较小的分组，就会一起发送给对端，这将会发生粘包。</p>
+<p>③ 进行 MSS （最大报文长度）大小的 TCP 分段，当 TCP 报文的数据部分大于 MSS 的时候将发生拆包。</p>
+<p>④ 发送方发送的数据太快，接收方处理数据的速度赶不上发送端的速度，将发生粘包。</p>
+<p>常见解决方法</p>
+<p>① 在消息的头部添加消息长度字段，服务端获取消息头的时候解析消息长度，然后向后读取相应长度的内容。</p>
+<p>② 固定消息数据的长度，服务端每次读取既定长度的内容作为一条完整消息，当消息不够长时，空位补上固定字符。但是该方法会浪费网络资源。</p>
+<p>③ 设置消息边界，也可以理解为分隔符，服务端从数据流中按消息边界分离出消息内容，一般使用换行符。</p>
+<p>什么时候需要处理粘包问题？</p>
+<p>当接收端同时收到多个分组，并且这些分组之间毫无关系时，需要处理粘包；而当多个分组属于同一数据的不同部分时，并不需要处理粘包问题。</p>
+<h3 id="22、TCP心跳包"><a href="#22、TCP心跳包" class="headerlink" title="22、TCP心跳包"></a>22、TCP心跳包</h3><h3 id="24、UDP如何实现可靠传输"><a href="#24、UDP如何实现可靠传输" class="headerlink" title="24、UDP如何实现可靠传输"></a>24、UDP如何实现可靠传输</h3><h3 id="应用层："><a href="#应用层：" class="headerlink" title="应用层："></a>应用层：</h3><h3 id="DNS域名系统。采用TCP还是UDP协议？为什么？"><a href="#DNS域名系统。采用TCP还是UDP协议？为什么？" class="headerlink" title="DNS域名系统。采用TCP还是UDP协议？为什么？"></a>DNS域名系统。采用TCP还是UDP协议？为什么？</h3><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1818152">DNS 为什么同时使用 TCP 和 UDP</a></p>
+<p>当进行区域传送（主域名服务器向辅助域名服务器传送变化的那部分数据）时会使用 TCP，因为数据同步传送的数据量比一个请求和应答的数据量要多，而 TCP 允许的报文长度更长，因此为了保证数据的正确性，会使用基于可靠连接的 TCP。</p>
+<p>当客户端向 DNS 服务器查询域名 ( 域名解析) 的时候，一般返回的内容不会超过 UDP 报文的最大长度，即 512 字节。用 UDP 传输时，不需要经过 TCP 三次握手的过程，从而大大提高了响应速度，但这要求域名解析器和域名服务器都必须自己处理超时和重传从而保证可靠性。</p>
+<h3 id="26、FTP协议（了解）"><a href="#26、FTP协议（了解）" class="headerlink" title="26、FTP协议（了解）"></a>26、FTP协议（了解）</h3><h3 id="27、HTTP请求报文与响应报文首部结构"><a href="#27、HTTP请求报文与响应报文首部结构" class="headerlink" title="27、HTTP请求报文与响应报文首部结构"></a>27、HTTP请求报文与响应报文首部结构</h3><h3 id="简述-HTTP-1-0，1-1，2-0-的主要区别"><a href="#简述-HTTP-1-0，1-1，2-0-的主要区别" class="headerlink" title="简述 HTTP 1.0，1.1，2.0 的主要区别"></a>简述 HTTP 1.0，1.1，2.0 的主要区别</h3><p><strong>参考回答</strong></p>
+<p><strong>HTTP1.0默认使用的是短连接</strong>。浏览器和服务器每进行一次HTTP操作，就建立一次连接，任务结束就中断连接。</p>
+<p><strong>HTTP/1.1起，默认使用长连接</strong>。要使用长连接，客户端和服务器的HTTP首部的Connection都要设置为<a href="">keep</a>-alive，才能支持长连接。</p>
+<p>HTTP长连接，指的是<strong>复用TCP连接</strong>。多个HTTP请求可以复用同一个TCP连接，这就节省了TCP连接建立和断开的消耗。</p>
+<p>需要区分TCP长连接和HTTP长连接<br>HTTP长连接通过Client和Server的一些关闭策略实现<br>TCP长连接是通过HTTP1.1头部信息KeepAlive实现</p>
+<p>HTTP2.0相比HTTP1.1支持的特性：</p>
+<ul>
+<li><strong>新的二进制格式</strong>：HTTP1.1 基于文本格式传输数据；HTTP2.0采用二进制格式传输数据，解析更高效。</li>
+<li><strong>多路复用</strong>：在一个连接里，允许同时发送多个请求或响应，<strong>并且这些请求或响应能够并行的传输而不被阻塞</strong>，避免 HTTP1.1 出现的”队头堵塞”问题。</li>
+<li><strong>头部压缩</strong>，HTTP1.1的header带有大量信息，而且每次都要重复发送；HTTP2.0 把header从数据中分离，并封装成头帧和数据帧，<strong>使用特定<a href="">算法</a>压缩头帧</strong>，有效减少头信息大小。并且HTTP2.0<strong>在客户端和服务器端记录了之前发送的键值对，对于相同的数据，不会重复发送。</strong>比如请求a发送了所有的头信息字段，请求b则<strong>只需要发送差异数据</strong>，这样可以减少冗余数据，降低开销。</li>
+<li><strong>服务端推送</strong>：HTTP2.0允许服务器向客户端推送资源，无需客户端发送请求到服务器获取。</li>
+</ul>
+<h3 id="HTTP与HTTPS对比（4点）"><a href="#HTTP与HTTPS对比（4点）" class="headerlink" title="HTTP与HTTPS对比（4点）"></a>HTTP与HTTPS对比（4点）</h3><ol>
+<li>HTTP 协议以明文方式发送内容，数据都是未加密的，安全性较差。HTTPS 数据传输过程是加密的，安全性较好。</li>
+<li>HTTP 和 HTTPS 使用的是完全不同的连接方式，用的端口也不一样，前者是 80 端口，后者是 443 端口。</li>
+<li>HTTPS 协议需要到数字认证机构（Certificate Authority, CA）申请证书，一般需要一定的费用。</li>
+<li>HTTP 页面响应比 HTTPS 快，主要因为 HTTP 使用 3 次握手建立连接，客户端和服务器需要握手 3 次，而 HTTPS 除了 TCP 的 3 次握手，还需要经历一个 SSL 协商过程。</li>
+</ol>
+<h3 id="HTTPS加密流程"><a href="#HTTPS加密流程" class="headerlink" title="HTTPS加密流程"></a>HTTPS加密流程</h3><ol>
+<li><p>HTTPS（Hyper Text Transfer Protocol over Secure Socket Layer）是以安全为目标的 HTTP 协议，在 HTTP 的基础上通过传输加密和身份认证的方式保证了传输过程的安全性。其工作流程如下：</p>
+<p>① 客户端发起一个 HTTPS 请求，并连接到服务器的 443 端口，发送的信息主要包括自身所支持的算法列表和密钥长度等；</p>
+<p>② 服务端将自身所支持的所有加密算法与客户端的算法列表进行对比并选择一种支持的加密算法，然后将它和其它密钥组件一同发送给客户端。</p>
+<p>③ 服务器向客户端发送一个包含数字证书的报文，该数字证书中包含证书的颁发机构、过期时间、服务端的公钥等信息。</p>
+<p>④ 最后服务端发送一个完成报文通知客户端 SSL 的第一阶段已经协商完成。</p>
+<p>⑤ SSL 第一次协商完成后，客户端发送一个回应报文，报文中包含一个客户端生成的随机密码串，称为 pre_master_secre，并且该报文是经过证书中的公钥加密过的。</p>
+<p>⑥ 紧接着客户端会发送一个报文提示服务端在此之后的报文是采用pre_master_secre 加密的。</p>
+<p>⑦ 客户端向服务端发送一个 finish 报文，这次握手中包含第一次握手至今所有报文的整体校验值，最终协商是否完成取决于服务端能否成功解密。</p>
+<p>⑧ 服务端同样发送与第 ⑥ 步中相同作用的报文，已让客户端进行确认，最后发送 finish 报文告诉客户端自己能够正确解密报文。</p>
+<p>当服务端和客户端的 finish 报文交换完成之后，SSL 连接就算建立完成了，之后就进行和 HTTP 相同的通信过程，唯一不同的是在 HTTP 通信过程中并不是采用明文传输，而是采用对称加密的方式，其中对称密钥已经在 SSL 的建立过程中协商好了。</p>
+</li>
+</ol>
+<p>HTTPS 采用对称加密和非对称加密相结合的方式，首先使用 SSL/TLS 协议进行加密传输，为了弥补非对称加密的缺点，HTTPS 采用证书来进一步加强非对称加密的安全性，通过非对称加密，客户端和服务端协商好之后进行通信传输的对称密钥，后续的所有信息都通过该对称秘钥进行加密解密，完成整个 HTTPS 的流程。</p>
+<h3 id="HTTP请求方法和状态码"><a href="#HTTP请求方法和状态码" class="headerlink" title="HTTP请求方法和状态码"></a>HTTP请求方法和状态码</h3><p>HTTP（HyperText Transfer Protocol，超文本传输协议）是一种用于分布式、协作式和超媒体信息系统的应用层协议。HTTP 是万维网的数据通信的基础。</p>
+<p>请求方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OPTIONS</td>
+<td>请求一些选项信息，允许客户端查看服务器的性能</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>请求指定的页面信息，并返回实体主体</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>类似于 get 请求，只不过返回的响应中没有具体的内容，用于获取报头</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>从客户端向服务器传送的数据取代指定的文档的内容</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>请求服务器删除指定的页面</td>
+</tr>
+<tr>
+<td>TRACE</td>
+<td>回显服务器收到的请求，主要用于测试或诊断</td>
+</tr>
+</tbody></table>
+<p>状态码（Status-Code）</p>
+<ul>
+<li>1xx：表示通知信息，如请求收到了或正在进行处理<ul>
+<li>100 Continue：继续，客户端应继续其请求</li>
+<li>101 Switching Protocols 切换协议。服务器根据客户端的请求切换协议。只能切换到更高级的协议，例如，切换到 HTTP 的新版本协议</li>
+</ul>
+</li>
+<li>2xx：表示成功，如接收或知道了<ul>
+<li>200 OK: 请求成功</li>
+</ul>
+</li>
+<li>3xx：表示重定向，如要完成请求还必须采取进一步的行动<ul>
+<li>301 Moved Permanently: 永久移动。请求的资源已被永久的移动到新 URL，返回信息会包括新的 URL，浏览器会自动定向到新 URL。今后任何新的请求都应使用新的 URL 代替</li>
+</ul>
+</li>
+<li>4xx：表示客户的差错，如请求中有错误的语法或不能完成<ul>
+<li>400 Bad Request: 客户端请求的语法错误，服务器无法理解</li>
+<li>401 Unauthorized: 请求要求用户的身份认证</li>
+<li>403 Forbidden: 服务器理解请求客户端的请求，但是拒绝执行此请求（权限不够）</li>
+<li>404 Not Found: 服务器无法根据客户端的请求找到资源（网页）。通过此代码，网站设计人员可设置 “您所请求的资源无法找到” 的个性页面</li>
+<li>408 Request Timeout: 服务器等待客户端发送的请求时间过长，超时</li>
+</ul>
+</li>
+<li>5xx：表示服务器的差错，如服务器失效无法完成请求<ul>
+<li>500 Internal Server Error: 服务器内部错误，无法完成请求</li>
+<li>503 Service Unavailable: 由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的 Retry-After 头信息中</li>
+<li>504 Gateway Timeout: 充当网关或代理的服务器，未及时从远端服务器获取请求</li>
+</ul>
+</li>
+</ul>
+<h3 id="说说-GET请求和-POST-请求的区别【位置、明文密文、安全、长度、场景】"><a href="#说说-GET请求和-POST-请求的区别【位置、明文密文、安全、长度、场景】" class="headerlink" title="说说 GET请求和 POST 请求的区别【位置、明文密文、安全、长度、场景】"></a>说说 GET请求和 POST 请求的区别【位置、明文密文、安全、长度、场景】</h3><ol>
+<li>get 提交的数据会放在 URL 之后，并且请求参数会被完整的保留在浏览器的记录里，由于参数直接暴露在 URL 中，可能会存在安全问题，因此往往用于获取资源信息。而 post 参数放在请求主体中，并且参数不会被保留，相比 get 方法，post 方法更安全，主要用于修改服务器上的资源。</li>
+<li>get 请求只支持 URL 编码，post 请求支持多种编码格式。</li>
+<li>get 只支持 ASCII 字符格式的参数，而 post 方法没有限制。</li>
+<li>get 提交的数据大小有限制（这里所说的限制是针对浏览器而言的），而 post 方法提交的数据没限制</li>
+<li>get 方式需要使用 Request.QueryString 来取得变量的值，而 post 方式通过 Request.Form 来获取。</li>
+<li>get 方法产生一个 TCP 数据包，post 方法产生两个（并不是所有的浏览器中都产生两个）。</li>
+</ol>
+<p>对于GET方式的请求，浏览器会把http header和data一并发送出去，服务端响应200，请求成功。</p>
+<p>对于POST方式的请求，浏览器会先发送http header给服务端，告诉服务端等一下会有数据过来，服务端响应100 continue，告诉浏览器我已经准备接收数据，浏览器再post发送一个data给服务端，服务端响应200，请求成功。</p>
+<h3 id="什么是cookie和session？"><a href="#什么是cookie和session？" class="headerlink" title="什么是cookie和session？"></a>什么是cookie和session？</h3><p>由于HTTP协议是无状态的协议，需要用某种机制来识具体的用户身份，用来跟踪用户的整个会话。常用的会话跟踪技术是cookie与session。</p>
+<p><strong>cookie</strong>就是由服务器发给客户端的特殊信息，而这些信息以文本文件的方式存放在客户端，然后客户端每次向服务器发送请求的时候都会带上这些特殊的信息。说得更具体一些：当用户使用浏览器访问一个支持cookie的网站的时候，用户会提供包括用户名在内的个人信息并且提交至服务器；接着，服务器在向客户端回传相应的超文本的同时也会发回这些个人信息，当然这些信息并不是存放在HTTP响应体中的，而是存放于HTTP响应头；当客户端浏览器接收到来自服务器的响应之后，浏览器会将这些信息存放在一个统一的位置。 自此，客户端再向服务器发送请求的时候，都会把相应的cookie存放在HTTP请求头再次发回至服务器。服务器在接收到来自客户端浏览器的请求之后，就能够通过分析存放于请求头的cookie得到客户端特有的信息，从而动态生成与该客户端相对应的内容。网站的登录界面中“请记住我”这样的选项，就是通过cookie实现的。<br><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/cookie.png" alt="img"></p>
+<p><strong>cookie工作流程</strong>：</p>
+<ol>
+<li>servlet创建cookie，保存少量数据，发送给浏览器。 </li>
+<li>浏览器获得服务器发送的cookie数据，将自动的保存到浏览器端。 </li>
+<li>下次访问时，浏览器将自动携带cookie数据发送给服务器。 </li>
+</ol>
+<p><strong>session原理</strong>：首先浏览器请求服务器访问web站点时，服务器首先会检查这个客户端请求是否已经包含了一个session标识、称为SESSIONID，如果已经包含了一个sessionid则说明以前已经为此客户端创建过session，服务器就按照sessionid把这个session检索出来使用，如果客户端请求不包含session id，则服务器为此客户端创建一个session，并且生成一个与此session相关联的独一无二的sessionid存放到cookie中，这个sessionid将在本次响应中返回到客户端保存，这样在交互的过程中，浏览器端每次请求时，都会带着这个sessionid，服务器根据这个sessionid就可以找得到对应的session。以此来达到共享数据的目的。 这里需要注意的是，session不会随着浏览器的关闭而死亡，而是等待超时时间。<br><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/session.png" alt="img"></p>
+<h3 id="Cookie和Session的区别？（4点）"><a href="#Cookie和Session的区别？（4点）" class="headerlink" title="Cookie和Session的区别？（4点）"></a>Cookie和Session的区别？（4点）</h3><ul>
+<li><strong>作用范围不同</strong>，Cookie 保存在客户端，Session 保存在服务器端。 </li>
+<li><strong>有效期不同</strong>，Cookie 可设置为长时间保持，比如我们经常使用的默认登录功能，Session 一般失效时间较短，客户端关闭或者 Session 超时都会失效。 </li>
+<li><strong>隐私策略不同</strong>，Cookie 存储在客户端，容易被窃取；Session 存储在服务端，安全性相对 Cookie 要好一些。 </li>
+<li><strong>存储大小不同</strong>， 单个 Cookie 保存的数据不能超过 4K；对于 Session 来说存储没有上限，但出于对服务器的性能考虑，Session 内不要存放过多的数据，并且需要设置 Session 删除机制。</li>
+</ul>
+<h3 id="输入一个URL到显示页面的流程（越详细越好，搞明白这个，网络这块就差不多了）"><a href="#输入一个URL到显示页面的流程（越详细越好，搞明白这个，网络这块就差不多了）" class="headerlink" title="输入一个URL到显示页面的流程（越详细越好，搞明白这个，网络这块就差不多了）"></a>输入一个URL到显示页面的流程（越详细越好，搞明白这个，网络这块就差不多了）</h3><ol>
+<li>浏览器查询 DNS，获取域名对应的IP地址:具体过程包括浏览器搜索自身的DNS缓存、搜索操作系统的DNS缓存、读取本地的Host文件和向本地DNS服务器进行查询等。对于向本地DNS服务器进行查询，如果要查询的域名包含在本地配置区域资源中，则返回解析结果给客户机，完成域名解析(此解析具有权威性)；如果要查询的域名不由本地DNS服务器区域解析，但该服务器已缓存了此网址映射关系，则调用这个IP地址映射，完成域名解析（此解析不具有权威性）。如果本地域名服务器并未缓存该网址映射关系，那么将根据其设置发起递归查询或者迭代查询；</li>
+<li>浏览器获得域名对应的IP地址以后，浏览器向服务器请求建立链接，发起三次握手；</li>
+<li>TCP/IP链接建立起来后，浏览器向服务器发送HTTP请求；</li>
+<li>服务器接收到这个请求，并根据路径参数映射到特定的请求处理器进行处理，并将处理结果及相应的视图返回给浏览器；</li>
+<li>浏览器解析并渲染视图，若遇到对js文件、css文件及图片等静态资源的引用，则重复上述步骤并向服务器请求这些资源；</li>
+<li>浏览器根据其请求到的资源、数据渲染页面，最终向用户呈现一个完整的页面。</li>
+</ol>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="进程与线程区别（资源调度，关系，拥有资源，内存，通信"><a href="#进程与线程区别（资源调度，关系，拥有资源，内存，通信" class="headerlink" title="进程与线程区别（资源调度，关系，拥有资源，内存，通信"></a>进程与线程区别（资源调度，关系，拥有资源，内存，通信</h3><ul>
+<li><p><strong>参考回答</strong></p>
+<ol>
+<li><strong>进程</strong>：程序是指令、数据及其组织形式的描述，而进程则是程序的运行实例，包括程序计数器、寄存器和变量的当前值。</li>
+<li><strong>线程</strong>：微进程，一个进程里更小粒度的执行单元。一个进程里包含多个线程并发执行任务。</li>
+<li><strong>协程</strong>：协程是微线程，在子程序内部执行，可在子程序内部中断，转而执行别的子程序，在适当的时候再返回来接着执行。</li>
+</ol>
+<p><strong>区别</strong>：</p>
+<ol>
+<li><strong>线程与进程的区别</strong>：</li>
+</ol>
+</li>
+<li><p>进程（Process）是系统进行资源分配和调度的基本单位，线程（Thread）是CPU调度和分派的基本单位；</p>
+</li>
+<li><p>线程依赖于进程而存在，一个进程至少有一个线程；</p>
+<ul>
+<li>进程有自己的独立地址空间，线程共享所属进程的地址空间；</li>
+</ul>
+</li>
+<li><p>进程是拥有系统资源的一个独立单位，而线程自己基本上不拥有系统资源，只拥有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈)，和其他线程共享本进程的相关资源如内存、I/O、cpu等；</p>
+<ul>
+<li>在进程切换时，涉及到整个当前进程CPU环境的保存环境的设置以及新被调度运行的CPU环境的设置，而线程切换只需保存和设置少量的寄存器的内容，并不涉及存储器管理方面的操作，可见，进程切换的开销远大于线程切换的开销；</li>
+</ul>
+</li>
+<li><p>线程之间的通信更方便，同一进程下的线程共享全局变量等数据，而进程之间的通信需要以进程间通信(IPC)的方式进行；</p>
+<ul>
+<li>多线程程序只要有一个线程崩溃，整个程序就崩溃了，但多进程程序中一个进程崩溃并不会对其它进程造成影响，因为进程有自己的独立地址空间，因此多进程更加健壮</li>
+</ul>
+<ol start="2">
+<li><p><strong>线程与协程的区别：</strong></p>
+<p>（1）协程执行效率极高。协程直接操作栈基本没有内核切换的开销，所以上下文的切换非常快，切换开销比线程更小。</p>
+<p>（2）协程不需要多线程的锁机制，因为多个协程从属于一个线程，不存在同时写变量冲突，效率比线程高。</p>
+<p>（3）一个线程可以有多个协程。</p>
+</li>
+<li><p>进程之间私有和共享的资源</p>
+<ul>
+<li>私有：地址空间、堆、全局变量、栈、寄存器</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>共享：代码段，公共数据，进程目录，进程 ID</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>线程之间私有和共享的资源<ul>
+<li><p>私有：线程栈，寄存器，程序计数器</p>
+</li>
+<li><p>共享：堆，地址空间，全局变量，静态变量</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="进程状态的切换"><a href="#进程状态的切换" class="headerlink" title="进程状态的切换"></a>进程状态的切换</h3><p><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f50726f6365737353746174652e706e67.png" alt="img"></p>
+<ul>
+<li>就绪状态（ready）：等待被调度</li>
+<li>运行状态（running）</li>
+<li>阻塞状态（waiting）：等待资源</li>
+</ul>
+<p>应该注意以下内容：</p>
+<ul>
+<li>只有就绪态和运行态可以相互转换，其它的都是单向转换。就绪状态的进程通过调度算法从而获得 CPU 时间，转为运行状态；而运行状态的进程，在分配给它的 CPU 时间片用完之后就会转为就绪状态，等待下一次调度。</li>
+<li>阻塞状态是缺少需要的资源从而由运行状态转换而来，但是该资源不包括 CPU 时间，缺少 CPU 时间会从运行态转换为就绪态。</li>
+</ul>
+<h3 id="进程的调度算法"><a href="#进程的调度算法" class="headerlink" title="进程的调度算法"></a>进程的调度算法</h3><p>不同环境的调度算法目标不同，因此需要针对不同环境来讨论调度算法。</p>
+<p><strong>1. 批处理系统</strong></p>
+<p>批处理系统没有太多的用户操作，在该系统中，调度算法目标是保证吞吐量和周转时间（从提交到终止的时间）。</p>
+<p><strong>1.1 先来先服务 first-come first-serverd（FCFS）</strong></p>
+<p>非抢占式的调度算法，按照请求的顺序进行调度。</p>
+<p>有利于长作业，但不利于短作业，因为短作业必须一直等待前面的长作业执行完毕才能执行，而长作业又需要执行很长时间，造成了短作业等待时间过长。</p>
+<p><strong>1.2 短作业优先 shortest job first（SJF）</strong></p>
+<p>非抢占式的调度算法，按估计运行时间最短的顺序进行调度。</p>
+<p>长作业有可能会饿死，处于一直等待短作业执行完毕的状态。因为如果一直有短作业到来，那么长作业永远得不到调度。</p>
+<p><strong>1.3 最短剩余时间优先 shortest remaining time next（SRTN）</strong></p>
+<p>最短作业优先的抢占式版本，按剩余运行时间的顺序进行调度。 当一个新的作业到达时，其整个运行时间与当前进程的剩余时间作比较。如果新的进程需要的时间更少，则挂起当前进程，运行新的进程。否则新的进程等待。</p>
+<p><strong>2. 交互式系统</strong></p>
+<p>交互式系统有大量的用户交互操作，在该系统中调度算法的目标是快速地进行响应。</p>
+<p><strong>2.1 时间片轮转</strong></p>
+<p>将所有就绪进程按 FCFS 的原则排成一个队列，每次调度时，把 CPU 时间分配给队首进程，该进程可以执行一个时间片。当时间片用完时，由计时器发出时钟中断，调度程序便停止该进程的执行，并将它送往就绪队列的末尾，同时继续把 CPU 时间分配给队首的进程。</p>
+<p>时间片轮转算法的效率和时间片的大小有很大关系：</p>
+<ul>
+<li>因为进程切换都要保存进程的信息并且载入新进程的信息，如果时间片太小，会导致进程切换得太频繁，在进程切换上就会花过多时间。</li>
+<li>而如果时间片过长，那么实时性就不能得到保证。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/a87daa8201015ff54a213d9ea95c1e49e7eec447938c441dd0247e80b18eaa05/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f38633636323939392d633136632d343831632d396634302d3166646261356263393136372e706e67"><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f38633636323939392d633136632d343831632d396634302d3166646261356263393136372e706e67.png" alt="img"></a></p>
+<p><strong>2.2 优先级调度</strong></p>
+<p>为每个进程分配一个优先级，按优先级进行调度。</p>
+<p>为了防止低优先级的进程永远等不到调度，可以随着时间的推移增加等待进程的优先级。</p>
+<p><strong>2.3 多级反馈队列</strong></p>
+<p>一个进程需要执行 100 个时间片，如果采用时间片轮转调度算法，那么需要交换 100 次。</p>
+<p>多级队列是为这种需要连续执行多个时间片的进程考虑，它设置了多个队列，每个队列时间片大小都不同，例如 1,2,4,8,..。进程在第一个队列没执行完，就会被移到下一个队列。这种方式下，之前的进程只需要交换 7 次。</p>
+<p>每个队列优先权也不同，最上面的优先权最高。因此只有上一个队列没有进程在排队，才能调度当前队列上的进程。</p>
+<p>可以将这种调度算法看成是时间片轮转调度算法和优先级调度算法的结合。</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/c20fd7a3268ebc4ef0bce390344de2c5358392ecef2413d849c3095e21047980/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f30343263663932382d336338652d343831352d616539632d6632373830323032633638662e706e67"><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f30343263663932382d336338652d343831352d616539632d6632373830323032633638662e706e67.png" alt="img"></a></p>
+<p><strong>3. 实时系统</strong></p>
+<p>实时系统要求一个请求在一个确定时间内得到响应。</p>
+<p>分为硬实时和软实时，前者必须满足绝对的截止时间，后者可以容忍一定的超时。</p>
+<h3 id="线程同步的方式：锁、信号量、信号、屏障"><a href="#线程同步的方式：锁、信号量、信号、屏障" class="headerlink" title="线程同步的方式：锁、信号量、信号、屏障"></a>线程同步的方式：锁、信号量、信号、屏障</h3><ul>
+<li>锁机制：包括互斥锁/量（mutex）、读写锁（reader-writer lock）、自旋锁（spin lock）、条件变量（condition）<ul>
+<li>互斥锁/量（mutex）：提供了以排他方式防止数据结构被并发修改的方法。</li>
+<li>读写锁（reader-writer lock）：允许多个线程同时读共享数据，而对写操作是互斥的。</li>
+<li>自旋锁（spin lock）与互斥锁类似，都是为了保护共享资源。互斥锁是当资源被占用，申请者进入睡眠状态；而自旋锁则循环检测保持者是否已经释放锁。</li>
+<li>条件变量（condition）：可以以原子的方式阻塞进程，直到某个特定条件为真为止。对条件的测试是在互斥锁的保护下进行的。条件变量始终与互斥锁一起使用。</li>
+</ul>
+</li>
+<li>信号量机制(Semaphore)<ul>
+<li>无名线程信号量</li>
+<li>命名线程信号量</li>
+</ul>
+</li>
+<li>信号机制(Signal)：类似进程间的信号处理</li>
+<li>屏障（barrier）：屏障允许每个线程等待，直到所有的合作线程都达到某一点，然后从该点继续执行。</li>
+</ul>
+<p>线程间的通信目的主要是用于线程同步，所以线程没有像进程通信中的用于数据交换的通信机制</p>
+<h3 id="进程同步"><a href="#进程同步" class="headerlink" title="进程同步"></a>进程同步</h3><p><strong>1. 临界区</strong></p>
+<p>对临界资源进行访问的那段代码称为临界区。</p>
+<p>为了互斥访问临界资源，每个进程在进入临界区之前，需要先进行检查。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// entry section</span></span><br><span class="line"><span class="comment">// critical section;</span></span><br><span class="line"><span class="comment">// exit section</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 同步与互斥</strong></p>
+<ul>
+<li>同步：多个进程因为合作产生的直接制约关系，使得进程有一定的先后执行关系。</li>
+<li>互斥：多个进程在同一时刻只有一个进程能进入临界区。</li>
+</ul>
+<p><strong>3. 信号量</strong></p>
+<p>信号量（Semaphore）是一个整型变量，可以对其执行 down 和 up 操作，也就是常见的 P 和 V 操作。</p>
+<ul>
+<li><strong>down</strong> : 如果信号量大于 0 ，执行 -1 操作；如果信号量等于 0，进程睡眠，等待信号量大于 0；</li>
+<li><strong>up</strong> ：对信号量执行 +1 操作，唤醒睡眠的进程让其完成 down 操作。</li>
+</ul>
+<p>down 和 up 操作需要被设计成原语，不可分割，通常的做法是在执行这些操作的时候屏蔽中断。</p>
+<p>如果信号量的取值只能为 0 或者 1，那么就成为了 <strong>互斥量（Mutex）</strong> ，0 表示临界区已经加锁，1 表示临界区解锁。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> semaphore;</span><br><span class="line">semaphore mutex = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">P1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">down</span>(&amp;mutex);</span><br><span class="line">    <span class="comment">// 临界区</span></span><br><span class="line">    <span class="built_in">up</span>(&amp;mutex);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">P2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">down</span>(&amp;mutex);</span><br><span class="line">    <span class="comment">// 临界区</span></span><br><span class="line">    <span class="built_in">up</span>(&amp;mutex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><font size=3> <strong>使用信号量实现生产者-消费者问题</strong> </font> </br></p>
+<p>问题描述：使用一个缓冲区来保存物品，只有缓冲区没有满，生产者才可以放入物品；只有缓冲区不为空，消费者才可以拿走物品。</p>
+<p>因为缓冲区属于临界资源，因此需要使用一个互斥量 mutex 来控制对缓冲区的互斥访问。</p>
+<p>为了同步生产者和消费者的行为，需要记录缓冲区中物品的数量。数量可以使用信号量来进行统计，这里需要使用两个信号量：empty 记录空缓冲区的数量，full 记录满缓冲区的数量。其中，empty 信号量是在生产者进程中使用，当 empty 不为 0 时，生产者才可以放入物品；full 信号量是在消费者进程中使用，当 full 信号量不为 0 时，消费者才可以取走物品。</p>
+<p>注意，不能先对缓冲区进行加锁，再测试信号量。也就是说，不能先执行 down(mutex) 再执行 down(empty)。如果这么做了，那么可能会出现这种情况：生产者对缓冲区加锁后，执行 down(empty) 操作，发现 empty = 0，此时生产者睡眠。消费者不能进入临界区，因为生产者对缓冲区加锁了，消费者就无法执行 up(empty) 操作，empty 永远都为 0，导致生产者永远等待下，不会释放锁，消费者因此也会永远等待下去。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 100</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> semaphore;</span><br><span class="line">semaphore mutex = <span class="number">1</span>;</span><br><span class="line">semaphore empty = N;</span><br><span class="line">semaphore full = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">producer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(TRUE) &#123;</span><br><span class="line">        <span class="keyword">int</span> item = <span class="built_in">produce_item</span>();</span><br><span class="line">        <span class="built_in">down</span>(&amp;empty);</span><br><span class="line">        <span class="built_in">down</span>(&amp;mutex);</span><br><span class="line">        <span class="built_in">insert_item</span>(item);</span><br><span class="line">        <span class="built_in">up</span>(&amp;mutex);</span><br><span class="line">        <span class="built_in">up</span>(&amp;full);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">consumer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(TRUE) &#123;</span><br><span class="line">        <span class="built_in">down</span>(&amp;full);</span><br><span class="line">        <span class="built_in">down</span>(&amp;mutex);</span><br><span class="line">        <span class="keyword">int</span> item = <span class="built_in">remove_item</span>();</span><br><span class="line">        <span class="built_in">consume_item</span>(item);</span><br><span class="line">        <span class="built_in">up</span>(&amp;mutex);</span><br><span class="line">        <span class="built_in">up</span>(&amp;empty);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>4. 管程</strong></p>
+<p>使用信号量机制实现的生产者消费者问题需要客户端代码做很多控制，而管程把控制的代码独立出来，不仅不容易出错，也使得客户端代码调用更容易。</p>
+<p>c 语言不支持管程，下面的示例代码使用了类 Pascal 语言来描述管程。示例代码的管程提供了 insert() 和 remove() 方法，客户端代码通过调用这两个方法来解决生产者-消费者问题。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">monitor ProducerConsumer</span><br><span class="line">    integer i;</span><br><span class="line">    condition c;</span><br><span class="line"></span><br><span class="line">    <span class="function">procedure <span class="title">insert</span><span class="params">()</span></span>;</span><br><span class="line">    begin</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    end;</span><br><span class="line"></span><br><span class="line">    <span class="function">procedure <span class="title">remove</span><span class="params">()</span></span>;</span><br><span class="line">    begin</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    end;</span><br><span class="line">end monitor;</span><br></pre></td></tr></table></figure>
+
+<p>管程有一个重要特性：在一个时刻只能有一个进程使用管程。进程在无法继续执行的时候不能一直占用管程，否则其它进程永远不能使用管程。</p>
+<p>管程引入了 <strong>条件变量</strong> 以及相关的操作：<strong>wait()</strong> 和 <strong>signal()</strong> 来实现同步操作。对条件变量执行 wait() 操作会导致调用进程阻塞，把管程让出来给另一个进程持有。signal() 操作用于唤醒被阻塞的进程。</p>
+<p><strong>使用管程实现生产者-消费者问题</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 管程</span></span><br><span class="line">monitor ProducerConsumer</span><br><span class="line">    condition full, empty;</span><br><span class="line">    integer count := <span class="number">0</span>;</span><br><span class="line">    condition c;</span><br><span class="line"></span><br><span class="line">    <span class="function">procedure <span class="title">insert</span><span class="params">(item: integer)</span></span>;</span><br><span class="line">    begin</span><br><span class="line">        <span class="keyword">if</span> count = N then <span class="built_in">wait</span>(full);</span><br><span class="line">        <span class="built_in">insert_item</span>(item);</span><br><span class="line">        count := count + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> count = <span class="number">1</span> then <span class="built_in">signal</span>(empty);</span><br><span class="line">    end;</span><br><span class="line"></span><br><span class="line">    function remove: integer;</span><br><span class="line">    begin</span><br><span class="line">        <span class="keyword">if</span> count = <span class="number">0</span> then <span class="built_in">wait</span>(empty);</span><br><span class="line">        remove = remove_item;</span><br><span class="line">        count := count - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> count = N <span class="number">-1</span> then <span class="built_in">signal</span>(full);</span><br><span class="line">    end;</span><br><span class="line">end monitor;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生产者客户端</span></span><br><span class="line">procedure producer</span><br><span class="line">begin</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">    begin</span><br><span class="line">        item = produce_item;</span><br><span class="line">        ProducerConsumer.<span class="built_in">insert</span>(item);</span><br><span class="line">    end</span><br><span class="line">end;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 消费者客户端</span></span><br><span class="line">procedure consumer</span><br><span class="line">begin</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">    begin</span><br><span class="line">        item = ProducerConsumer.remove;</span><br><span class="line">        <span class="built_in">consume_item</span>(item);</span><br><span class="line">    end</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
+
+<h3 id="进程间通信：PIPE、FIFO、消息队列、信号量、信号、共享内存、socket"><a href="#进程间通信：PIPE、FIFO、消息队列、信号量、信号、共享内存、socket" class="headerlink" title="进程间通信：PIPE、FIFO、消息队列、信号量、信号、共享内存、socket"></a>进程间通信：PIPE、FIFO、消息队列、信号量、信号、共享内存、socket</h3><ul>
+<li>管道（PIPE）<ul>
+<li>有名管道(FIFO)：一种半双工的通信方式，它允许无亲缘关系进程间的通信<ul>
+<li>优点：可以实现任意关系的进程间的通信</li>
+<li>缺点：<ol>
+<li>长期存于系统中，使用不当容易出错</li>
+<li>缓冲区有限</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>无名管道：一种半双工的通信方式，只能在具有亲缘关系的进程间使用（父子进程）<ul>
+<li>优点：简单方便</li>
+<li>缺点：<ol>
+<li>局限于单向通信</li>
+<li>只能创建在它的进程以及其有亲缘关系的进程之间</li>
+<li>缓冲区有限</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>信号量（Semaphore）：一个计数器，可以用来控制多个线程对共享资源的访问<ul>
+<li>优点：可以同步进程</li>
+<li>缺点：信号量有限</li>
+</ul>
+</li>
+<li>信号（Signal）：一种比较复杂的通信方式，用于通知接收进程某个事件已经发生</li>
+<li>消息队列（Message Queue）：是消息的链表，存放在内核中并由消息队列标识符标识<ul>
+<li>优点：可以实现任意进程间的通信，并通过系统调用函数来实现消息发送和接收之间的同步，无需考虑同步问题，方便</li>
+<li>缺点：信息的复制需要额外消耗 CPU 的时间，不适宜于信息量大或操作频繁的场合</li>
+</ul>
+</li>
+<li>共享内存（Shared Memory）：映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问<ul>
+<li>优点：无须复制，快捷，信息量大</li>
+<li>缺点：<ol>
+<li>通信是通过将共享空间缓冲区直接附加到进程的虚拟地址空间中来实现的，因此进程间的读写操作的同步问题</li>
+<li>利用内存缓冲区直接交换信息，内存的实体存在于计算机中，只能同一个计算机系统中的诸多进程共享，不方便网络通信</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>套接字（Socket）：可用于不同计算机间的进程通信<ul>
+<li>优点：<ol>
+<li>传输数据为字节级，传输数据可自定义，数据量小效率高</li>
+<li>传输数据时间短，性能高</li>
+<li>适合于客户端和服务器端之间信息实时交互</li>
+<li>可以加密,数据安全性强</li>
+</ol>
+</li>
+<li>缺点：需对传输的数据进行解析，转化成应用级的数据</li>
+</ul>
+</li>
+</ul>
+<h3 id="3、互斥锁与自旋锁的底层区别"><a href="#3、互斥锁与自旋锁的底层区别" class="headerlink" title="3、互斥锁与自旋锁的底层区别"></a>3、互斥锁与自旋锁的底层区别</h3><p>互斥锁与自旋锁的区别，实际上涉及到阻塞时线程的状态是不一样的。互斥锁阻塞的线程是挂起的，此时系统会优先执行其它可执行的线程，就会将阻塞的线程切换到可执行线程，而当临界区执行的时间非常短时，此时线程切换频繁、开销较大，此时就会采用自旋锁的方式，让阻塞的线程处于忙等状态。</p>
+<h3 id="孤儿进程与僵尸进程"><a href="#孤儿进程与僵尸进程" class="headerlink" title="孤儿进程与僵尸进程"></a>孤儿进程与僵尸进程</h3><ol>
+<li><p><strong>孤儿进程</strong>：是指一个父进程退出后，而它的一个或多个子进程还在运行，那么这些子进程将成为孤儿进程。孤儿进程将被init进程（进程号为1）所收养，并且由init进程对它们完整状态收集工作。</p>
+</li>
+<li><p><strong>僵尸进程</strong>：是指一个进程使用fork函数创建子进程，如果子进程退出，而父进程并没有调用wait()或者waitpid()系统调用取得子进程的终止状态，那么子进程的进程描述符仍然保存在系统中，占用系统资源，这种进程称为僵尸进程。</p>
+</li>
+<li><p><strong>如何解决僵尸进程</strong>：</p>
+<p>（1）一般，为了防止产生僵尸进程，在fork子进程之后我们都要及时使用<strong>wait系统调用</strong>；同时，当子进程退出的时候，内核都会给父进程一个SIGCHLD信号，所以我们可以建立一个捕获SIGCHLD信号的信号处理函数，在函数体中调用wait（或waitpid），就可以清理退出的子进程以达到防止僵尸进程的目的。</p>
+<p>（2）<strong>使用kill命令</strong>。</p>
+<p>​    打开终端并输入下面命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep Z </span><br></pre></td></tr></table></figure>
+
+<p>​    会列出进程表中所有僵尸进程的详细内容。</p>
+<p>​    然后输入命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -s SIGCHLD pid(父进程pid)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="死锁及避免"><a href="#死锁及避免" class="headerlink" title="死锁及避免"></a>死锁及避免</h3><p><strong>原因</strong></p>
+<ul>
+<li>系统资源不足</li>
+<li>资源分配不当</li>
+<li>进程运行推进顺序不合适</li>
+</ul>
+<p><strong>产生条件</strong></p>
+<ul>
+<li>互斥</li>
+<li>请求和保持</li>
+<li>不剥夺</li>
+<li>环路</li>
+</ul>
+<p><strong>预防</strong></p>
+<ul>
+<li>打破互斥条件：改造独占性资源为虚拟资源，大部分资源已无法改造。</li>
+<li>打破不可抢占条件：当一进程占有一独占性资源后又申请一独占性资源而无法满足，则退出原占有的资源。</li>
+<li>打破占有且申请条件：采用资源预先分配策略，即进程运行前申请全部资源，满足则运行，不然就等待，这样就不会占有且申请。</li>
+<li>打破循环等待条件：实现资源有序分配策略，对所有设备实现分类编号，所有进程只能采用按序号递增的形式申请资源。</li>
+<li>有序资源分配法</li>
+<li>银行家算法</li>
+</ul>
+<h3 id="多进程与多线程间的对比、优劣与选择"><a href="#多进程与多线程间的对比、优劣与选择" class="headerlink" title="多进程与多线程间的对比、优劣与选择"></a>多进程与多线程间的对比、优劣与选择</h3><p><strong>对比</strong></p>
+<table>
+<thead>
+<tr>
+<th>对比维度</th>
+<th>多进程</th>
+<th>多线程</th>
+<th>总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据共享、同步</td>
+<td>数据共享复杂，需要用 IPC；数据是分开的，同步简单</td>
+<td>因为共享进程数据，数据共享简单，但也是因为这个原因导致同步复杂</td>
+<td>各有优势</td>
+</tr>
+<tr>
+<td>内存、CPU</td>
+<td>占用内存多，切换复杂，CPU 利用率低</td>
+<td>占用内存少，切换简单，CPU 利用率高</td>
+<td>线程占优</td>
+</tr>
+<tr>
+<td>创建销毁、切换</td>
+<td>创建销毁、切换复杂，速度慢</td>
+<td>创建销毁、切换简单，速度很快</td>
+<td>线程占优</td>
+</tr>
+<tr>
+<td>编程、调试</td>
+<td>编程简单，调试简单</td>
+<td>编程复杂，调试复杂</td>
+<td>进程占优</td>
+</tr>
+<tr>
+<td>可靠性</td>
+<td>进程间不会互相影响</td>
+<td>一个线程挂掉将导致整个进程挂掉</td>
+<td>进程占优</td>
+</tr>
+<tr>
+<td>分布式</td>
+<td>适应于多核、多机分布式；如果一台机器不够，扩展到多台机器比较简单</td>
+<td>适应于多核分布式</td>
+<td>进程占优</td>
+</tr>
+</tbody></table>
+<p><strong>优劣</strong></p>
+<table>
+<thead>
+<tr>
+<th>优劣</th>
+<th>多进程</th>
+<th>多线程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>优点</td>
+<td>编程、调试简单，可靠性较高</td>
+<td>创建、销毁、切换速度快，内存、资源占用小</td>
+</tr>
+<tr>
+<td>缺点</td>
+<td>创建、销毁、切换速度慢，内存、资源占用大</td>
+<td>编程、调试复杂，可靠性较差</td>
+</tr>
+</tbody></table>
+<p><strong>选择</strong></p>
+<ul>
+<li>需要频繁创建销毁的优先用线程</li>
+<li>需要进行大量计算的优先使用线程</li>
+<li>强相关的处理用线程，弱相关的处理用进程</li>
+<li>可能要扩展到多机分布的用进程，多核分布的用线程</li>
+<li>都满足需求的情况下，用你最熟悉、最拿手的方式</li>
+</ul>
+<blockquote>
+<p>多进程与多线程间的对比、优劣与选择来自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lishenglong666/article/details/8557215">多线程还是多进程的选择及区别</a></p>
+</blockquote>
+<h3 id="请你说说什么是守护进程，如何实现？"><a href="#请你说说什么是守护进程，如何实现？" class="headerlink" title="请你说说什么是守护进程，如何实现？"></a>请你说说什么是守护进程，如何实现？</h3><p><strong>参考回答</strong></p>
+<ol>
+<li><p><strong>守护进程</strong>：守护进程是运行在后台的一种生存期长的特殊进程。它独立于控制终端，处理一些系统级别任务。</p>
+</li>
+<li><p><strong>如何实现</strong>：</p>
+<p>（1）创建子进程，终止父进程。方法是调用fork() 产生一个子进程，然后使父进程退出。</p>
+<p>（2）调用setsid() 创建一个新会话。</p>
+<p>（3）将当前目录更改为根目录。使用fork() 创建的子进程也继承了父进程的当前工作目录。</p>
+<p>（4）重设文件权限掩码。文件权限掩码是指屏蔽掉文件权限中的对应位。</p>
+<p>（5）关闭不再需要的文件描述符。子进程从父进程继承打开的文件描述符。</p>
+</li>
+</ol>
+<h3 id="8、管道与消息队列对比"><a href="#8、管道与消息队列对比" class="headerlink" title="8、管道与消息队列对比"></a>8、管道与消息队列对比</h3><h3 id="9、fork进程的底层：读时共享，写时复制"><a href="#9、fork进程的底层：读时共享，写时复制" class="headerlink" title="9、fork进程的底层：读时共享，写时复制"></a>9、fork进程的底层：读时共享，写时复制</h3><h3 id="进程、线程的中断切换的过程是怎样的？"><a href="#进程、线程的中断切换的过程是怎样的？" class="headerlink" title="进程、线程的中断切换的过程是怎样的？"></a>进程、线程的中断切换的过程是怎样的？</h3><p><strong>进程上线文切换</strong></p>
+<p>​    和CPU上下文切换相比，进程上下文切换在保存当前进程的内核状态和 CPU 寄存器之前，需要先把该进程的<strong>虚拟内存、栈等保存下来</strong>。而加载了下一进程的内核态后，还需要<strong>刷新进程的虚拟内存和用户栈</strong>。下面是发生进程上线文切换的几个场景：</p>
+<p>​    a）为了保证所有进程可以得到公平调度，CPU 时间被划分为一段段的时间片，这些时间片再被轮流分配给各个进程。这样，当某个进程的时间片耗尽了，就会被系统挂起，切换到其它正在等待 CPU 的进程运行。</p>
+<p>​    b）进程在系统资源不足（比如内存不足）时，要等到资源满足后才可以运行，这个时候进程也会被挂起，并由系统调度其他进程运行。</p>
+<p>​    c）当进程通过睡眠函数 sleep 这样的方法将自己主动挂起时，自然也会重新调度。</p>
+<p>​    d）当有优先级更高的进程运行时，为了保证高优先级进程的运行，当前进程会被挂起，由高优先级进程来运行。</p>
+<p>​    e）发生硬件中断时，CPU 上的进程会被中断挂起，转而执行内核中的中断服务程序。</p>
+<p><strong>线程上下文切换</strong></p>
+<p>​    线程与进程最大的区别在于，线程是<strong>调度的基本单位</strong>，而进程则是<strong>资源拥有的基本单位</strong>。说白了，所谓内核中的任务调度，实际上的调度对象是线程；而进程只是给线程提供了虚拟内存、全局变量等资源。所以，对于线程和进程，我们可以这么理解：</p>
+<p>​    a）当进程只有一个线程时，可以认为进程就等于线程。</p>
+<p>​    b）当进程拥有多个线程时，这些线程会共享相同的虚拟内存和全局变量等资源。这些资源在上下文切换时是<strong>不需要修改</strong>的。</p>
+<p>​    c）另外，线程也有自己的私有数据，比如栈和寄存器等，这些在上下文切换时也是<strong>需要保存</strong>的。</p>
+<p>​    这么一来，线程的上下文切换其实就可以分为两种情况：</p>
+<p>​    a）前后两个线程属于<strong>不同进程</strong>。此时，因为资源不共享，所以切换过程就跟进程上下文切换是一样。</p>
+<p>​    b）前后两个线程属于<strong>同一个进程</strong>。此时，因为虚拟内存是共享的，所以在切换时，虚拟内存这些资源就保持不动，只需要切换线程的私有数据、寄存器等不共享的数据。</p>
+<h3 id="13、阻塞IO与非阻塞IO"><a href="#13、阻塞IO与非阻塞IO" class="headerlink" title="13、阻塞IO与非阻塞IO"></a>13、阻塞IO与非阻塞IO</h3><h3 id="14、同步与异步的概念"><a href="#14、同步与异步的概念" class="headerlink" title="14、同步与异步的概念"></a>14、同步与异步的概念</h3><h3 id="15、静态链接与动态链接的过程"><a href="#15、静态链接与动态链接的过程" class="headerlink" title="15、静态链接与动态链接的过程"></a>15、静态链接与动态链接的过程</h3><p><a href="https://yunf194.github.io/2022/02/20/2022220-%E7%BC%96%E8%AF%91%E9%93%BE%E6%8E%A5/">编译链接</a></p>
+<h4 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a>静态链接</h4><p>由链接器在链接时将库的内容直接加入到可执行程序中。a.out包含file1.o,file2.o,libc.a三个文件，运行的时候与原始的file1.o,file2.o,libc.a三个文件没有任何关系，不需要它们就可以直接运行。</p>
+<p><a href="https://yunf194.github.io/images/2022220-%E7%BC%96%E8%AF%91%E9%93%BE%E6%8E%A5/image-20220220191456232.png"><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/image-20220220191456232.png" alt="image-20220220191456232"></a></p>
+<p><strong>Linux下静态库的创建和使用</strong></p>
+<ul>
+<li>编译静态库源码: gcc -c lib.c -o libo</li>
+<li>生成静态库文件: ar -q lib.a lib.o</li>
+<li>使用静态库编译: gcc main.c lib.a -o main.out</li>
+</ul>
+<p><a href="https://yunf194.github.io/images/2022220-%E7%BC%96%E8%AF%91%E9%93%BE%E6%8E%A5/image-20220220191509821.png"><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/image-20220220191509821.png" alt="image-20220220191509821"></a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">BASH</span><br><span class="line">fengyun@ubuntu:~/share$ gcc -c slib.c -o slib.o</span><br><span class="line">fengyun@ubuntu:~/share$ ar -q slib.a slib.o</span><br><span class="line">ar: 正在创建 slib.a</span><br><span class="line">fengyun@ubuntu:~/share$ gcc test1.c slib.a -o test1.out</span><br><span class="line">fengyun@ubuntu:~/share$ ./test1.out</span><br><span class="line">Name: Static Lib</span><br><span class="line">Result: 5</span><br><span class="line">fengyun@ubuntu:~/share$ </span><br></pre></td></tr></table></figure>
+
+<p>Linux ar命令用于建立或修改备存文件，或是从备存文件中抽取文件。</p>
+<p>ar可让您集合许多文件，成为单一的备存文件。在备存文件中，所有成员文件皆保有原来的属性与权限。</p>
+<h4 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h4><ul>
+<li>可执行程序<strong>在运行时</strong>才动态加载库进行链接</li>
+<li>库的内容不会进入可执行程序当中</li>
+</ul>
+<p><a href="https://yunf194.github.io/images/2022220-%E7%BC%96%E8%AF%91%E9%93%BE%E6%8E%A5/image-20220220191521275.png"><img src="/../images/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/image-20220220191521275.png" alt="image-20220220191521275"></a></p>
+<p>lib1.so和lib2.so动态库生成的stub1和stub2，是最终生成的可执行程序可以使用的内容，程序看不到其它内容。</p>
+<p><strong>1 静态链接库的优点</strong> </p>
+<p> (1) 代码装载速度快，执行速度略比动态链接库快； </p>
+<p> (2) 只需保证在开发者的计算机中有正确的.LIB文件，在以二进制形式发布程序时不需考虑在用户的计算机上.LIB文件是否存在及版本问题，可避免DLL地狱等问题。 </p>
+<p><strong>2 动态链接库的优点</strong> </p>
+<p> (1) 更加节省内存并减少页面交换；</p>
+<p> (2) DLL文件与EXE文件独立，只要输出接口不变（即名称、参数、返回值类型和调用约定不变），更换DLL文件不会对EXE文件造成任何影响，因而极大地提高了可维护性和可扩展性；</p>
+<p> (3) 不同编程语言编写的程序只要按照函数调用约定就可以调用同一个DLL函数；</p>
+<p> (4)适用于大规模的软件开发，使开发过程独立、耦合度小，便于不同开发者和开发组织之间进行开发和测试。</p>
+<p><strong>3 不足之处</strong></p>
+<p> (1) 使用静态链接生成的可执行文件体积较大，包含相同的公共代码，造成浪费；</p>
+<p> (2) 使用动态链接库的应用程序不是自完备的，它依赖的DLL模块也要存在，如果使用载入时动态链接，程序启动时发现DLL不存在，系统将终止程序并给出错误信息。而使用运行时动态链接，系统不会终止，但由于DLL中的导出函数不可用，程序会加载失败；速度比静态链接慢。当某个模块更新后，如果新模块与旧的模块不兼容，那么那些需要该模块才能运行的软件，统统撕掉。这在早期Windows中很常见。</p>
+<h3 id="16、虚拟内存概念（非常重要）"><a href="#16、虚拟内存概念（非常重要）" class="headerlink" title="16、虚拟内存概念（非常重要）"></a>16、虚拟内存概念（非常重要）</h3><h3 id="17、MMU地址翻译的具体流程"><a href="#17、MMU地址翻译的具体流程" class="headerlink" title="17、MMU地址翻译的具体流程"></a>17、MMU地址翻译的具体流程</h3><h3 id="18、缺页处理过程"><a href="#18、缺页处理过程" class="headerlink" title="18、缺页处理过程"></a>18、缺页处理过程</h3><h3 id="19、缺页置换算法：最久未使用算法、先进先出算法、最佳置换算法"><a href="#19、缺页置换算法：最久未使用算法、先进先出算法、最佳置换算法" class="headerlink" title="19、缺页置换算法：最久未使用算法、先进先出算法、最佳置换算法"></a>19、缺页置换<a href="">算法</a>：最久未使用<a href="">算法</a>、先进先出<a href="">算法</a>、最佳置换<a href="">算法</a></h3><h3 id="1、IO多路复用：select、poll、epoll的区别（非常重要，几乎必问，回答得越底层越好，要会使用）"><a href="#1、IO多路复用：select、poll、epoll的区别（非常重要，几乎必问，回答得越底层越好，要会使用）" class="headerlink" title="1、IO多路复用：select、poll、epoll的区别（非常重要，几乎必问，回答得越底层越好，要会使用）"></a>1、IO多路复用：select、poll、epoll的区别（非常重要，几乎必问，回答得越底层越好，要会使用）</h3><h3 id="2、手撕一个最简单的server端服务器（socket、bind、listen、accept这四个API一定要非常熟练）"><a href="#2、手撕一个最简单的server端服务器（socket、bind、listen、accept这四个API一定要非常熟练）" class="headerlink" title="2、手撕一个最简单的server端服务器（socket、bind、listen、accept这四个API一定要非常熟练）"></a>2、手撕一个最简单的server端服务器（socket、bind、listen、accept这四个API一定要非常熟练）</h3><h3 id="3、线程池"><a href="#3、线程池" class="headerlink" title="3、线程池"></a>3、线程池</h3><h3 id="4、基于事件驱动的reactor模式"><a href="#4、基于事件驱动的reactor模式" class="headerlink" title="4、基于事件驱动的reactor模式"></a>4、基于事件驱动的reactor模式</h3><h3 id="5、边沿触发与水平触发的区别"><a href="#5、边沿触发与水平触发的区别" class="headerlink" title="5、边沿触发与水平触发的区别"></a>5、边沿触发与水平触发的区别</h3><h3 id="6、非阻塞IO与阻塞IO区别"><a href="#6、非阻塞IO与阻塞IO区别" class="headerlink" title="6、非阻塞IO与阻塞IO区别"></a>6、非阻塞IO与阻塞IO区别</h3><p> 参考书籍：《Unix网络编程》<br> ps:网络编程掌握以上几点就够了，要搞明白还是要花很久时间的。</p>
+<p> 五、数据结构与<a href="">算法</a>及<a href="">刷题</a>（2个月）<br> 1、数组<br> 2、<a href="">链表</a><br> 3、栈<br> 4、队列<br> 5、堆<br> 6、<a href="">二叉树</a>：二叉搜索树、平衡树、<a href="">红黑树</a><br> 7、B树、B+树<br> 8、<a href="">哈希表</a>及哈希冲突<br> 9、<a href="">排序</a><a href="">算法</a>：冒泡<a href="">排序</a>、简单选择<a href="">排序</a>、插入<a href="">排序</a>、希尔<a href="">排序</a>、归并<a href="">排序</a>、堆<a href="">排序</a>、快速<a href="">排序</a><br> （要求能够面试时手写出堆<a href="">排序</a>和快速<a href="">排序</a>）<br> 10、二分法：<a href="">旋转数组</a>找target<br> 11、回溯法：全排列、复原IP地址<br> 12、<a href="">动态规划</a>（掌握基本的<a href="">动态规划</a>的几个题其实就够了，如：<a href="">斐波那契数列</a>、接雨水、股票的最佳买入时机）</p>
+<p>五、mySQL数据库（7天~15天）<br> 1、数据存储引擎：InnoDB、myISAM、Memory<br> 2、数据库索引类型及原理：B+树索引、<a href="">哈希表</a>索引<br> 3、锁：悲观锁、乐观锁<br> 4、事务：事务的四大特性（ACID）、事务并发的三大问题、事务隔离级别及实现原理<br> 5、多版本并发控制实现机制（MCVV）原理</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">长烟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yunf194.github.io/2022/03/02/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/">http://yunf194.github.io/2022/03/02/202232-C++%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E9%9D%A2%E7%A7%AF%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yunf194.github.io" target="_blank">fengyun's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C++</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/p11.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/03/02/202231-%E5%B7%A6%E5%80%BC%E5%92%8C%E5%8F%B3%E5%80%BC/"><img class="prev-cover" src="/images/cover/p11.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">左值和右值</div></div></a></div><div class="next-post pull-right"><a href="/2022/03/01/202231-%E6%A8%A1%E6%9D%BF/"><img class="next-cover" src="/images/cover/p11.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">模板</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/20/2022220-bool%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8/" title="bool类型和引用"><img class="cover" src="/images/cover/C++.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-20</div><div class="title">bool类型和引用</div></div></a></div><div><a href="/2022/02/20/2022220-const%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" title="const深度解析"><img class="cover" src="/images/cover/C++.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-20</div><div class="title">const深度解析</div></div></a></div><div><a href="/2022/02/20/2022220-%E7%BC%96%E8%AF%91%E9%93%BE%E6%8E%A5/" title="编译链接"><img class="cover" src="/images/cover/C++.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-20</div><div class="title">编译链接</div></div></a></div><div><a href="/2022/02/21/2022221-%E5%87%BD%E6%95%B0%E6%B7%B1%E5%BA%A6%E5%88%86%E6%9E%90/" title="函数深度分析"><img class="cover" src="/images/cover/C++.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-21</div><div class="title">函数深度分析</div></div></a></div><div><a href="/2022/02/22/2022222-%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" title="动态内存分配"><img class="cover" src="/images/cover/C++.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-22</div><div class="title">动态内存分配</div></div></a></div><div><a href="/2022/02/21/2022221-%E7%A8%8B%E5%BA%8F%E5%86%85%E5%AD%98%E8%AF%A6%E8%A7%A3/" title="程序内存详解"><img class="cover" src="/images/cover/C++.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-21</div><div class="title">程序内存详解</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yunf194.github.io/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">长烟</div><div class="author-info__description">交际是分享快乐，独处是消化自我</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">76</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yunf194"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yunf194" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2846327307@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我明白你会来所以我等</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">C++基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7%EF%BC%9A%E5%B0%81%E8%A3%85%E3%80%81%E7%BB%A7%E6%89%BF%E3%80%81%E5%A4%9A%E6%80%81"><span class="toc-number">1.1.</span> <span class="toc-text">面向对象的三大特性：封装、继承、多态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E3%80%81%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E3%80%81%E8%B5%8B%E5%80%BC%E5%87%BD%E6%95%B0%E3%80%81%E6%8B%B7%E8%B4%9D%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">类的构造函数、析构函数、赋值函数、拷贝函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%AF%B9%E6%AF%94"><span class="toc-number">1.3.</span> <span class="toc-text">移动构造函数与拷贝构造函数对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.4.</span> <span class="toc-text">深拷贝与浅拷贝的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E7%B1%BB%E6%9C%89%E5%93%AA%E4%BA%9B%E5%87%BD%E6%95%B0%EF%BC%9F%E7%A9%BA%E7%B1%BB%E7%9A%84%E5%A4%A7%E5%B0%8F%EF%BC%9F"><span class="toc-number">1.5.</span> <span class="toc-text">空类有哪些函数？空类的大小？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA%EF%BC%9A%E5%85%A8%E5%B1%80%E5%8C%BA%E3%80%81%E5%A0%86%E5%8C%BA%E3%80%81%E6%A0%88%E5%8C%BA%E3%80%81%E5%B8%B8%E9%87%8F%E5%8C%BA%E3%80%81%E4%BB%A3%E7%A0%81%E5%8C%BA"><span class="toc-number">1.6.</span> <span class="toc-text">内存分区：全局区、堆区、栈区、常量区、代码区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-%E4%B8%8EC%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.7.</span> <span class="toc-text">C++与C的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#struct%E4%B8%8Eclass%E7%9A%84%E5%8C%BA%E5%88%AB-4%E7%82%B9"><span class="toc-number">1.8.</span> <span class="toc-text">struct与class的区别(4点)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pragma-pack-n"><span class="toc-number">1.9.</span> <span class="toc-text">#pragma pack(n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E5%9F%9F"><span class="toc-number">1.10.</span> <span class="toc-text">位域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extern-%E2%80%9CC%E2%80%9D"><span class="toc-number">1.11.</span> <span class="toc-text">extern “C”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#explicit%EF%BC%88%E6%98%BE%E5%BC%8F%EF%BC%89%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.12.</span> <span class="toc-text">explicit（显式）关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#struct%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90"><span class="toc-number">1.13.</span> <span class="toc-text">struct内存对齐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#new-delete%E4%B8%8Emalloc-free%E7%9A%84%E5%8C%BA%E5%88%AB-5%E7%82%B9"><span class="toc-number">1.14.</span> <span class="toc-text">new&#x2F;delete与malloc&#x2F;free的区别(5点)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">1.15.</span> <span class="toc-text">内存泄露的情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sizeof%E4%B8%8Estrlen%E5%AF%B9%E6%AF%94"><span class="toc-number">1.16.</span> <span class="toc-text">sizeof与strlen对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E4%B8%8E%E5%BC%95%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.17.</span> <span class="toc-text">指针与引用的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8E%E6%8C%87%E9%92%88%E4%BA%A7%E7%94%9F%E4%B8%8E%E9%81%BF%E5%85%8D"><span class="toc-number">1.18.</span> <span class="toc-text">野指针产生与避免</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%80%81%EF%BC%9A%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81%E3%80%81%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81"><span class="toc-number">1.19.</span> <span class="toc-text">多态：动态多态、静态多态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">1.20.</span> <span class="toc-text">虚函数实现动态多态的原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E5%87%BD%E6%95%B0%E3%80%81%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0"><span class="toc-number">1.21.</span> <span class="toc-text">虚函数、纯虚函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E3%80%81%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8"><span class="toc-number">1.22.</span> <span class="toc-text">虚函数指针、虚函数表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E6%97%B6%EF%BC%8C%E7%88%B6%E7%B1%BB%E7%9A%84%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E6%98%AF%E5%90%A6%E4%B8%BA%E8%99%9A%E5%87%BD%E6%95%B0%EF%BC%9F%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%83%BD%E4%B8%8D%E8%83%BD%E4%B8%BA%E8%99%9A%E5%87%BD%E6%95%B0%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.23.</span> <span class="toc-text">继承时，父类的析构函数是否为虚函数？构造函数能不能为虚函数？为什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB%E4%B8%8E%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0"><span class="toc-number">1.24.</span> <span class="toc-text">抽象类与纯虚函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19%E3%80%81%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81%EF%BC%9A%E9%87%8D%E5%86%99%E3%80%81%E9%87%8D%E8%BD%BD%E3%80%81%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.25.</span> <span class="toc-text">19、静态多态：重写、重载、模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#static%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%9A%E4%BF%AE%E9%A5%B0%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E3%80%81%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E3%80%81%E7%B1%BB%E4%B8%AD%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E3%80%81%E7%B1%BB%E4%B8%AD%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">1.26.</span> <span class="toc-text">static关键字：修饰局部变量、全局变量、类中成员变量、类中成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%9A%E4%BF%AE%E9%A5%B0%E5%8F%98%E9%87%8F%E3%80%81%E6%8C%87%E9%92%88%E3%80%81%E7%B1%BB%E5%AF%B9%E8%B1%A1%E3%80%81%E7%B1%BB%E4%B8%AD%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">1.27.</span> <span class="toc-text">const关键字：修饰变量、指针、类对象、类中成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#inline-%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0"><span class="toc-number">1.28.</span> <span class="toc-text">inline 内联函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#volatile%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%9A%E9%81%BF%E5%85%8D%E7%BC%96%E8%AF%91%E5%99%A8%E6%8C%87%E4%BB%A4%E4%BC%98%E5%8C%96"><span class="toc-number">1.29.</span> <span class="toc-text">volatile关键字：避免编译器指令优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#assert-%E5%AE%8F%E8%80%8C%E9%9D%9E%E5%87%BD%E6%95%B0"><span class="toc-number">1.30.</span> <span class="toc-text">assert() 宏而非函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%9Astatic-cast%E3%80%81dynamic-cast%E3%80%81const-cast%E3%80%81reinterpret-cast"><span class="toc-number">1.31.</span> <span class="toc-text">四种类型转换：static_cast、dynamic_cast、const_cast、reinterpret_cast</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8"><span class="toc-number">1.32.</span> <span class="toc-text">右值引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#std-move%E5%87%BD%E6%95%B0"><span class="toc-number">1.33.</span> <span class="toc-text">std::move函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E5%8F%8A%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%EF%BC%9Aauto-ptr%E3%80%81unique-ptr%E3%80%81shared-ptr%E3%80%81weak-ptr"><span class="toc-number">1.34.</span> <span class="toc-text">四种智能指针及底层实现：auto_ptr、unique_ptr、shared_ptr、weak_ptr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#28%E3%80%81shared-ptr%E4%B8%AD%E7%9A%84%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%EF%BC%9F%EF%BC%88weak-ptr%EF%BC%89"><span class="toc-number">1.35.</span> <span class="toc-text">28、shared_ptr中的循环引用怎么解决？（weak_ptr）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vector%E4%B8%8Elist%E6%AF%94%E8%BE%83"><span class="toc-number">1.36.</span> <span class="toc-text">vector与list比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vector%E6%89%A9%E5%AE%B9"><span class="toc-number">1.37.</span> <span class="toc-text">vector扩容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STL-%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="toc-number">1.38.</span> <span class="toc-text">STL 迭代器删除元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map%E4%B8%8Eunordered-map%E5%AF%B9%E6%AF%94"><span class="toc-number">1.39.</span> <span class="toc-text">map与unordered_map对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#set%E4%B8%8Eunordered-set%E5%AF%B9%E6%AF%94"><span class="toc-number">1.40.</span> <span class="toc-text">set与unordered_set对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E7%AD%94%E2%BC%80%E4%B8%8B-STL-%E2%BE%A5-resize-%E5%92%8C-reserve-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.41.</span> <span class="toc-text">回答⼀下 STL ⾥ resize 和 reserve 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map-%E5%92%8C-set-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%8C%E5%88%86%E5%88%AB%E2%BC%9C%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="toc-number">1.42.</span> <span class="toc-text">map 和 set 有什么区别，分别⼜是怎么实现的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STL%E5%AE%B9%E5%99%A8%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8"><span class="toc-number">1.43.</span> <span class="toc-text">STL容器空间配置器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="toc-number">2.</span> <span class="toc-text">计算机网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="toc-number">2.1.</span> <span class="toc-text">网络层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B4%E8%AF%B4-MAC%E5%9C%B0%E5%9D%80%E5%92%8CIP%E5%9C%B0%E5%9D%80%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8"><span class="toc-number">2.2.</span> <span class="toc-text">说说 MAC地址和IP地址分别有什么作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFARP%E5%8D%8F%E8%AE%AE-Address-Resolution-Protocol-%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">什么是ARP协议 (Address Resolution Protocol)？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E4%B8%BA%E5%95%A5%E6%9C%89IP%E5%9C%B0%E5%9D%80%E8%BF%98%E9%9C%80%E8%A6%81MAC%E5%9C%B0%E5%9D%80%EF%BC%9F%E5%90%8C%E7%90%86%EF%BC%8C%E4%B8%BA%E5%95%A5%E6%9C%89%E4%BA%86MAC%E5%9C%B0%E5%9D%80%E8%BF%98%E9%9C%80%E8%A6%81IP%E5%9C%B0%E5%9D%80%EF%BC%9F"><span class="toc-number">2.4.</span> <span class="toc-text">6、为啥有IP地址还需要MAC地址？同理，为啥有了MAC地址还需要IP地址？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E7%BD%91%E7%BB%9C%E5%B1%82%E8%BD%AC%E5%8F%91%E6%95%B0%E6%8D%AE%E6%8A%A5%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">2.5.</span> <span class="toc-text">7、网络层转发数据报的流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E5%AD%90%E7%BD%91%E5%88%92%E5%88%86%E3%80%81%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81"><span class="toc-number">2.6.</span> <span class="toc-text">8、子网划分、子网掩码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81%E7%BD%91%E7%BB%9C%E6%8E%A7%E5%88%B6%E6%8A%A5%E6%96%87%E5%8D%8F%E8%AE%AEICMP"><span class="toc-number">2.7.</span> <span class="toc-text">9、网络控制报文协议ICMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10%E3%80%81ICMP%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B%EF%BC%9APING%E3%80%81traceroute"><span class="toc-number">2.8.</span> <span class="toc-text">10、ICMP应用举例：PING、traceroute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%8E%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.9.</span> <span class="toc-text">路由器与交换机的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%BE%93%E5%B1%82%EF%BC%9A"><span class="toc-number">2.10.</span> <span class="toc-text">运输层：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%88%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E3%80%81%E4%B8%80%E5%AF%B9%E4%B8%80%E3%80%81%E5%AD%97%E8%8A%82%E6%B5%81%E3%80%81%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E3%80%81%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E3%80%81%E9%A6%96%E9%83%A8%E5%AD%97%E8%8A%82%E3%80%81%E6%89%80%E9%9C%80%E8%B5%84%E6%BA%90%EF%BC%89"><span class="toc-number">2.11.</span> <span class="toc-text">TCP与UDP的区别及应用场景（建立连接、一对一、字节流、流量控制、拥塞控制、首部字节、所需资源）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP%E3%80%81TCP%E9%A6%96%E9%83%A8%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F%EF%BC%88SYN%E3%80%81ACK%E3%80%81FIN%E3%80%81RST%E5%BF%85%E9%A1%BB%E7%9F%A5%E9%81%93%EF%BC%89"><span class="toc-number">2.12.</span> <span class="toc-text">UDP、TCP首部报文格式（SYN、ACK、FIN、RST必须知道）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.13.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-number">2.14.</span> <span class="toc-text">TCP流量控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%EF%BC%88%E6%85%A2%E5%BC%80%E5%A7%8B%E3%80%81%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D%E3%80%81%E5%BF%AB%E9%87%8D%E4%BC%A0%E3%80%81%E5%BF%AB%E6%81%A2%E5%A4%8D%E3%80%82%EF%BC%89"><span class="toc-number">2.15.</span> <span class="toc-text">TCP拥塞控制（慢开始、拥塞避免、快重传、快恢复。）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%8F%8A%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E3%80%82%E4%B8%BA%E5%95%A5%E4%B8%8D%E6%98%AF%E4%B8%A42%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%9F"><span class="toc-number">2.16.</span> <span class="toc-text">TCP三次握手及状态变化。为啥不是两2次握手？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E5%8F%8A%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E3%80%82%E4%B8%BA%E5%95%A5%E4%B8%8D%E6%98%AF%E4%B8%89%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%9F"><span class="toc-number">2.17.</span> <span class="toc-text">TCP四次挥手及状态变化。为啥不是三次挥手？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E8%BF%9E%E6%8E%A5%E9%87%8A%E6%94%BE%E4%B8%ADTIME-WAIT%E7%8A%B6%E6%80%81%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">2.18.</span> <span class="toc-text">TCP连接释放中TIME_WAIT状态的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%8F%AF%E9%9D%A0%E6%80%A7%E7%9A%84%EF%BC%9F"><span class="toc-number">2.19.</span> <span class="toc-text">TCP如何保证可靠性的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%AF%E9%9D%A0%E7%9A%84%EF%BC%9F"><span class="toc-number">2.20.</span> <span class="toc-text">UDP为什么是不可靠的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-%E6%9C%80%E5%A4%A7%E8%BF%9E%E6%8E%A5%E6%95%B0%E9%99%90%E5%88%B6"><span class="toc-number">2.21.</span> <span class="toc-text">TCP 最大连接数限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SYN%E6%B3%9B%E6%B4%AA%E6%94%BB%E5%87%BB%E3%80%82%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%EF%BC%9F"><span class="toc-number">2.22.</span> <span class="toc-text">SYN泛洪攻击。如何解决？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E7%B2%98%E5%8C%85"><span class="toc-number">2.23.</span> <span class="toc-text">TCP粘包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22%E3%80%81TCP%E5%BF%83%E8%B7%B3%E5%8C%85"><span class="toc-number">2.24.</span> <span class="toc-text">22、TCP心跳包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#24%E3%80%81UDP%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93"><span class="toc-number">2.25.</span> <span class="toc-text">24、UDP如何实现可靠传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82%EF%BC%9A"><span class="toc-number">2.26.</span> <span class="toc-text">应用层：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F%E3%80%82%E9%87%87%E7%94%A8TCP%E8%BF%98%E6%98%AFUDP%E5%8D%8F%E8%AE%AE%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">2.27.</span> <span class="toc-text">DNS域名系统。采用TCP还是UDP协议？为什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#26%E3%80%81FTP%E5%8D%8F%E8%AE%AE%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="toc-number">2.28.</span> <span class="toc-text">26、FTP协议（了解）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#27%E3%80%81HTTP%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87%E4%B8%8E%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E9%A6%96%E9%83%A8%E7%BB%93%E6%9E%84"><span class="toc-number">2.29.</span> <span class="toc-text">27、HTTP请求报文与响应报文首部结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E8%BF%B0-HTTP-1-0%EF%BC%8C1-1%EF%BC%8C2-0-%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="toc-number">2.30.</span> <span class="toc-text">简述 HTTP 1.0，1.1，2.0 的主要区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP%E4%B8%8EHTTPS%E5%AF%B9%E6%AF%94%EF%BC%884%E7%82%B9%EF%BC%89"><span class="toc-number">2.31.</span> <span class="toc-text">HTTP与HTTPS对比（4点）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTPS%E5%8A%A0%E5%AF%86%E6%B5%81%E7%A8%8B"><span class="toc-number">2.32.</span> <span class="toc-text">HTTPS加密流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95%E5%92%8C%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-number">2.33.</span> <span class="toc-text">HTTP请求方法和状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B4%E8%AF%B4-GET%E8%AF%B7%E6%B1%82%E5%92%8C-POST-%E8%AF%B7%E6%B1%82%E7%9A%84%E5%8C%BA%E5%88%AB%E3%80%90%E4%BD%8D%E7%BD%AE%E3%80%81%E6%98%8E%E6%96%87%E5%AF%86%E6%96%87%E3%80%81%E5%AE%89%E5%85%A8%E3%80%81%E9%95%BF%E5%BA%A6%E3%80%81%E5%9C%BA%E6%99%AF%E3%80%91"><span class="toc-number">2.34.</span> <span class="toc-text">说说 GET请求和 POST 请求的区别【位置、明文密文、安全、长度、场景】</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFcookie%E5%92%8Csession%EF%BC%9F"><span class="toc-number">2.35.</span> <span class="toc-text">什么是cookie和session？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cookie%E5%92%8CSession%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F%EF%BC%884%E7%82%B9%EF%BC%89"><span class="toc-number">2.36.</span> <span class="toc-text">Cookie和Session的区别？（4点）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAURL%E5%88%B0%E6%98%BE%E7%A4%BA%E9%A1%B5%E9%9D%A2%E7%9A%84%E6%B5%81%E7%A8%8B%EF%BC%88%E8%B6%8A%E8%AF%A6%E7%BB%86%E8%B6%8A%E5%A5%BD%EF%BC%8C%E6%90%9E%E6%98%8E%E7%99%BD%E8%BF%99%E4%B8%AA%EF%BC%8C%E7%BD%91%E7%BB%9C%E8%BF%99%E5%9D%97%E5%B0%B1%E5%B7%AE%E4%B8%8D%E5%A4%9A%E4%BA%86%EF%BC%89"><span class="toc-number">2.37.</span> <span class="toc-text">输入一个URL到显示页面的流程（越详细越好，搞明白这个，网络这块就差不多了）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">操作系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E5%8C%BA%E5%88%AB%EF%BC%88%E8%B5%84%E6%BA%90%E8%B0%83%E5%BA%A6%EF%BC%8C%E5%85%B3%E7%B3%BB%EF%BC%8C%E6%8B%A5%E6%9C%89%E8%B5%84%E6%BA%90%EF%BC%8C%E5%86%85%E5%AD%98%EF%BC%8C%E9%80%9A%E4%BF%A1"><span class="toc-number">3.1.</span> <span class="toc-text">进程与线程区别（资源调度，关系，拥有资源，内存，通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E7%9A%84%E5%88%87%E6%8D%A2"><span class="toc-number">3.2.</span> <span class="toc-text">进程状态的切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">进程的调度算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9A%E9%94%81%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F%E3%80%81%E4%BF%A1%E5%8F%B7%E3%80%81%E5%B1%8F%E9%9A%9C"><span class="toc-number">3.4.</span> <span class="toc-text">线程同步的方式：锁、信号量、信号、屏障</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-number">3.5.</span> <span class="toc-text">进程同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%EF%BC%9APIPE%E3%80%81FIFO%E3%80%81%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F%E3%80%81%E4%BF%A1%E5%8F%B7%E3%80%81%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E3%80%81socket"><span class="toc-number">3.6.</span> <span class="toc-text">进程间通信：PIPE、FIFO、消息队列、信号量、信号、共享内存、socket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E4%BA%92%E6%96%A5%E9%94%81%E4%B8%8E%E8%87%AA%E6%97%8B%E9%94%81%E7%9A%84%E5%BA%95%E5%B1%82%E5%8C%BA%E5%88%AB"><span class="toc-number">3.7.</span> <span class="toc-text">3、互斥锁与自旋锁的底层区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B"><span class="toc-number">3.8.</span> <span class="toc-text">孤儿进程与僵尸进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E5%8F%8A%E9%81%BF%E5%85%8D"><span class="toc-number">3.9.</span> <span class="toc-text">死锁及避免</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E6%AF%94%E3%80%81%E4%BC%98%E5%8A%A3%E4%B8%8E%E9%80%89%E6%8B%A9"><span class="toc-number">3.10.</span> <span class="toc-text">多进程与多线程间的对比、优劣与选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E4%BD%A0%E8%AF%B4%E8%AF%B4%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-number">3.11.</span> <span class="toc-text">请你说说什么是守护进程，如何实现？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E7%AE%A1%E9%81%93%E4%B8%8E%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AF%B9%E6%AF%94"><span class="toc-number">3.12.</span> <span class="toc-text">8、管道与消息队列对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81fork%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%BA%95%E5%B1%82%EF%BC%9A%E8%AF%BB%E6%97%B6%E5%85%B1%E4%BA%AB%EF%BC%8C%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6"><span class="toc-number">3.13.</span> <span class="toc-text">9、fork进程的底层：读时共享，写时复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%AD%E6%96%AD%E5%88%87%E6%8D%A2%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="toc-number">3.14.</span> <span class="toc-text">进程、线程的中断切换的过程是怎样的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13%E3%80%81%E9%98%BB%E5%A1%9EIO%E4%B8%8E%E9%9D%9E%E9%98%BB%E5%A1%9EIO"><span class="toc-number">3.15.</span> <span class="toc-text">13、阻塞IO与非阻塞IO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14%E3%80%81%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">3.16.</span> <span class="toc-text">14、同步与异步的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15%E3%80%81%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">3.17.</span> <span class="toc-text">15、静态链接与动态链接的过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">3.17.1.</span> <span class="toc-text">静态链接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">3.17.2.</span> <span class="toc-text">动态链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16%E3%80%81%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E6%A6%82%E5%BF%B5%EF%BC%88%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81%EF%BC%89"><span class="toc-number">3.18.</span> <span class="toc-text">16、虚拟内存概念（非常重要）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17%E3%80%81MMU%E5%9C%B0%E5%9D%80%E7%BF%BB%E8%AF%91%E7%9A%84%E5%85%B7%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-number">3.19.</span> <span class="toc-text">17、MMU地址翻译的具体流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#18%E3%80%81%E7%BC%BA%E9%A1%B5%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="toc-number">3.20.</span> <span class="toc-text">18、缺页处理过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19%E3%80%81%E7%BC%BA%E9%A1%B5%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%EF%BC%9A%E6%9C%80%E4%B9%85%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%AE%97%E6%B3%95%E3%80%81%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA%E7%AE%97%E6%B3%95%E3%80%81%E6%9C%80%E4%BD%B3%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-number">3.21.</span> <span class="toc-text">19、缺页置换算法：最久未使用算法、先进先出算法、最佳置换算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%EF%BC%9Aselect%E3%80%81poll%E3%80%81epoll%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%88%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81%EF%BC%8C%E5%87%A0%E4%B9%8E%E5%BF%85%E9%97%AE%EF%BC%8C%E5%9B%9E%E7%AD%94%E5%BE%97%E8%B6%8A%E5%BA%95%E5%B1%82%E8%B6%8A%E5%A5%BD%EF%BC%8C%E8%A6%81%E4%BC%9A%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="toc-number">3.22.</span> <span class="toc-text">1、IO多路复用：select、poll、epoll的区别（非常重要，几乎必问，回答得越底层越好，要会使用）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E6%89%8B%E6%92%95%E4%B8%80%E4%B8%AA%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84server%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88socket%E3%80%81bind%E3%80%81listen%E3%80%81accept%E8%BF%99%E5%9B%9B%E4%B8%AAAPI%E4%B8%80%E5%AE%9A%E8%A6%81%E9%9D%9E%E5%B8%B8%E7%86%9F%E7%BB%83%EF%BC%89"><span class="toc-number">3.23.</span> <span class="toc-text">2、手撕一个最简单的server端服务器（socket、bind、listen、accept这四个API一定要非常熟练）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-number">3.24.</span> <span class="toc-text">3、线程池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E7%9A%84reactor%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.25.</span> <span class="toc-text">4、基于事件驱动的reactor模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E8%BE%B9%E6%B2%BF%E8%A7%A6%E5%8F%91%E4%B8%8E%E6%B0%B4%E5%B9%B3%E8%A7%A6%E5%8F%91%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">3.26.</span> <span class="toc-text">5、边沿触发与水平触发的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E9%9D%9E%E9%98%BB%E5%A1%9EIO%E4%B8%8E%E9%98%BB%E5%A1%9EIO%E5%8C%BA%E5%88%AB"><span class="toc-number">3.27.</span> <span class="toc-text">6、非阻塞IO与阻塞IO区别</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/17/2022317-%E5%8F%AF%E8%B0%83%E7%94%A8%E5%AF%B9%E8%B1%A1/" title="可调用对象"><img src="/images/cover/p11.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="可调用对象"/></a><div class="content"><a class="title" href="/2022/03/17/2022317-%E5%8F%AF%E8%B0%83%E7%94%A8%E5%AF%B9%E8%B1%A1/" title="可调用对象">可调用对象</a><time datetime="2022-03-16T16:00:00.000Z" title="发表于 2022-03-17 00:00:00">2022-03-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/13/2022313-STL%E6%A0%87%E5%87%86%E6%A8%A1%E6%9D%BF%E5%BA%93/" title="STL标准模板库"><img src="/images/cover/p19.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="STL标准模板库"/></a><div class="content"><a class="title" href="/2022/03/13/2022313-STL%E6%A0%87%E5%87%86%E6%A8%A1%E6%9D%BF%E5%BA%93/" title="STL标准模板库">STL标准模板库</a><time datetime="2022-03-12T16:00:00.000Z" title="发表于 2022-03-13 00:00:00">2022-03-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/12/2022313-%E8%BF%AD%E4%BB%A3%E5%99%A8/" title="迭代器"><img src="/images/cover/p19.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="迭代器"/></a><div class="content"><a class="title" href="/2022/03/12/2022313-%E8%BF%AD%E4%BB%A3%E5%99%A8/" title="迭代器">迭代器</a><time datetime="2022-03-11T16:00:00.000Z" title="发表于 2022-03-12 00:00:00">2022-03-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/10/2022310-%E6%95%B4%E6%95%B0%E7%9B%B8%E5%8A%A0%E7%B2%BE%E5%BA%A6%E6%8D%9F%E5%A4%B1/" title="整数相加精度损失"><img src="/images/cover/offer.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="整数相加精度损失"/></a><div class="content"><a class="title" href="/2022/03/10/2022310-%E6%95%B4%E6%95%B0%E7%9B%B8%E5%8A%A0%E7%B2%BE%E5%BA%A6%E6%8D%9F%E5%A4%B1/" title="整数相加精度损失">整数相加精度损失</a><time datetime="2022-03-09T16:00:00.000Z" title="发表于 2022-03-10 00:00:00">2022-03-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/05/202235-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" title="异常处理"><img src="/images/cover/p1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="异常处理"/></a><div class="content"><a class="title" href="/2022/03/05/202235-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" title="异常处理">异常处理</a><time datetime="2022-03-04T16:00:00.000Z" title="发表于 2022-03-05 00:00:00">2022-03-05</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/images/cover/p11.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By 长烟</div><div class="footer_custom_text">其实，我回头等了你好久好久，你都没来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Yb0FJoeuYRJfbYGupEnFsg6E-gzGzoHsz',
+      appKey: 'Pjo4dvB3TbjfY8clnS7fxalh',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
