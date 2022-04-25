@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>主引导程序 | fengyun's Blog</title><meta name="keywords" content="OS"><meta name="author" content="长烟"><meta name="copyright" content="长烟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="主引导程序扩展（FAT12）主引导程序位于0扇区，以0x55aa结束标记，大小不可以超过512字节512字节的大小代码量成为了一个限制，那么应该如何突破限制？ 突破思路如下，主引导程序：  首先主引导程序本身要加载到内存中，并且完成最基本的初始化工作 然后从存储介质中找到一段新程序并且将新程序加载到内存中 将控制权交由新加载的程序执行   问题就变为了 主引导程序如何加载存储介质中的其它程序?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="主引导程序">
+<meta property="og:url" content="http://yunf194.github.io/2022/04/23/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/index.html">
+<meta property="og:site_name" content="fengyun&#39;s Blog">
+<meta property="og:description" content="主引导程序扩展（FAT12）主引导程序位于0扇区，以0x55aa结束标记，大小不可以超过512字节512字节的大小代码量成为了一个限制，那么应该如何突破限制？ 突破思路如下，主引导程序：  首先主引导程序本身要加载到内存中，并且完成最基本的初始化工作 然后从存储介质中找到一段新程序并且将新程序加载到内存中 将控制权交由新加载的程序执行   问题就变为了 主引导程序如何加载存储介质中的其它程序?">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yunf194.github.io/images/cover/os.jpg">
+<meta property="article:published_time" content="2022-04-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-24T09:45:29.103Z">
+<meta property="article:author" content="长烟">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yunf194.github.io/images/cover/os.jpg"><link rel="shortcut icon" href="https://yunf194.github.io/images/favicon.png"><link rel="canonical" href="http://yunf194.github.io/2022/04/23/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5b5317a4316878223f02ccad7d028fa5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '主引导程序',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-24 17:45:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yunf194.github.io/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">85</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover/os.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">fengyun's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">主引导程序</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-22T16:00:00.000Z" title="发表于 2022-04-23 00:00:00">2022-04-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-24T09:45:29.103Z" title="更新于 2022-04-24 17:45:29">2022-04-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="主引导程序"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="主引导程序扩展（FAT12）"><a href="#主引导程序扩展（FAT12）" class="headerlink" title="主引导程序扩展（FAT12）"></a>主引导程序扩展（FAT12）</h2><p>主引导程序位于0扇区，以0x55aa结束标记，大小不可以超过512字节<br>512字节的大小代码量成为了一个限制，那么应该如何突破限制？</p>
+<p>突破思路如下，主引导程序：</p>
+<ol>
+<li>首先主引导程序本身要加载到内存中，并且完成最基本的初始化工作</li>
+<li><strong>然后从存储介质中找到一段新程序并且将新程序加载到内存中</strong></li>
+<li>将控制权交由新加载的程序执行</li>
+</ol>
+<p><img src="/../images/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/image-20220424152231008.png" alt="image-20220424152231008"></p>
+<p>问题就变为了 <code>主引导程序如何加载存储介质中的其它程序?  </code></p>
+<p><strong>文件系统</strong>：存储介质上组织文件数据的方法（ 数据组织的方式 ）  </p>
+<p><img src="/../images/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/image-20220424152614428.png" alt="image-20220424152614428"></p>
+<p>FAT12文件格式如上，引导扇区里有主引导程序，而FAT1和FAT2并无差别，可以相互备份</p>
+<p>文件系统示例</p>
+<ol>
+<li>FAT12 是 DOS 时代的早期文件系统</li>
+<li>FAT12 结构非常简单，一直沿用于软盘</li>
+<li>FAT12 的基本组织单位<br>• 字节（ Byte ) : 基本数据单位<br>• 扇区（ Sector ) : 磁盘中的最小数据单元<br>• 簇（ Cluster ) : 一个或多个扇区  </li>
+</ol>
+<p>解决方案</p>
+<ol>
+<li>使用 FAT12 对软盘（data.img ) 进行格式化</li>
+<li>编写可执行程序（ Loader ) ,并将其拷贝到软盘中</li>
+<li>主引导程序（ Boot ) 在文件系统中查找 Loader</li>
+<li>将 Loader 复制到内存中 ， 并跳转到入口处执行  </li>
+</ol>
+<h3 id="对软盘进行格式化并编写可执行程序"><a href="#对软盘进行格式化并编写可执行程序" class="headerlink" title="对软盘进行格式化并编写可执行程序"></a>对软盘进行格式化并编写可执行程序</h3><p>实验 ： 往虚拟软盘中写入文件<br>原材料 ： FreeDos , Bochs , bximage<br>步 骤 ：<br>1.创建虚拟软盘 data.img</p>
+<p>执行命令<code>bximage</code></p>
+<p>2.在 FreeDos 中进行格式化（ FAT12 )</p>
+<p>橙色方框表示软盘data.img插入到FreeDos里面去，并且是B盘</p>
+<p><img src="/../images/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/image-20220424161711715.png" alt="image-20220424161711715"></p>
+<p>bash执行<code>bochs</code>启动FreeDos</p>
+<p>对B盘进行格式化format，这个时候B盘将拥有FAT12文件系统，但是这个时候并没有文件</p>
+<p><img src="/../images/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/image-20220424161608967.png" alt="image-20220424161608967"></p>
+<p>3.将 data.img 挂载到 Linux中 ， 并写收入文件  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fengyun@ubuntu:~/share/os$ sudo mount -o loop data.img /mnt/hgfs </span><br><span class="line">fengyun@ubuntu:~/share/os$ vim test.txt</span><br><span class="line">fengyun@ubuntu:~/share/os$ vim loader.bin</span><br><span class="line">fengyun@ubuntu:~/share/os$ sudo cp test.txt /mnt/hgfs/</span><br><span class="line">fengyun@ubuntu:~/share/os$ sudo cp loader.bin /mnt/hgfs/</span><br><span class="line">fengyun@ubuntu:~/share/os$ sudo umount /mnt/hgfs </span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/image-20220424161016875.png" alt="image-20220424161016875"></p>
+<p>自此我们拥有了一块虚拟软盘data.img，它拥有FAT12文件系统和创建的两个文件test.txt和loader.bin。<br>而这个文件格式就是FAT12文件系统，软盘拥有了特殊的数据组织方式。</p>
+<h3 id="Boot查找目标文件并读取文件内容"><a href="#Boot查找目标文件并读取文件内容" class="headerlink" title="Boot查找目标文件并读取文件内容"></a>Boot查找目标文件并读取文件内容</h3><p>FAT12文件系统由引导区 ， FAT表 ， 根目录项表和文件数据区组成  </p>
+<p><img src="/../images/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/image-20220424162657093.png" alt="image-20220424162657093"></p>
+<p><strong>主引导区：</strong></p>
+<p>存储介质的第0扇区，主引导区存储的比较重要的信息是文件系统的类型，文件系统逻辑扇区总数，每簇包含的扇区数，等。主引导区最后以0X55AA两个字节作为结束，共占用1个扇区。  </p>
+<p>对于FAT12主引导程序和文件引导相关信息都是存放在第0扇区的</p>
+<p><img src="/../images/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/image-20220424162936866.png" alt="image-20220424162936866"></p>
+<p>实验 ： 读取 data.img 中的文件系统信息<br>- 步 骤 ：<br>• 创建 Fat12Header 结构体类型<br>• 使用文件流读取前 512 字节的内容<br>• 解析并打印相关的信息  </p>
+<p><img src="/../images/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/image-20220424164339763.png" alt="image-20220424164339763"></p>
+<ol>
+<li><p>FreeDos中的 format 程序在格式化软盘的时候自动在第0扇区生成了1个主引导程序 ， 这个主引导程序只打印1个字符串</p>
+</li>
+<li><p>文件格式和文件系统都是用于定义数据如何存放的规则 ， 只要遵循这个规则就能够成功读写目标数据  </p>
+</li>
+</ol>
+<p><strong>小结：</strong></p>
+<ol>
+<li>主引导程序的代码量不能超过 512 字节</li>
+<li>可以通过主引导程序加载新程序的方式突破限制</li>
+<li>加载新程序需要依赖于文件系统</li>
+<li>FAT12 是一种早期用于软盘的简单文件系统</li>
+<li>FAT12 文件系统的重要信息存储于 0 扇区  </li>
+</ol>
+<h2 id="通过FAT表项将文件内容加载进入内存"><a href="#通过FAT表项将文件内容加载进入内存" class="headerlink" title="通过FAT表项将文件内容加载进入内存"></a>通过FAT表项将文件内容加载进入内存</h2><p>如何在 FAT12 根目录中查找是否存在目标文件？  </p>
+<p>根目录区的大小和位置：</p>
+<p><img src="/../images/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/image-20220424174053601.png" alt="image-20220424174053601"></p>
+<p>FAT12文件系统中的根目录区<br><strong>根目录区由目录项构成</strong>，每一个目录项代表根目录中的文件索引。  </p>
+<p><img src="/../images/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/image-20220424174312858.png" alt="image-20220424174312858"></p>
+<p>实验 ： 读取 FAT12 文件系统的根目录信息<br>步 骤 ：</p>
+<ol>
+<li>创建RootEntry 结构体</li>
+<li>使用文件流顺序读取每个项的内容</li>
+<li>解析并打印相关的信息  </li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">长烟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yunf194.github.io/2022/04/23/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/">http://yunf194.github.io/2022/04/23/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yunf194.github.io" target="_blank">fengyun's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OS/">OS</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/os.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/04/23/2022423-BIOS/"><img class="next-cover" src="/images/cover/os.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">BIOS</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/04/23/2022423-BIOS/" title="BIOS"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-23</div><div class="title">BIOS</div></div></a></div><div><a href="/2021/12/30/OS1/" title="操作系统基础"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-30</div><div class="title">操作系统基础</div></div></a></div><div><a href="/2022/01/01/OS%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" title="操作系统-内存管理"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-01</div><div class="title">操作系统-内存管理</div></div></a></div><div><a href="/2021/12/30/OS%E5%86%85%E5%AD%98/" title="操作系统-进程管理"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-30</div><div class="title">操作系统-进程管理</div></div></a></div><div><a href="/2022/01/06/shell%E5%9F%BA%E7%A1%80/" title="shell编程基础"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-06</div><div class="title">shell编程基础</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yunf194.github.io/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">长烟</div><div class="author-info__description">交际是分享快乐，独处是消化自我</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">85</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yunf194"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yunf194" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2846327307@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我明白你会来所以我等</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F%E6%89%A9%E5%B1%95%EF%BC%88FAT12%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">主引导程序扩展（FAT12）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%BD%AF%E7%9B%98%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%B9%B6%E7%BC%96%E5%86%99%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.1.</span> <span class="toc-text">对软盘进行格式化并编写可执行程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boot%E6%9F%A5%E6%89%BE%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%B9%B6%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.</span> <span class="toc-text">Boot查找目标文件并读取文件内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87FAT%E8%A1%A8%E9%A1%B9%E5%B0%86%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%8A%A0%E8%BD%BD%E8%BF%9B%E5%85%A5%E5%86%85%E5%AD%98"><span class="toc-number">2.</span> <span class="toc-text">通过FAT表项将文件内容加载进入内存</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/23/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/" title="主引导程序"><img src="/images/cover/os.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="主引导程序"/></a><div class="content"><a class="title" href="/2022/04/23/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/" title="主引导程序">主引导程序</a><time datetime="2022-04-22T16:00:00.000Z" title="发表于 2022-04-23 00:00:00">2022-04-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/23/2022423-BIOS/" title="BIOS"><img src="/images/cover/os.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BIOS"/></a><div class="content"><a class="title" href="/2022/04/23/2022423-BIOS/" title="BIOS">BIOS</a><time datetime="2022-04-22T16:00:00.000Z" title="发表于 2022-04-23 00:00:00">2022-04-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/18/2022418-%E5%89%8D%E7%BC%80%E5%92%8C/" title="前缀和"><img src="/images/cover/suanfa.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前缀和"/></a><div class="content"><a class="title" href="/2022/04/18/2022418-%E5%89%8D%E7%BC%80%E5%92%8C/" title="前缀和">前缀和</a><time datetime="2022-04-17T16:00:00.000Z" title="发表于 2022-04-18 00:00:00">2022-04-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/15/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="lambda表达式"><img src="/images/cover/p11.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="lambda表达式"/></a><div class="content"><a class="title" href="/2022/04/15/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="lambda表达式">lambda表达式</a><time datetime="2022-04-15T14:01:23.136Z" title="发表于 2022-04-15 22:01:23">2022-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/12/2022412-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="二叉树"><img src="/images/cover/offer.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="二叉树"/></a><div class="content"><a class="title" href="/2022/04/12/2022412-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="二叉树">二叉树</a><time datetime="2022-04-11T16:00:00.000Z" title="发表于 2022-04-12 00:00:00">2022-04-12</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/images/cover/os.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By 长烟</div><div class="footer_custom_text">其实，我回头等了你好久好久，你都没来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Yb0FJoeuYRJfbYGupEnFsg6E-gzGzoHsz',
+      appKey: 'Pjo4dvB3TbjfY8clnS7fxalh',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
