@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>linux命令 | fengyun's Blog</title><meta name="keywords" content="linux"><meta name="author" content="长烟"><meta name="copyright" content="长烟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="wgetLinux wget是一个下载文件的工具，它用在命令行下。对于Linux用户是必不可少的工具，尤其对于网络管理员，经常要下载一些软件或从远程服务器恢复备份到本地服务器。如果我们使用虚拟主机，处理这样的事务我们只能先从远程服务器下载到我们电脑磁盘，然后再用ftp工具上传到服务器。这样既浪费时间又浪费精力，那不没办法的事。而到了Linux VPS，它则可以直接下载到服务器而不用经过上传这一步。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux命令">
+<meta property="og:url" content="http://yunf194.github.io/2022/01/22/linux%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="fengyun&#39;s Blog">
+<meta property="og:description" content="wgetLinux wget是一个下载文件的工具，它用在命令行下。对于Linux用户是必不可少的工具，尤其对于网络管理员，经常要下载一些软件或从远程服务器恢复备份到本地服务器。如果我们使用虚拟主机，处理这样的事务我们只能先从远程服务器下载到我们电脑磁盘，然后再用ftp工具上传到服务器。这样既浪费时间又浪费精力，那不没办法的事。而到了Linux VPS，它则可以直接下载到服务器而不用经过上传这一步。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yunf194.github.io/images/cover/os.jpg">
+<meta property="article:published_time" content="2022-01-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-23T09:05:32.051Z">
+<meta property="article:author" content="长烟">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yunf194.github.io/images/cover/os.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="http://yunf194.github.io/2022/01/22/linux%E5%91%BD%E4%BB%A4/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5b5317a4316878223f02ccad7d028fa5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'linux命令',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-23 17:05:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yunf194.github.io/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover/os.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">fengyun's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">linux命令</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-21T16:00:00.000Z" title="发表于 2022-01-22 00:00:00">2022-01-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-23T09:05:32.051Z" title="更新于 2022-01-23 17:05:32">2022-01-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/linux/">linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="linux命令"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h3><p>Linux wget是一个下载文件的工具，它用在命令行下。对于Linux用户是必不可少的工具，尤其对于网络管理员，经常要下载一些软件或从远程服务器恢复备份到本地服务器。如果我们使用虚拟主机，处理这样的事务我们只能先从远程服务器下载到我们电脑磁盘，然后再用ftp工具上传到服务器。这样既浪费时间又浪费精力，那不没办法的事。而到了Linux VPS，它则可以直接下载到服务器而不用经过上传这一步。wget工具体积小但功能完善，它支持断点下载功能，同时支持FTP和HTTP下载方式，支持代理服务器和设置起来方便简单。下面我们以实例的形式说明怎么使用wget。 </p>
+<p>**1、使用wget下载单个文件 </p>
+<p>**以下的例子是从网络下载一个文件并保存在当前目录 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://nginx.org/download/nginx-1.20.2.tar.gz</span><br></pre></td></tr></table></figure>
+
+
+<p>在下载的过程中会显示进度条，包含（下载完成百分比，已经下载的字节，当前下载速度，剩余下载时间）。</p>
+<h3 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h3><p>名称：ps<br>使用权限：所有使用者<br>使用方式：ps [options] [–help]<br>说明：显示瞬间行程 (process) 的动态</p>
+<p>常用参数：</p>
+<p>-A 显示所有进程（等价于-e）(utility)<br>-a 显示一个终端的所有进程，除了会话引线<br>-N 忽略选择。<br>-d 显示所有进程，但省略所有的会话引线(utility)<br>-x 显示没有控制终端的进程，同时显示各个命令的具体路径。dx不可合用。（utility）<br>-p pid 进程使用cpu的时间<br>-u uid or username 选择有效的用户id或者是用户名<br>-g gid or groupname 显示组的所有进程。<br>U username 显示该用户下的所有进程，且显示各个命令的详细路径。如:ps U zhang;(utility)<br>-f 全部列出，通常和其他选项联用。如：ps -fa or ps -fx and so on.<br>-l 长格式（有F,wchan,C 等字段）<br>-j 作业格式<br>-o 用户自定义格式。<br>v 以虚拟存储器格式显示<br>s 以信号格式显示<br>-m 显示所有的线程<br>-H 显示进程的层次(和其它的命令合用，如：ps -Ha)（utility）<br>e 命令之后显示环境（如：ps -d e; ps -a e）(utility)<br>h 不显示第一行</p>
+<h3 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h3><h4 id="tar命令做打包操作"><a href="#tar命令做打包操作" class="headerlink" title="tar命令做打包操作"></a>tar命令做打包操作</h4><p>当 tar 命令用于打包操作时，该命令的基本格式为：</p>
+<p>[root@localhost ~]#tar [选项] 源文件或目录</p>
+<p>此命令常用的选项及各自的含义如表 1 所示。</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-c</td>
+<td>将多个文件或目录进行打包。</td>
+</tr>
+<tr>
+<td>-A</td>
+<td>追加 tar 文件到归档文件。</td>
+</tr>
+<tr>
+<td>-f 包名</td>
+<td>指定包的文件名。包的扩展名是用来给管理员识别格式的，所以一定要正确指定扩展名；</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示打包文件过程；</td>
+</tr>
+</tbody></table>
+<p>需要注意的是，在使用 tar 命令指定选项时可以不在选项前面输入“-”。例如，使用“cvf”选项和 “-cvf”起到的作用一样。</p>
+<p>下面给大家举几个例子，一起看看如何使用 tar 命令打包文件和目录。</p>
+<p>【例 1】打包文件和目录。</p>
+<p>[root@localhost ~]# tar -cvf anaconda-ks.cfg.tar anaconda-ks.cfg<br>#把anacondehks.cfg打包为 anacondehks.cfg.tar文件</p>
+<p>选项 “-cvf” 一般是习惯用法，记住打包时需要指定打包之后的文件名，而且要用 “.tar” 作为扩展名。打包目录也是如此：</p>
+<p>[root@localhost ~]# ll -d test/<br>drwxr-xr-x 2 root root 4096 6月 17 21:09 test/<br>#test是我们之前的测试目录<br>[root@localhost ~]# tar -cvf test.tar test/<br>test/<br>test/test3<br>test/test2<br>test/test1<br>#把目录打包为test.tar文件<br>tar命令也可以打包多个文件或目录，只要用空格分开即可。例如:<br>[root@localhost ~]# tar -cvf ana.tar anaconda-ks.cfg /tmp/<br>#把anaconda-ks.cfg文件和/tmp目录打包成ana.tar文件包</p>
+<p>【例 2】打包并压缩目录。<br>首先声明一点，压缩命令不能直接压缩目录，必须先用 tar 命令将目录打包，然后才能用 gzip 命令或 bzip2 命令对打包文件进行压缩。例如：</p>
+<p>[root@localhost ~]#ll -d test test.tar<br>drwxr-xr-x 2 root root 4096 6月 17 21:09 test<br>-rw-r–r– 1 root root 10240 6月 18 01:06 test.tar<br>#我们之前已经把test目录打包成test.tar文件<br>[root@localhost ~]# gzip test.tar<br>[root@localhost ~]# ll test.tar.gz<br>-rw-r–r– 1 root root 176 6月 18 01:06 test.tar.gz<br>#gzip命令会把test.tar压缩成test.tar.gz</p>
+<h4 id="tar命令做解打包操作"><a href="#tar命令做解打包操作" class="headerlink" title="tar命令做解打包操作"></a>tar命令做解打包操作</h4><p>当 tar 命令用于对 tar 包做解打包操作时，该命令的基本格式如下：</p>
+<p>[root@localhost ~]#tar [选项] 压缩包</p>
+<p>当用于解打包时，常用的选项与含义如表 2 所示。</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-x</td>
+<td>对 tar 包做解打包操作。</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>指定要解压的 tar 包的包名。</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>只查看 tar 包中有哪些文件或目录，不对 tar 包做解打包操作。</td>
+</tr>
+<tr>
+<td>-C 目录</td>
+<td>指定解打包位置。</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示解打包的具体过程。</td>
+</tr>
+</tbody></table>
+<p>其实解打包和打包相比，只是把打包选项 “-cvf” 更换为 “-xvf”。我们来试试：</p>
+<p>[root@localhost ~]# tar -xvf anaconda-ks.cfg. tar<br>#解打包到当前目录下</p>
+<p>如果使用 “-xvf” 选项，则会把包中的文件解压到当前目录下。如果想要指定解压位置，则需要使用 “-C(大写)” 选项。例如：</p>
+<p>[root@localhost ~]# tar -xvf test.tar -C /tmp<br>#把文件包test.tar解打包到/tmp/目录下</p>
+<p>如果只想查看文件包中有哪些文件，则可以把解打包选项 “-x” 更换为测试选项 “-t”。例如：</p>
+<p>[root@localhost ~]# tar -tvf test.tar<br>drwxr-xr-x root/root 0 2016-06-17 21:09 test/<br>-rw-r-r- root/root 0 2016-06-17 17:51 test/test3<br>-rw-r-r- root/root 0 2016-06-17 17:51 test/test2<br>-rw-r-r- root/root 0 2016-06-17 17:51 test/test1<br>#会用长格式显示test.tar文件包中文件的详细信息</p>
+<h4 id="tar命令做打包压缩（解压缩解打包）操作"><a href="#tar命令做打包压缩（解压缩解打包）操作" class="headerlink" title="tar命令做打包压缩（解压缩解打包）操作"></a>tar命令做打包压缩（解压缩解打包）操作</h4><p>你可能会觉得 Linux 实在太不智能了，一个打包压缩，居然还要先打包成 “.tar” 格式，再压缩成 “.tar.gz” 或 “.tar.bz2” 格式。其实 tar 命令是可以同时打包压缩的，前面的讲解之所打包和压缩分开，是为了让大家了解在 Linux 中打包和压缩的不同。</p>
+<p>当 tar 命令同时做打包压缩的操作时，其基本格式如下：</p>
+<p>[root@localhost ~]#tar [选项] 压缩包 源文件或目录</p>
+<p>此处常用的选项有以下 2 个，分别是：</p>
+<ul>
+<li>-z：压缩和解压缩 “.tar.gz” 格式；</li>
+<li>-j：压缩和解压缩 “.tar.bz2”格式。</li>
+</ul>
+<p>【例 1】压缩与解压缩 “.tar.gz”格式。</p>
+<p>[root@localhost ~]# tar -zcvf tmp.tar.gz /tmp/<br>#把/temp/目录直接打包压缩为”.tar.gz”格式，通过”-z”来识别格式，”-cvf”和打包选项一致</p>
+<p>解压缩也只是在解打包选项 “-xvf” 前面加了一个 “-z” 选项。</p>
+<p>[root@localhost ~]# tar -zxvf tmp.tar.gz<br>#解压缩与解打包”.tar.gz”格式</p>
+<p>前面讲的选项 “-C” 用于指定解压位置、”-t” 用于查看压缩包内容，在这里同样适用。</p>
+<p>【例 2】压缩与解压缩 “.tar.bz2” 格式。<br>和”.tar.gz”格式唯一的不同就是”-zcvf”选项换成了 “-jcvf”，如下所示：</p>
+<p>[root@localhost ~]# tar -jcvf tmp.tar.bz2 /tmp/<br>#打包压缩为”.tar.bz2”格式，注意压缩包文件名<br>[root@localhost ~]# tar -jxvf tmp.tar.bz2<br>#解压缩与解打包”.tar.bz2”格式</p>
+<p>把文件直接压缩成”.tar.gz”和”.tar.bz2”格式，才是 Linux 中最常用的压缩方式，这是大家一定要掌握的压缩和解压缩方法。</p>
+<p>tar 命令最初被用来在磁带上创建备份，现在可以在任何设备上创建备份。利用 tar 命令可以把一大堆的文件和目录打包成一个文件，这对于备份文件或是将几个文件组合成为一个文件进行网络传输是非常有用的。</p>
+<h3 id="ll"><a href="#ll" class="headerlink" title="ll"></a>ll</h3><p><strong>drwxr-xr-x  2 root root 48 2013-11-27 16:34 test/</strong></p>
+<p>第一个栏位，表示文件的属性。Linux的文件基本上分为三个属性：可读（r），可写（w），可执行（x）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这里有十个格子可以添（具体程序实现时，实际上是十个bit位）。</span><br></pre></td></tr></table></figure>
+
+<p> 第一个字母表示文件类型,</p>
+<p>​    ”-”,普通文件.</p>
+<p>​    ”d”目录,字母”d”,是dirtectory(目录)的缩写.</p>
+<p>​    “l”符号链接。请注意,一个目录或者说一个文件夹是一个特殊文件,这个特殊文件存放的是其他文件和文件夹的相关信息.</p>
+<p>​    “b”块设备文件。</p>
+<p>​    “c”字符设备文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">紧接着的3*3个字符分3组，各指示此文件的读、写、执行权限，对于owner、group、others而言。</span><br><span class="line">因为Linux是多用户多任务系统，所以一个文件可能同时被许多人使用，所以我们一定要设好每个文件的权限，其文件的权限位置排列顺序是（以-rwxr-xr-x为例）：　　  </span><br><span class="line">   rwx(Owner)r-x(Group)r-x(Other)　　     </span><br><span class="line">这个例子表示的权限是：使用者自己可读，可写，可执行；同一组的用户可读，不可写，可执行；其它用户可读，不可写，可执行。</span><br><span class="line">另外，有一些程序属性的执行部分不是X,而是S,这表示执行这个程序的使用者，临时可以有和拥有者一样权力的身份来执行该程序。一般出现在系统管理之类的指令或程序，让使用者执行时，拥有root身份。　</span><br></pre></td></tr></table></figure>
+
+<p>第二个栏位，表示文件个数。如果是文件的话，那这个数目自然是1了，如果是目录的话，那它的数目就是该目录中的文件个数了。</p>
+<p>第三个栏位，表示该文件或目录的拥有者。若使用者目前处于自己的Home,那这一栏大概都是它的账号名称。</p>
+<p>第四个栏位，表示所属的组（group）。每一个使用者都可以拥有一个以上的组，不过大部分的使用者应该都只属于一个组，只有当<a target="_blank" rel="noopener" href="http://zhidao.baidu.com/search?word=%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%98&fr=qb_search_exp&ie=utf8">系统管理员</a>希望给予某使用者特殊权限时，才可能会给他另一个组。<br>第五栏位，表示文件大小。文件大小用byte来表示，而空目录一般都是1024byte，当然可以用其它参数使文件显示的单位不同，如使用ls –k就是用kb莱显示一个文件的大小单位，不过一般我们还是以byte为主。　　</p>
+<p>第六个栏位，表示最后一次修改时间。以“月，日，时间”的格式表示，如Aug 15 5:46表示8月15日早上5:46分。</p>
+<p>第七个栏位，表示文件名。我们可以用ls –a显示隐藏的文件名。</p>
+<h3 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-chmod.html">https://www.runoob.com/linux/linux-comm-chmod.html</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">长烟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yunf194.github.io/2022/01/22/linux%E5%91%BD%E4%BB%A4/">http://yunf194.github.io/2022/01/22/linux%E5%91%BD%E4%BB%A4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yunf194.github.io" target="_blank">fengyun's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/linux/">linux</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/os.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/01/23/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"><img class="prev-cover" src="/images/cover/os.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">虚拟机共享文件夹出现的一些问题</div></div></a></div><div class="next-post pull-right"><a href="/2022/01/22/nginx%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/"><img class="next-cover" src="/images/cover/nginx.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">nginx安装与简单使用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/01/24/2022124-fork()%E4%B8%8E%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/" title="fork()"><img class="cover" src="/images/cover/nginx.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-24</div><div class="title">fork()</div></div></a></div><div><a href="/2022/01/25/2022125-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/" title="守护进程"><img class="cover" src="/images/cover/nginx.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">守护进程</div></div></a></div><div><a href="/2022/01/25/2022125-Makefile/" title="Makefile"><img class="cover" src="/images/cover/nginx.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-25</div><div class="title">Makefile</div></div></a></div><div><a href="/2022/01/29/2022129-valgrind-%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/" title="valgrind-内存泄漏检查工具"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-29</div><div class="title">valgrind-内存泄漏检查工具</div></div></a></div><div><a href="/2022/01/29/2022129-%E6%97%A5%E5%BF%97%E5%8A%9F%E8%83%BD/" title="日志功能"><img class="cover" src="/images/cover/nginx.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-29</div><div class="title">日志功能</div></div></a></div><div><a href="/2022/02/06/202226-nginx%E4%B8%AD%E5%88%9B%E5%BB%BAworker%E5%AD%90%E8%BF%9B%E7%A8%8B/" title="nginx中创建worker子进程"><img class="cover" src="/images/cover/nginx.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-06</div><div class="title">nginx中创建worker子进程</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yunf194.github.io/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">长烟</div><div class="author-info__description">交际是分享快乐，独处是消化自我</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yunf194"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yunf194" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2846327307@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我明白你会来所以我等</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#wget"><span class="toc-number">1.</span> <span class="toc-text">wget</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ps"><span class="toc-number">2.</span> <span class="toc-text">ps</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tar"><span class="toc-number">3.</span> <span class="toc-text">tar</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tar%E5%91%BD%E4%BB%A4%E5%81%9A%E6%89%93%E5%8C%85%E6%93%8D%E4%BD%9C"><span class="toc-number">3.1.</span> <span class="toc-text">tar命令做打包操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tar%E5%91%BD%E4%BB%A4%E5%81%9A%E8%A7%A3%E6%89%93%E5%8C%85%E6%93%8D%E4%BD%9C"><span class="toc-number">3.2.</span> <span class="toc-text">tar命令做解打包操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tar%E5%91%BD%E4%BB%A4%E5%81%9A%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9%EF%BC%88%E8%A7%A3%E5%8E%8B%E7%BC%A9%E8%A7%A3%E6%89%93%E5%8C%85%EF%BC%89%E6%93%8D%E4%BD%9C"><span class="toc-number">3.3.</span> <span class="toc-text">tar命令做打包压缩（解压缩解打包）操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ll"><span class="toc-number">4.</span> <span class="toc-text">ll</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chmod"><span class="toc-number">5.</span> <span class="toc-text">chmod</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于GO的双向tls通信"/></a><div class="content"><a class="title" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信">基于GO的双向tls通信</a><time datetime="2023-01-06T16:00:00.000Z" title="发表于 2023-01-07 00:00:00">2023-01-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL注入"/></a><div class="content"><a class="title" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入">SQL注入</a><time datetime="2022-12-06T16:00:00.000Z" title="发表于 2022-12-07 00:00:00">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件上传漏洞"/></a><div class="content"><a class="title" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2022-12-05T16:00:00.000Z" title="发表于 2022-12-06 00:00:00">2022-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之包"/></a><div class="content"><a class="title" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包">Go语言基础之包</a><time datetime="2022-10-22T16:00:00.000Z" title="发表于 2022-10-23 00:00:00">2022-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之函数"/></a><div class="content"><a class="title" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数">Go语言基础之函数</a><time datetime="2022-10-21T16:00:00.000Z" title="发表于 2022-10-22 00:00:00">2022-10-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/images/cover/os.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By 长烟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">其实，我回头等了你好久好久，你都没来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Yb0FJoeuYRJfbYGupEnFsg6E-gzGzoHsz',
+      appKey: 'Pjo4dvB3TbjfY8clnS7fxalh',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://yunf194.github.io/css/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://yunf194.github.io/css/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>数据库概论第三章-SQL | fengyun's Blog</title><meta name="keywords" content="数据库理论"><meta name="author" content="长烟"><meta name="copyright" content="长烟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="SQL 概 述SQL 的特点 综合统一 SQL 集数据定义语言、 数据操纵语言、 数据控制语言的功能于一体， 语言风格统一，可以独立完成数据库生命周期中的全部活动，    高度非过程化而用 SQL 进行数据操作时， 只要提出“ 做什么”， 而无须指明“ 怎么做”， 因此无须了解存取路径。  面向集合的操作方式SQL 采用集合操作方式， 不仅操作对象、 查找结果可以是元组的集合， 而且一次插入、 删">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库概论第三章-SQL">
+<meta property="og:url" content="http://yunf194.github.io/2021/12/18/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/index.html">
+<meta property="og:site_name" content="fengyun&#39;s Blog">
+<meta property="og:description" content="SQL 概 述SQL 的特点 综合统一 SQL 集数据定义语言、 数据操纵语言、 数据控制语言的功能于一体， 语言风格统一，可以独立完成数据库生命周期中的全部活动，    高度非过程化而用 SQL 进行数据操作时， 只要提出“ 做什么”， 而无须指明“ 怎么做”， 因此无须了解存取路径。  面向集合的操作方式SQL 采用集合操作方式， 不仅操作对象、 查找结果可以是元组的集合， 而且一次插入、 删">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yunf194.github.io/images/cover/sjk.jpg">
+<meta property="article:published_time" content="2021-12-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-19T09:53:34.091Z">
+<meta property="article:author" content="长烟">
+<meta property="article:tag" content="数据库理论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yunf194.github.io/images/cover/sjk.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="http://yunf194.github.io/2021/12/18/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5b5317a4316878223f02ccad7d028fa5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数据库概论第三章-SQL',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-19 17:53:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yunf194.github.io/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover/sjk.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">fengyun's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数据库概论第三章-SQL</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-17T16:00:00.000Z" title="发表于 2021-12-18 00:00:00">2021-12-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-19T09:53:34.091Z" title="更新于 2021-12-19 17:53:34">2021-12-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数据库概论第三章-SQL"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="SQL-概-述"><a href="#SQL-概-述" class="headerlink" title="SQL 概 述"></a>SQL 概 述</h2><h3 id="SQL-的特点"><a href="#SQL-的特点" class="headerlink" title="SQL 的特点"></a>SQL 的特点</h3><ol>
+<li><p>综合统一</p>
+<p>SQL 集数据定义语言、 数据操纵语言、 数据控制语言的功能于一体， 语言风格统一，可以独立完成数据库生命周期中的全部活动，  </p>
+</li>
+<li><p>高度非过程化<br>而用 SQL 进行数据操作时， 只要提出“ 做什么”， 而无须指明“ 怎么做”， 因此无须了解存取路径。</p>
+</li>
+<li><p>面向集合的操作方式<br>SQL 采用集合操作方式， 不仅操作对象、 查找结果可以是元组的集合， 而且一次插入、 删除、 更新操作的对象也可以是元组的集合。</p>
+</li>
+<li><p>以同一种语法结构提供多种使用方式<br>SQL 既是独立的语言， 又是嵌入式语言。</p>
+</li>
+<li><p>语言简洁， 易学易用</p>
+</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20191228172016766.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNTg3NjEy,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h2 id="数据定义"><a href="#数据定义" class="headerlink" title="数据定义"></a>数据定义</h2><h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219160420946.png" alt="image-20211219160420946"></p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219160448469.png" alt="image-20211219160448469"></p>
+<h3 id="表"><a href="#表" class="headerlink" title="表"></a>表</h3><p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219160649808.png" alt="image-20211219160649808"></p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219160717443.png" alt="image-20211219160717443"></p>
+<p><strong>修改表</strong></p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219160813222.png" alt="image-20211219160813222"></p>
+<p><strong>删除基本表</strong><br>当某个基本表不再需要时， 可以使用 DROP TABLE 语句删除它。 其一般格式为:<br>DROP TABLE &lt;表名〉 [RESTRICT | CASCADE] ;<br>若选择 RESTRICT, 则该表的删除是有限制条件的。 欲删除的基本表不能被其他表的约束所引用（ 如 CHECK, FOREIGN KEY 等约束）， 不能有视图， 不能有触发器（ trigger),不能有存储过程或函数等。 如果存在这些依赖该表的对象， 则此表不能被删除。<br>若选择 CASCADE, 则该表的删除没有限制条件。 在删除基本表的同时， 相关的依赖对象， 例如视图， 都将被一起删除。<br>默认情况是 RESTRICT。</p>
+<p>[例 3.11] 删除 Student 表。<br>DROP TABLE Student CASCADE;<br>基本表定义一旦被删除， 不仅表中的数据和此表的定义将被删除， 而且此表上建立的索引、 触发器等对象一般也都将被删除。 有的关系数据库管理系统还会同时删除在此表上建立的视图。 如果欲删除的基本表被其他基本表所引用， 则这些表也可能被删除。 例如 SC表通过外码 Sno 引用 Student, 则执行例 3.11 后 Student 表被删除， SC 也被级联删除。 因此执行删除基本表的操作一定要格外小心  </p>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p><strong>建立索引</strong></p>
+<p>每个&lt;列名&gt;后面还可以用&lt;次序&gt;指定索引值的排列次序， 可选 ASC (升序） 或 DESC (降序)， 默认值为 ASC»<br>UNIQUE 表明此索引的每一个索引值只对应唯一的数据记录。<br>CLUSTER 表示要建立的索引是聚簇索引。  </p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219161113399.png" alt="image-20211219161113399"></p>
+<p><strong>修改索引</strong></p>
+<p>重新命名  <img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219161149224.png" alt="image-20211219161149224"></p>
+<p><strong>删除索引</strong></p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219161229319.png" alt="image-20211219161229319"></p>
+<h3 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h3><p>数据字典是关系数据库管理系统内部的一组系统表， 它记录了数据库中所有的定义信息，包括关系模式定义、 视图定义、 索引定义、 完整性约束定义、 各类用户对数据库的操作权限、统计信息等。   </p>
+<h2 id="数-据-查-询"><a href="#数-据-查-询" class="headerlink" title="数 据 查 询"></a>数 据 查 询</h2><h3 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h3><p>(1) 消除取值重复的行<br>两个本来并不完全相同的元组在投影到指定的某些列上后， 可能会变成相同的行。 可以用 DISTINCT 消除它们  </p>
+<p>(2) 查询满足条件的元组查询满足指定条件的元组可以通过 WHERE 子句实现。  </p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219161501001.png" alt="image-20211219161501001"></p>
+<p><strong>ORDER BY 子句</strong><br>用户可以用 ORDER BY 子句对查询结果按照一个或多个属性列的升序(ASC)或降序(DESC) 排列， 默认值为升序  </p>
+<p><strong>聚集函数</strong>  </p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219161618656.png" alt="image-20211219161618656"></p>
+<p>注意， WHERE 子句中是不能用聚集函数作为条件表达式的。 <strong>聚集函数只能用于SELECT 子句和 GROUP BY 中的 HAVING 子句 。</strong>  </p>
+<p><strong>GROUP BY 子句</strong>  </p>
+<p>对查询结果分组的目的是为了<strong>细化聚集函数的作用对象</strong>。 如果未对查询结果分组， 聚集函数将作用于整个查询结果。 分组后聚集函数将作用于每一个组， 即每一组都有一个函数值。  </p>
+<h3 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h3><p>若一个查询同时涉及两个以上的表， 则称之为连接查询。 连接查询是关系数据库中最主要的查询， 包括等值连接查询、 自然连接査询、 非等值连接查询、 自身连接査询、 外连接查询和复合条件连接查询等。  </p>
+<h4 id="等值连接与自然连接"><a href="#等值连接与自然连接" class="headerlink" title="等值连接与自然连接"></a>等值连接与自然连接</h4><p>连接查询的 WHERE 子句中用来连接两个表的条件称为连接条件或连接谓词</p>
+<p>当连接运算符为=时， 称为<strong>等值连接</strong>。 使用其他运算符称为<strong>非等值连接</strong>。  </p>
+<p>关系数据库管理系统执行该连接操作的一种可能过程是： 首先在表 Student 中找到第一个元组， 然后从头开始扫描 SC 表， 逐一查找与 Student 第一个元组的 Sno 相等的 SC 元组， 找到后就将 Student 中的第一个元组与该元组拼接起来， 形成结果表中一个元组。 SC全部查找完后， 再找 Student 中第二个元组， 然后再从头开始扫描 SC, 逐一查找满足连接条件的元组， 找到后就将 Student 中的第二个元组与该元组拼接起来， 形成结果表中一个元组。 重复上述操作， 直到 Student 中的全部元组都处理完毕为止。 <strong>这就是嵌套循环连接算法的基本思想。</strong> 如图 3.5 所示。  </p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219162129845.png" alt="image-20211219162129845"></p>
+<p><strong>若在等值连接中把目标列中重复的属性列去掉则为自然连接。</strong>  </p>
+<p>连接操作不仅可以在两个表之间进行， 也可以是一个表与其自己进行连接， 称为表的<strong>自身连接</strong>  </p>
+<p>若某个学生没有选课， 仍把 Student 的<strong>悬浮元组</strong>保存在结果关系中， 而在 SC 表的属性上填空值 NULL, 这时就需要使用<strong>外连接。</strong>  </p>
+<p><strong>左外连接</strong>列出左边关系（ 如本例 Student ) 中所有的元组， <strong>右外连接</strong>列出右边关系中所有的元组。  </p>
+<p>连接操作除了可以是两表连接、 一个表与其自身连接外， 还可以是两个以上的表进行连接， 后者通常称为<strong>多表连接。</strong>  </p>
+<h3 id="嵌套查询"><a href="#嵌套查询" class="headerlink" title="嵌套查询"></a>嵌套查询</h3><p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219162554600.png" alt="image-20211219162554600"></p>
+<p>上层的査询块称为外层查询或父查询， 下层査询块称为内层查询或子查询    </p>
+<h4 id="带-有-IN-谓词的子查询"><a href="#带-有-IN-谓词的子查询" class="headerlink" title="**带 有 IN 谓词的子查询 **"></a>**带 有 IN 谓词的子查询 **</h4><p> 在嵌套査询中， <strong>子查询的结果往往是一个集合</strong>， 所以谓词 IN 是嵌套查询中最经常使用的谓词。  </p>
+<p>子査询的查询条件不依赖于父査询， 这类子査询称为<strong>不相关子查询</strong>。 不相关子查询是较简单的一类子查询。 如果子查询的查询条件依赖于父查询， 这类子查询称为<strong>相关子查询</strong> ( correlated subquery), 整个査询语句称为相关嵌套查询（ correlatednested query) 语句  </p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219163042218.png" alt="image-20211219163042218"></p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219163022105.png" alt="image-20211219163022105"></p>
+<h4 id="带有比较运算符的子查询"><a href="#带有比较运算符的子查询" class="headerlink" title="带有比较运算符的子查询"></a>带有比较运算符的子查询</h4><p>带有比较运算符的子查询是指父查询与子查询之间用比较运算符进行连接。 当用户能<strong>确切知道内层查询返回的是单个值</strong>时， 可以用&gt;、 &lt;、 =、 &gt;=、 &lt;=、 ！=或&lt;&gt;等比较运算符。  </p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219163209941.png" alt="image-20211219163209941"></p>
+<h4 id="带-有-ANY-SOME-或-ALL-谓词的子查询"><a href="#带-有-ANY-SOME-或-ALL-谓词的子查询" class="headerlink" title="带 有 ANY (SOME) 或 ALL 谓词的子查询"></a>带 有 ANY (SOME) 或 ALL 谓词的子查询</h4><p>any 类似于一个集合中min</p>
+<p>all类似于一个集合中的max</p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219163316610.png" alt="image-20211219163316610"></p>
+<h4 id="带有-EXISTS-谓词的子查询"><a href="#带有-EXISTS-谓词的子查询" class="headerlink" title="带有 EXISTS 谓词的子查询"></a>带有 EXISTS 谓词的子查询</h4><p>带有 EXISTS 谓词的子查询不返回任何数据， 只产生逻辑真值”true”或逻辑假值 “false”。  </p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219163738784.png" alt="image-20211219163738784"></p>
+<h3 id="集合查询"><a href="#集合查询" class="headerlink" title="集合查询"></a>集合查询</h3><p>SELECT 语句的查询结果是元组的集合， 所以多个 SELECT 语句的结果可进行集合操作。 集合操作主要包括并操作 UNION、 交操作 INTERSECT 和差操作 EXCEPT。  </p>
+<h3 id="基于派生表的查询"><a href="#基于派生表的查询" class="headerlink" title="基于派生表的查询"></a>基于派生表的查询</h3><p>子查询不仅可以出现在 WHERE 子句中， 还可以出现在 FROM 子句中， 这时子查询生成的临时派生表 ( derived table ) 成为主查询的查询对象。  </p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219163909087.png" alt="image-20211219163909087"></p>
+<h2 id="数-据-更-新"><a href="#数-据-更-新" class="headerlink" title="数 据 更 新"></a>数 据 更 新</h2><h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><p><strong>插入元组</strong></p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219164043873.png" alt="image-20211219164043873"></p>
+<p><strong>插入子查询结果</strong></p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219164057990.png" alt="image-20211219164057990"></p>
+<h3 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h3><ol>
+<li>修改某一个元组的值<br>[例 3.73] 将学生 201215121 的年龄改为 22 岁。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE Student</span><br><span class="line">SETSage=22</span><br><span class="line">WHERE Sno=&#x27;201215121&#x27;；</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改多个元组的值<br>[例 3.74] 将所有学生的年龄增加 1 岁。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UPDATE Student</span><br><span class="line">SET Sage=Sage+l;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>带子查询的修改语句<br>子查询也可以嵌套在 UPDATE 语句中， 用以构造修改的条件。<br>[例 3.75] 将计算机科学系全体学生的成绩置零。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">UPDATE SC</span><br><span class="line">SETGrade=0</span><br><span class="line">WHERE Sno IN</span><br><span class="line">( SELETE Sno</span><br><span class="line">FROM Student</span><br><span class="line">WHERE Sdept= &#x27;CS&#x27; ）;  </span><br></pre></td></tr></table></figure>
+
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><ol>
+<li><p>删除某一个元组的值<br>[例 3.76] 删除学号为 201215128 的学生记录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DELETE</span><br><span class="line">FROM Student</span><br><span class="line">WHERE Sno=&#x27;201215128&#x27;;</span><br></pre></td></tr></table></figure></li>
+<li><p>删除多个元组的值<br>[例 3.77] 删除所有的学生选课记录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DELETE</span><br><span class="line">FROM SC;</span><br></pre></td></tr></table></figure>
+
+<p>这条 DELETE 语句将使 SC 成为空表， 它删除了 SC 的所有元组。</p>
+</li>
+<li><p>带子查询的删除语句<br>子查询同样也可以嵌套在 DELETE 语句中， 用以构造执行删除操作的条件。<br>[例 3.78] 删除计算机科学系所有学生的选课记录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DELETE</span><br><span class="line">FROM SC  </span><br><span class="line">WHERE SnoIN</span><br><span class="line">( SELETE Sno</span><br><span class="line">FROM Student</span><br><span class="line">WHERE Sdept= &#x27;CS&#x27; );  </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="空值的处理"><a href="#空值的处理" class="headerlink" title="空值的处理"></a>空值的处理</h2><p>所谓空值(NULL)就是“ 不知道” 或“ 不存在” 或“ 无意义” 的值  </p>
+<p><strong>空值的判断 :</strong> 判断一个属性的值是否为空值， 用 IS NULL 或 IS NOT NULL 来表示。  </p>
+<p><strong>空值的约束条件</strong>  属性定义（ 或者域定义） 中有 NOT NULL约束条件的不能取空值， 加了 UNIQUE 限制的属性不能取空值， 码属性不能取空值。  </p>
+<p><strong>空值的算术运算 、 比较运算和逻辑运算</strong><br>空值与另一个值（ 包括另一个空值） 的算术运算的结果为空值， 空值与另一个值（ 包括另一个空值） 的比较运算的结果为UNKNOWN。 有了 UNKNOWN 后， 传统的逻辑运算中二值(TRUE, FALSE) 逻辑就扩展成了三值逻辑。AND、 OR、 NOT 的真值表如表 3.8 所示， 其中丁表示 TRUE， F 表示 FALSE,U 表示 UNKNOWN。  </p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219165650651.png" alt="image-20211219165650651"></p>
+<h2 id="视-图"><a href="#视-图" class="headerlink" title="视 图"></a>视 图</h2><p>视图是从一个或几个基本表（ 或视图） 导出的表。 它与基本表不同， 是一个虚表。 <strong>数据库中只存放视图的定义， 而不存放视图对应的数据， 这些数据仍存放在原来的基本表中。</strong>所以一旦基本表中的数据发生变化， 从视图中査询出的数据也就随之改变了。 从这个意义上讲， 视图就像一个窗口， 透过它可以看到数据库中自己感兴趣的数据及其变化。  </p>
+<h3 id="定义视图"><a href="#定义视图" class="headerlink" title="定义视图"></a>定义视图</h3><p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219170358896.png" alt="image-20211219170358896"></p>
+<h3 id="删除视图"><a href="#删除视图" class="headerlink" title="删除视图"></a>删除视图</h3><p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219170111061.png" alt="image-20211219170111061"></p>
+<h3 id="查询视图"><a href="#查询视图" class="headerlink" title="查询视图"></a>查询视图</h3><p><img src="/../images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/image-20211219170523251.png" alt="image-20211219170523251"></p>
+<p>定义视图并查询视图与基于派生表的查询是有区别的。 <strong>视图一旦定义， 其定义将永久保存在数据字典</strong>中， 之后的所有查询都可以直接引用该视图。 <strong>而派生表只是在语句执行时临时定义， 语句执行后该定义即被删除。</strong>  </p>
+<h3 id="更新视图"><a href="#更新视图" class="headerlink" title="更新视图"></a>更新视图</h3><p>由于视图是不实际存储数据的虚表， 因此对视图的更新最终要转换为对基本表的更新。 像查询视图那样， 对视图的更新操作也是通过视图消解， 转换为对基本表的更新操作  </p>
+<p>为防止用户通过视图对数据进行增加、 删除、 修改时， 有意无意地对不属于视图范围内的基本表数据进行操作， 可在定义视图时加上 WITH CHECK OPTION 子句。 这样在视图上增、 删、 改数据时， 关系数据库管理系统会检査视图定义中的条件， 若不满足条件则拒绝执行该操作。  </p>
+<h3 id="视图的作用"><a href="#视图的作用" class="headerlink" title="视图的作用"></a>视图的作用</h3><ol>
+<li>试图能够简化用户的操作</li>
+<li>视图使用户能以多种角度看待同一数据</li>
+<li>视图对重构数据库提供了一定程度的逻辑独立性  </li>
+<li>视图能够对机密数据提供安全保护</li>
+<li>适当利用视图可以更清晰地表达查询  </li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">长烟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yunf194.github.io/2021/12/18/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/">http://yunf194.github.io/2021/12/18/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%89%E7%AB%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yunf194.github.io" target="_blank">fengyun's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/">数据库理论</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/sjk.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/12/18/sql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/"><img class="prev-cover" src="/images/index3.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">SQL必知必会</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/17/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0/"><img class="next-cover" src="/images/cover/sjk.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数据库概论第一章绪论</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/12/17/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="数据库概论第一章绪论"><img class="cover" src="/images/cover/sjk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-17</div><div class="title">数据库概论第一章绪论</div></div></a></div><div><a href="/2021/12/19/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B8%83%E7%AB%A0/" title="数据库概论第七章-数据库设计"><img class="cover" src="/images/cover/sjk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-19</div><div class="title">数据库概论第七章-数据库设计</div></div></a></div><div><a href="/2021/12/17/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%BA%8C%E7%AB%A0/" title="数据库概论第二章关系数据库"><img class="cover" src="/images/cover/sjk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-17</div><div class="title">数据库概论第二章关系数据库</div></div></a></div><div><a href="/2021/12/19/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%BA%94%E7%AB%A0/" title="数据库概论第五章-数据库完整性"><img class="cover" src="/images/cover/sjk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-19</div><div class="title">数据库概论第五章-数据库完整性</div></div></a></div><div><a href="/2021/12/19/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E4%B9%9D%E7%AB%A0/" title="数据库概论第九章-关系查询处理和优化"><img class="cover" src="/images/cover/sjk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-19</div><div class="title">数据库概论第九章-关系查询处理和优化</div></div></a></div><div><a href="/2021/12/19/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%AC%E5%85%AD%E7%AB%A0/" title="数据库概论第六章-关系数据理论"><img class="cover" src="/images/cover/sjk.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-19</div><div class="title">数据库概论第六章-关系数据理论</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yunf194.github.io/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">长烟</div><div class="author-info__description">交际是分享快乐，独处是消化自我</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yunf194"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yunf194" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2846327307@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我明白你会来所以我等</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-%E6%A6%82-%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">SQL 概 述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">SQL 的特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89"><span class="toc-number">2.</span> <span class="toc-text">数据定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8"><span class="toc-number">2.2.</span> <span class="toc-text">表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95"><span class="toc-number">2.3.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8"><span class="toc-number">2.4.</span> <span class="toc-text">数据字典</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0-%E6%8D%AE-%E6%9F%A5-%E8%AF%A2"><span class="toc-number">3.</span> <span class="toc-text">数 据 查 询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.1.</span> <span class="toc-text">单表查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.2.</span> <span class="toc-text">连接查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%89%E5%80%BC%E8%BF%9E%E6%8E%A5%E4%B8%8E%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="toc-number">3.2.1.</span> <span class="toc-text">等值连接与自然连接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B5%8C%E5%A5%97%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.3.</span> <span class="toc-text">嵌套查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A6-%E6%9C%89-IN-%E8%B0%93%E8%AF%8D%E7%9A%84%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.3.1.</span> <span class="toc-text">**带 有 IN 谓词的子查询 **</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A6%E6%9C%89%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.3.2.</span> <span class="toc-text">带有比较运算符的子查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A6-%E6%9C%89-ANY-SOME-%E6%88%96-ALL-%E8%B0%93%E8%AF%8D%E7%9A%84%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.3.3.</span> <span class="toc-text">带 有 ANY (SOME) 或 ALL 谓词的子查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A6%E6%9C%89-EXISTS-%E8%B0%93%E8%AF%8D%E7%9A%84%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.3.4.</span> <span class="toc-text">带有 EXISTS 谓词的子查询</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.4.</span> <span class="toc-text">集合查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B4%BE%E7%94%9F%E8%A1%A8%E7%9A%84%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.5.</span> <span class="toc-text">基于派生表的查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0-%E6%8D%AE-%E6%9B%B4-%E6%96%B0"><span class="toc-number">4.</span> <span class="toc-text">数 据 更 新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="toc-number">4.1.</span> <span class="toc-text">插入数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE"><span class="toc-number">4.2.</span> <span class="toc-text">修改数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="toc-number">4.3.</span> <span class="toc-text">删除数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E5%80%BC%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">空值的处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86-%E5%9B%BE"><span class="toc-number">6.</span> <span class="toc-text">视 图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE"><span class="toc-number">6.1.</span> <span class="toc-text">定义视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A7%86%E5%9B%BE"><span class="toc-number">6.2.</span> <span class="toc-text">删除视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E8%A7%86%E5%9B%BE"><span class="toc-number">6.3.</span> <span class="toc-text">查询视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E8%A7%86%E5%9B%BE"><span class="toc-number">6.4.</span> <span class="toc-text">更新视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%86%E5%9B%BE%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">6.5.</span> <span class="toc-text">视图的作用</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于GO的双向tls通信"/></a><div class="content"><a class="title" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信">基于GO的双向tls通信</a><time datetime="2023-01-06T16:00:00.000Z" title="发表于 2023-01-07 00:00:00">2023-01-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL注入"/></a><div class="content"><a class="title" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入">SQL注入</a><time datetime="2022-12-06T16:00:00.000Z" title="发表于 2022-12-07 00:00:00">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件上传漏洞"/></a><div class="content"><a class="title" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2022-12-05T16:00:00.000Z" title="发表于 2022-12-06 00:00:00">2022-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之包"/></a><div class="content"><a class="title" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包">Go语言基础之包</a><time datetime="2022-10-22T16:00:00.000Z" title="发表于 2022-10-23 00:00:00">2022-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之函数"/></a><div class="content"><a class="title" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数">Go语言基础之函数</a><time datetime="2022-10-21T16:00:00.000Z" title="发表于 2022-10-22 00:00:00">2022-10-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/images/cover/sjk.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By 长烟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">其实，我回头等了你好久好久，你都没来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Yb0FJoeuYRJfbYGupEnFsg6E-gzGzoHsz',
+      appKey: 'Pjo4dvB3TbjfY8clnS7fxalh',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://yunf194.github.io/css/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://yunf194.github.io/css/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

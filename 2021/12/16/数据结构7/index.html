@@ -1,0 +1,339 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>内部排序 | fengyun's Blog</title><meta name="keywords" content="排序算法"><meta name="author" content="长烟"><meta name="copyright" content="长烟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概述1.排序：将文件或表中的记录，通过某种方法整理成按 关键字大小次序排列的处理过程。 假定n个记录的文件为 (R1,R2,…,Rn) 对应的关键字为 (K1,K2,…,Kn) 则排序是确定如下一个排列 p1,p2,…,pn 使得: Kp1≤Kp2≤…≤ Kpn 从而得到一个有序文件或表中的记录 (Rp1,Rp2,…Rpn) 2.什么是排序的稳定性 假设在待排序的文件中，存在两个具有相同关键字的记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内部排序">
+<meta property="og:url" content="http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%847/index.html">
+<meta property="og:site_name" content="fengyun&#39;s Blog">
+<meta property="og:description" content="概述1.排序：将文件或表中的记录，通过某种方法整理成按 关键字大小次序排列的处理过程。 假定n个记录的文件为 (R1,R2,…,Rn) 对应的关键字为 (K1,K2,…,Kn) 则排序是确定如下一个排列 p1,p2,…,pn 使得: Kp1≤Kp2≤…≤ Kpn 从而得到一个有序文件或表中的记录 (Rp1,Rp2,…Rpn) 2.什么是排序的稳定性 假设在待排序的文件中，存在两个具有相同关键字的记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yunf194.github.io/images/cover/sjjg.jpg">
+<meta property="article:published_time" content="2021-12-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-15T16:00:00.000Z">
+<meta property="article:author" content="长烟">
+<meta property="article:tag" content="排序算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yunf194.github.io/images/cover/sjjg.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%847/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5b5317a4316878223f02ccad7d028fa5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '内部排序',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-16 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yunf194.github.io/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover/sjjg.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">fengyun's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">内部排序</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-15T16:00:00.000Z" title="发表于 2021-12-16 00:00:00">2021-12-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-15T16:00:00.000Z" title="更新于 2021-12-16 00:00:00">2021-12-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="内部排序"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>1.排序：将文件或表中的记录，通过某种方法整理成按 关键字大小次序排列的处理过程。 假定n个记录的文件为 (R1,R2,…,Rn) 对应的关键字为 (K1,K2,…,Kn) 则排序是确定如下一个排列 p1,p2,…,pn 使得: Kp1≤Kp2≤…≤ Kpn 从而得到一个有序文件或表中的记录 (Rp1,Rp2,…Rpn)</p>
+<p>2.什么是排序的稳定性 假设在待排序的文件中，存在两个具有相同关键字的记 录R(i)与R(j),其中R(i)位于R(j)之前。在用某种排序法排序 之后,R(i)仍位于R(j)之前，则称这种排序方法是稳定的；否 则，称这种排序方法是不稳定的。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c659e393b36c43ca84bcb81d36d7f111~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p>3.内部排序和外部排序</p>
+<ul>
+<li>内部排序(内排序)—-在计算机内存中进行的排序 </li>
+<li>外部排序(外排序)—-借助计算机外存进行的排序</li>
+</ul>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><h4 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h4><p>首先,将初始文件中的记录r[1]看作有序子文件； 第1遍：将r[2]插入前面有序子文件中，得到3个记录的有序子文件。 第2遍：将r[3]插入前面有序子文件中，得到3个记录的有序子文件。 以此类推，依次插入r[4],…,r[n],最后得到n个记录的递增有序文件。</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f490f034c97e4ce3ae72f694b9e8ed35~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">直接插入排序算法（对数组r[<span class="number">1.</span>.n]中的n个记录作插入排序）</span><br><span class="line"><span class="keyword">void</span> InsertSort(RecType r[],int n）</span><br><span class="line">&#123;</span><br><span class="line">    int i,j；</span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">2</span>；i&lt;=n；i++) &#123; </span><br><span class="line">        r[<span class="number">0</span>]=r[i]； <span class="comment">//待插记录r[i]存入监视哨中 </span></span><br><span class="line">        j=i-<span class="number">1</span>； <span class="comment">//已排序的范围1 － i-1 </span></span><br><span class="line">        <span class="comment">//从r[i-1]开始向左扫描</span></span><br><span class="line">        <span class="keyword">while</span>(r[<span class="number">0</span>].key</span><br><span class="line">        &#123; </span><br><span class="line">            r[j+<span class="number">1</span>]=r[j]； <span class="comment">//记录后移 </span></span><br><span class="line">            j--； <span class="comment">//继续向左扫描</span></span><br><span class="line">        &#125; </span><br><span class="line">        r[j+<span class="number">1</span>]=r[<span class="number">0</span>]； <span class="comment">//插入记录r[0],即原r[i] </span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>(1)最好情况，原n个记录递增有序： 比较关键字n-1次 移动记录2(n-1)次,(将数据复制到r[0]后又复制回来）</li>
+<li>(2)最坏情况，原n个记录递减有序： 比较关键字的次数: 2+3+…+n =(n-1)(n+2)/2 = O(n2)  移动记录的次数(个数):  3+4+…+(n+1) =(n-1)(n+4)/2 次 = O(n2)</li>
+</ul>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6fe56e2339c443ecb41f90da01b895f7~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ul>
+<li>(4) 只需少量中间变量作为辅助空间。 </li>
+<li>(5) 算法是稳定的<h4 id="折半插入排序"><a href="#折半插入排序" class="headerlink" title="折半插入排序"></a>折半插入排序</h4>减少了记录的比较次数平均值，记录的移动次数不变<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> BInsertSort(RecType r[],int n） &#123; </span><br><span class="line">    int i,j； </span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">2</span>；i&lt;=n；i++) &#123; </span><br><span class="line">        r[<span class="number">0</span>]=r[i]； <span class="comment">//待插记录r[i]存入监视哨中 </span></span><br><span class="line">        low = <span class="number">1</span> ； high = i - <span class="number">1</span>； </span><br><span class="line">        <span class="keyword">while</span> ( low &lt;= high ) &#123; </span><br><span class="line">            m = ( low + high ) / <span class="number">2</span> ; </span><br><span class="line">            <span class="keyword">if</span> ( r[<span class="number">0</span>].key&lt;r[m].key) high = m - <span class="number">1</span>； <span class="comment">//插入位置可能在high之后 </span></span><br><span class="line">            <span class="keyword">else</span> low = m+<span class="number">1</span>； <span class="comment">//插入位置可能在low之前 </span></span><br><span class="line">        &#125; <span class="comment">//结束时表示插入在high和low之间</span></span><br><span class="line">        <span class="keyword">for</span> (j = i – <span class="number">1</span>; j &gt;= high + <span class="number">1</span>;- -j ) r[j+<span class="number">1</span>] = r[j]； </span><br><span class="line">        r[high + <span class="number">1</span>] = r[<span class="number">0</span>];</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="shell排序"><a href="#shell排序" class="headerlink" title="shell排序"></a>shell排序</h4>shell排序是由P.L.Shell于1959年提出的一种对插入 排序的改进算法。其算法思想是将待排序的数据分成 若干组： 将待排序的数据，简单处理时,可首先看成n/2组， 即间隔为n/2的数据元素在同一组中，每一组使用前面 的插入排序算法，实现数据的大跨度前移。再将待排序的数据看成n/4组，即间隔为n/4的数据元 素在同一组中，每一组使用前面的插入排序算法。余以类 推。 当比较间隔缩小到0时，整个排序过程结束。 由于每比较一趟，就将比较间隔缩小一半。间隔也称 为增量， shell算法又称为缩小增量排序算法。算法分析与 增量的选取有关。具体实现见专栏另一篇<a target="_blank" rel="noopener" href="https://juejin.cn/post/7037473904159359006">https://juejin.cn/post/7037473904159359006</a></li>
+</ul>
+<h4 id="2路插入排序"><a href="#2路插入排序" class="headerlink" title="2路插入排序"></a>2路插入排序</h4><ul>
+<li>Ø n个辅助空间</li>
+<li>Ø 首位key作为基础，大的插在后面，小的插在尾部<br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/13982a5343604f56abeb45165bfdb827~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></li>
+</ul>
+<h4 id="表插入排序"><a href="#表插入排序" class="headerlink" title="表插入排序"></a>表插入排序</h4><p>即使用链表的存储结构对数据进行插入排序。在对记录按照其关键字进行排序的过程中，不需要移动记录的存储位置，只需要更改结点间指针的指向。</p>
+<p>链表的存储结构用代码表示为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#define SIZE <span class="number">100</span></span><br><span class="line">typedef struct &#123;</span><br><span class="line">    int rc;<span class="comment">//记录项</span></span><br><span class="line">    int next;<span class="comment">//指针项，由于在数组中，所以只需要记录下一个结点所在数组位置的下标即可。</span></span><br><span class="line">&#125;SLNode;</span><br><span class="line">typedef struct &#123;</span><br><span class="line">    SLNode r[SIZE];<span class="comment">//存储记录的链表</span></span><br><span class="line">    int length;<span class="comment">//记录当前链表长度</span></span><br><span class="line">&#125;SLinkListType;</span><br></pre></td></tr></table></figure>
+
+
+<p>在使用数组结构表示的链表中，设定数组下标为 0 的结点作为链表的表头结点，并令其关键字取最大整数。则表插入排序的具体实现过程是：首先将链表中数组下标为 1 的结点和表头结点构成一个循环链表，然后将后序的所有结点按照其存储的关键字的大小，依次插入到循环链表中。<br><br>例如，将无序表<code>&#123;49，38，76，13，27&#125;</code>用表插入排序的方式进行排序，其过程为：<br>\</p>
+<ul>
+<li>  首先使存储 49 的结点与表头结点构成一个初始的循环链表，完成对链表的初始化，如下表所示：</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1dc4bf7d5bb741359d0c71e8a64fc9b6~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<ul>
+<li>  然后将以 38 为关键字的记录插入到循环链表中（只需要更改其链表的 next 指针即可），插入后的链表为：</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/299b4a39d47940a6b3f25f504a87730b~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<ul>
+<li>  再将以 76 为关键字的结点插入到循环链表中，插入后的链表为:</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/20f59656993e470083d05c0ac81c051d~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<ul>
+<li>  再将以 13 为关键字的结点插入到循环链表中，插入后的链表为：</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/58d92e5b014247e6af9cfd74136cd65b~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<ul>
+<li>  最后将以 27 为关键字的结点插入到循环链表中，插入后的链表为：</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7f1f103e8d294aefa5f3979be2d1540b~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<ul>
+<li>  最终形成的循环链表为：</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f897a08112144f548a3a83a5e62f90f5~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<p>从表插入排序的实现过程上分析，与直接插入排序相比只是避免了移动记录的过程（修改各记录结点中的指针域即可），而插入过程中同其它关键字的比较次数并没有改变，所以表插入排序算法的时间复杂度仍是<code>O(n2)</code>。</p>
+<h3 id="交换排序"><a href="#交换排序" class="headerlink" title="交换排序"></a>交换排序</h3><h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><p>基本思想: 设待排序的文件为r[1..n] 第1趟(遍)：从r[1]开始,依次比较两个相邻记录的关键字 r[i].key和r[i+1].key,若r[i].key&gt;r[i+1].key，则交换记录 r[i]和r[i+1]的位置；否则,不交换。(i=1,2,…n-1) ==》第1趟之后，关键字中最大的记录移到了r[n]的位置上。<br>第2趟：从r[1]开始,依次比较两个相邻记录的关键字 r[i].key和r[i+1].key,若r[i].key&gt;r[i+1].key，则交换记录 r[i]和r[i+1]的位置；否则,不交换。 (i=1,2,…n-2) 第2趟之后,前n-1个关键字中最大的记录移到了r[n-1]的位 置上。 …… 作完n-1趟,或者不需再交换记录时为止</p>
+<p>例如，对无序表<code>&#123;49，38，65，97，76，13，27，49&#125;</code>进行升序排序的具体实现过程<br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3d16b66c7a8746b99d4d44ea1344c364~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br>如图 1 所示是对无序表的第一次起泡排序，最终将无序表中的最大值 97 找到并存储在表的最后一个位置。具体实现过程为：</p>
+<ol>
+<li> 首先 49 和 38 比较，由于 38&lt;49，所以两者交换位置，即从（1）到（2）的转变；</li>
+<li> 然后继续下标为 1 的同下标为 2 的进行比较，由于 49&lt;65，所以不移动位置，（3）中 65 同 97 比较得知，两者也不需要移动位置；</li>
+<li> 直至（4），97 同 76 进行比较，76&lt;97，两者交换位置，如（5）所示；</li>
+<li> 同样 97&gt;13（5）、97&gt;27（6）、97&gt;49（7），所以经过一次冒泡排序，最终在无序表中找到一个最大值 97，第一次冒泡结束；</li>
+</ol>
+<p><br>由于 97 已经判断为最大值，所以第二次冒泡排序时就需要找出除 97 之外的无序表中的最大值，比较过程和第一次完全相同。<br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e5887bc47a414007b95335f876ca7f2a~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><strong>算法分析:</strong></p>
+<ul>
+<li>Ø最好情况: 待排序的文件已是有序文件，只需要进行1趟 排序,共计比较关键字的次数为 n－1 不交换记录。 </li>
+<li>Ø最坏情况: 要经过n-1趟排序，所需总的比较关键字的次 数为 (n-1)+(n-2)+…+1＝n(n-1)/2 交换记录的次数最多为 (n-1)+(n-2)+…+1＝n(n-1)/2 移动记录次数最多为 3n(n-1)/2 。</li>
+<li>Ø只需要少量中间变量作为辅助空间。 </li>
+<li>Ø算法是稳定的。</li>
+</ul>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>基本思想：首先在r[1..n]中，确定一个r[i]，经过比较 和移动，将r[i]放到”中间”某个位置上，使得： ur[i]左边所有记录的关键字小于等于r[i].key， ur[i]右边所有记录的关键字大于等于r[i].key。 ü 以r[i]为界,将文件划分为左、右两个子文件。 用同样的方法分别对这两个子文件进行划分, 得到4个 更小的子文件。继续进行下去,使得每个子文件只有一个记 录为止,便得到原文件的有序文件。</p>
+<p>例. 给定文件(20,05,37,08,63,12,59,15,44,08)，选用第1 个元素20进行划分:</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d91747501b9a484aa1ef1f4477903b48~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/776f927f66414ab1be572dfa71bb8635~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><strong>算法分析</strong></p>
+<ul>
+<li><p>Ø就平均速度而言，快速排序是已知内部排序方法中最 好的一种排序方法,其时间复杂度为O(nlog(n))。</p>
+</li>
+<li><p>Ø但是，在最坏情况下（有序或基本有序时，此时每次 划分都出现一端为空的形式），快速排序所需的比较次 数和冒泡排序的比较次数相同,其时间复杂度为O(n2)。</p>
+</li>
+<li><p>Ø快速排序需要一个栈作辅助空间，用来实现递归处理 左、右子文件。在最坏情况下,递归深度为n，因此所需 栈的空间大小为O(n)数量级。</p>
+</li>
+<li><p>Ø 快速排序是不稳定的</p>
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p>算法思想:设待排序的文件为(r[1],r[2],…,r[n]),关键字为 (r[1].key,r[2].key,…,r[n].key), 第1趟(遍)：在(r[1],r[2],…,r[n])中,选出关键字最小 的记录r[min].key，若min&lt;&gt;1,则交换r[1]和r[min]； 　　　需要进行n-1次比较。 　 第2趟(遍)：在n-1个记录(r[2],…,r[n])中,选出关键字 最小的记录r[min].key，若min&lt;&gt;2,则交换r[2]和r[min]； 　　　需要进行n-2次比较。 …… 　第n-1趟(遍)：在最后的2个记录记录(r[n-1],r[n])中,选 出关键字最小的记录r[min].key，若min&lt;&gt;n-1,则交换r[n-1] 和min]；需要进行1次比较。<br>例如对无序表<code>&#123;56，12，80，91，20&#125;</code>采用简单选择排序算法进行排序，具体过程为：</p>
+</li>
+<li><p>  第一次遍历时，从下标为 1 的位置即 56 开始，找出关键字值最小的记录 12，同下标为 0 的关键字 56 交换位置：</p>
+</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f3c0293c1dfb471580d2de0a8931dbf2~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<ul>
+<li>  第二次遍历时，从下标为 2 的位置即 56 开始，找出最小值 20，同下标为 2 的关键字 56 互换位置：</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/90abfaebca7d40ab88eb31d30a7a8be0~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<ul>
+<li>  第三次遍历时，从下标为 3 的位置即 80 开始，找出最小值 56，同下标为 3 的关键字 80 互换位置：</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d95ea6295a45418e9d782c3b4e386226~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<ul>
+<li>  第四次遍历时，从下标为 4 的位置即 91 开始，找出最小是 80，同下标为 4 的关键字 91 互换位置：</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4f4aeac6faa443c19ed6996904ad0a93~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<ul>
+<li>  到此简单选择排序算法完成，无序表变为有序表。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="function"><span class="title">selection_sort</span>(<span class="params">vector&lt;int&gt;&amp; nums, int n</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (int i = <span class="number">0</span>;i &lt; n-<span class="number">1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int temp_min = i;</span><br><span class="line">        <span class="keyword">for</span> (int j = i + <span class="number">1</span>;j &lt; n;j++)<span class="comment">//从i后面开始不断更新最小值的小标</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[temp_min] &gt; nums[j]) &#123;</span><br><span class="line">                temp_min = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        swap(nums[temp_min], nums[i]);<span class="comment">//将最小值与nums[i]交换</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>算法分析：</strong></p>
+<ul>
+<li>(1)比较次数，在任何情况下,均为 n-1 ∑ (n－i)＝(n-1)+(n-2)+…+1 i=1 ＝ n(n-1)/2 ＝O(n 2) </li>
+<li>(2)交换记录的次数 在最好情况下,原n个记录递增有序： 不移动记录。 在最坏情况下,每次都要交换数据（不是递减有序） 共交换记录n-1对,移动记录数3(n-1)次。 故,时间复杂度为O(n 2)。 </li>
+<li>(3)只需少量中间变量作为辅助空间。 </li>
+<li>(4)算法是不稳定的。</li>
+</ul>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>在学习堆排序之前，首先需要了解堆的含义：在含有 n 个元素的序列中，如果序列中的元素满足下面其中一种关系时，此序列可以称之为堆。<br>\</p>
+<ul>
+<li>  ki ≤ k2i 且 ki ≤ k2i+1（在 n 个记录的范围内，第 i 个关键字的值小于第 2<em>i 个关键字，同时也小于第 2</em>i+1 个关键字）</li>
+<li>  ki ≥ k2i 且 ki ≥ k2i+1（在 n 个记录的范围内，第 i 个关键字的值大于第 2<em>i 个关键字，同时也大于第 2</em>i+1 个关键字）</li>
+</ul>
+<p><br>对于堆的定义也可以使用完全二叉树来解释，因为在完全二叉树中第 i 个结点的左孩子恰好是第 2i 个结点，右孩子恰好是 2i+1 个结点。如果该序列可以被称为堆，则使用该序列构建的完全二叉树中，每个根结点的值都必须不小于（或者不大于）左右孩子结点的值。<br><br>以无序表<code>&#123;49，38，65，97，76，13，27，49&#125;</code>来讲，其对应的堆用完全二叉树来表示为：</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/77e69ea89e5b4eb6b2a449537048d551~tplv-k3u1fbpfcp-zoom-1.image"><br>图 3 无序表对应的堆</p>
+<blockquote>
+<p>提示：堆用完全二叉树表示时，其表示方法不唯一，但是可以确定的是树的根结点要么是无序表中的最小值，要么是最大值。</p>
+</blockquote>
+<p>通过将无序表转化为堆，可以直接找到表中最大值或者最小值，然后将其提取出来，令剩余的记录再重建一个堆，取出次大值或者次小值，如此反复执行就可以得到一个有序序列，此过程为堆排序。<br><br>堆排序过程的代码实现需要解决两个问题：</p>
+<ol>
+<li> 如何将得到的无序序列转化为一个堆？</li>
+<li> 在输出堆顶元素之后（完全二叉树的树根结点），如何调整剩余元素构建一个新的堆？</li>
+</ol>
+<p>首先先解决第 2 个问题。图 3 所示为一个完全二叉树，若去除堆顶元素，即删除二叉树的树根结点，此时用二叉树中最后一个结点 97 代替，如下图所示：\</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/38109798fc7a41e6ba77c7e36b7e9c91~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<p>此时由于结点 97 比左右孩子结点的值都大，破坏了堆的结构，所以需要进行调整：首先以 堆顶元素 97 同左右子树比较，同值最小的结点交换位置，即 27 和 97 交换位置：</p>
+<p><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/251be273b16b42e49511777e087e15f5~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<p>由于替代之后破坏了根结点右子树的堆结构，所以需要进行和上述一样的调整，即令 97 同 49 进行交换位置：</p>
+<p><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b0b588b92fd444f9a0399d7659a3b36c~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<p>通过上述的调整，之前被破坏的堆结构又重新建立。从根结点到叶子结点的整个调整的过程，被称为“筛选”。<br><br>解决第一个问题使用的就是不断筛选的过程，如下图所示，无序表<code>&#123;49，38，65，97，76，13，27，49&#125;</code>初步建立的完全二叉树，如下图所示：</p>
+<p><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d73840fbc7a547489be077ccff385b07~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<p>在对上图做筛选工作时，规律是从底层结点开始，一直筛选到根结点。对于具有 n 个结点的完全二叉树，筛选工作开始的结点为第 ⌊n/2⌋个结点（此结点后序都是叶子结点，无需筛选）。<br><br>所以，对于有 9 个结点的完全二叉树，筛选工作从第 4 个结点 97 开始，由于 97 &gt; 49 ,所以需要相互交换，交换后如下图所示：</p>
+<p><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1c420f2125414355b12bcfb91d8d4f5f~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<p>然后再筛选第 3 个结点 65 ，由于 65 比左右孩子结点都大，则选择一个最小的同 65 进行交换，交换后的结果为：</p>
+<p><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b9c2e5a2d7fb43d98e4e1326525f58fe~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<p>然后筛选第 2 个结点，由于其符合要求，所以不用筛选；最后筛选根结点 49 ，同 13 进行交换，交换后的结果为：</p>
+<p><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/01307f9e1f744dd195bf38c2a2bb3c2b~tplv-k3u1fbpfcp-zoom-1.image">\
+ </p>
+<p>交换后，发现破坏了其右子树堆的结构，所以还需要调整，最终调整后的结果为：</p>
+<p><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7a8ac8187aea46f6952c6dea2937a0a8~tplv-k3u1fbpfcp-zoom-1.image"></p>
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>其排序的实现思想是先将所有的记录完全分开，然后两两合并，在合并的过程中将其排好序，最终能够得到一个完整的有序表。<br><br>例如对于含有 n 个记录的无序表，首先默认表中每个记录各为一个有序表（只不过表的长度都为 1），然后进行两两合并，使 n 个有序表变为 ⌈n/2⌉ 个长度为 2 或者 1 的有序表（例如 4 个小有序表合并为 2 个大的有序表），通过不断地进行两两合并，直到得到一个长度为 n 的有序表为止。这种归并排序方法称为：2-路归并排序。<br><br>例如对无序表<code>&#123;49，38，65，97，76，13，27&#125;</code>进行 2-路归并排序的过程如<a target="_blank" rel="noopener" href="http://data.biancheng.net/view/200.html">图</a> 1 所示：<br>\</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dfcd0a0743f7465c9a5405826ddda482~tplv-k3u1fbpfcp-zoom-1.image"><br>图 1 归并排序过程</p>
+<blockquote>
+<p>归并过程中，每次得到的新的子表本身有序，所以最终得到的为有序表。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">长烟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%847/">http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%847/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yunf194.github.io" target="_blank">fengyun's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">排序算法</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/sjjg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%846/"><img class="prev-cover" src="/images/cover/sjjg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">图</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/16/%E9%93%BE%E8%A1%A8%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE/"><img class="next-cover" src="/images/cover/offer.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">链表面试题目</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yunf194.github.io/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">长烟</div><div class="author-info__description">交际是分享快乐，独处是消化自我</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yunf194"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yunf194" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2846327307@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我明白你会来所以我等</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">插入排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-number">2.1.</span> <span class="toc-text">直接插入排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%98%E5%8D%8A%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-number">2.2.</span> <span class="toc-text">折半插入排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shell%E6%8E%92%E5%BA%8F"><span class="toc-number">2.3.</span> <span class="toc-text">shell排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E8%B7%AF%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-number">2.4.</span> <span class="toc-text">2路插入排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A8%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-number">2.5.</span> <span class="toc-text">表插入排序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%8E%92%E5%BA%8F"><span class="toc-number">3.</span> <span class="toc-text">交换排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="toc-number">3.1.</span> <span class="toc-text">冒泡排序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">4.</span> <span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="toc-number">5.</span> <span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E6%8E%92%E5%BA%8F"><span class="toc-number">6.</span> <span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-number">7.</span> <span class="toc-text">归并排序</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于GO的双向tls通信"/></a><div class="content"><a class="title" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信">基于GO的双向tls通信</a><time datetime="2023-01-06T16:00:00.000Z" title="发表于 2023-01-07 00:00:00">2023-01-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL注入"/></a><div class="content"><a class="title" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入">SQL注入</a><time datetime="2022-12-06T16:00:00.000Z" title="发表于 2022-12-07 00:00:00">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件上传漏洞"/></a><div class="content"><a class="title" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2022-12-05T16:00:00.000Z" title="发表于 2022-12-06 00:00:00">2022-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之包"/></a><div class="content"><a class="title" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包">Go语言基础之包</a><time datetime="2022-10-22T16:00:00.000Z" title="发表于 2022-10-23 00:00:00">2022-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之函数"/></a><div class="content"><a class="title" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数">Go语言基础之函数</a><time datetime="2022-10-21T16:00:00.000Z" title="发表于 2022-10-22 00:00:00">2022-10-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/images/cover/sjjg.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By 长烟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">其实，我回头等了你好久好久，你都没来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Yb0FJoeuYRJfbYGupEnFsg6E-gzGzoHsz',
+      appKey: 'Pjo4dvB3TbjfY8clnS7fxalh',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://yunf194.github.io/css/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://yunf194.github.io/css/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

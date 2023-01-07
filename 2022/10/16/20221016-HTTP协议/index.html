@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>HTTP协议 | fengyun's Blog</title><meta name="keywords" content="HTTP"><meta name="author" content="长烟"><meta name="copyright" content="长烟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="原文：极客时间透视HTTP协议  网址按下回车首先运行 www 目录下的“start”批处理程序，启动本机的 OpenResty 服务器，启动后可以用“list”批处理确认服务是否正常运行。 然后我们打开 Wireshark，选择“HTTP TCP port(80)”过滤器，再鼠标双击“Npcap loopback Adapter”，开始抓取本机 127.0.0.1 地址上的网络数据。  抓包分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP协议">
+<meta property="og:url" content="http://yunf194.github.io/2022/10/16/20221016-HTTP%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="fengyun&#39;s Blog">
+<meta property="og:description" content="原文：极客时间透视HTTP协议  网址按下回车首先运行 www 目录下的“start”批处理程序，启动本机的 OpenResty 服务器，启动后可以用“list”批处理确认服务是否正常运行。 然后我们打开 Wireshark，选择“HTTP TCP port(80)”过滤器，再鼠标双击“Npcap loopback Adapter”，开始抓取本机 127.0.0.1 地址上的网络数据。  抓包分">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yunf194.github.io/images/cover/sjk.jpg">
+<meta property="article:published_time" content="2022-10-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-17T10:21:34.839Z">
+<meta property="article:author" content="长烟">
+<meta property="article:tag" content="HTTP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yunf194.github.io/images/cover/sjk.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="http://yunf194.github.io/2022/10/16/20221016-HTTP%E5%8D%8F%E8%AE%AE/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5b5317a4316878223f02ccad7d028fa5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HTTP协议',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-17 18:21:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yunf194.github.io/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover/sjk.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">fengyun's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">HTTP协议</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-15T16:00:00.000Z" title="发表于 2022-10-16 00:00:00">2022-10-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-10-17T10:21:34.839Z" title="更新于 2022-10-17 18:21:34">2022-10-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="HTTP协议"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>原文：极客时间透视HTTP协议</p>
+</blockquote>
+<h2 id="网址按下回车"><a href="#网址按下回车" class="headerlink" title="网址按下回车"></a>网址按下回车</h2><p>首先运行 www 目录下的“start”批处理程序，启动本机的 OpenResty 服务器，启动后可以用“list”批处理确认服务是否正常运行。</p>
+<p>然后我们打开 Wireshark，选择“HTTP TCP port(80)”过滤器，再鼠标双击“Npcap loopback Adapter”，开始抓取本机 127.0.0.1 地址上的网络数据。</p>
+<p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016162057001.png" alt="image-20221016162057001"></p>
+<h3 id="抓包分析"><a href="#抓包分析" class="headerlink" title="抓包分析"></a>抓包分析</h3><h4 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h4><p>因为我们在地址栏里直接输入了 IP 地址“127.0.0.1”，而 Web 服务器的默认端口是 80，所以浏览器就要依照 TCP 协议的规范，使用“三次握手”建立与 Web 服务器的连接。</p>
+<p>对应到 Wireshark 里，就是最开始的三个抓包，浏览器使用的端口是 4591，服务器使用的端口是 80，经过 SYN、SYN/ACK、ACK 的三个包之后，浏览器与服务器的 TCP 连接就建立起来了。</p>
+<h4 id="HTTP交互"><a href="#HTTP交互" class="headerlink" title="HTTP交互"></a>HTTP交互</h4><p>有了可靠的 TCP 连接通道后，HTTP 协议就可以开始工作了。于是，浏览器按照 HTTP 协议规定的格式，通过 TCP 发送了一个“GET / HTTP/1.1”请求报文，也就是 Wireshark 里的第四个包。</p>
+<p>随后，Web 服务器回复了第五个包，在 TCP 协议层面确认：“刚才的报文我已经收到了”，不过这个 TCP 包 HTTP 协议是看不见的。</p>
+<p>Web 服务器收到报文后在内部就要处理这个请求。同样也是依据 HTTP 协议的规定，解析报文，看看浏览器发送这个请求想要干什么。</p>
+<p>它一看，原来是要求获取根目录下的默认文件，好吧，那我就从磁盘上把那个文件全读出来，再拼成符合 HTTP 格式的报文，发回去吧。这就是 Wireshark 里的第六个包“HTTP/1.1 200 OK”，底层走的还是 TCP 协议。</p>
+<p>同样的，浏览器也要给服务器回复一个 TCP 的 ACK 确认，“你的响应报文收到了，多谢。”，即第七个包。</p>
+<p>这时浏览器就收到了响应数据，但里面是什么呢？所以也要解析报文。一看，服务器给我的是个 HTML 文件，好，那我就调用排版引擎、JavaScript 引擎等等处理一下，然后在浏览器窗口里展现出了欢迎页面。</p>
+<p>这之后还有两个来回，共四个包，重复了相同的步骤。这是浏览器自动请求了作为网站图标的“favicon.ico”文件，与我们输入的网址无关。但因为我们的实验环境没有这个文件，所以服务器在硬盘上找不到，返回了一个“404 Not Found”。</p>
+<p>至此，“键入网址再按下回车”的全过程就结束了。</p>
+<p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016162558144.png" alt="image-20221016162558144"></p>
+<h3 id="使用域名访问web服务器"><a href="#使用域名访问web服务器" class="headerlink" title="使用域名访问web服务器"></a>使用域名访问web服务器</h3><p>把地址栏的输入改成“<a target="_blank" rel="noopener" href="http://www.chrono.com”,重复/">http://www.Chrono.com”，重复</a> Wireshark 抓包过程，发现并<strong>没有什么不同</strong>，浏览器上同样显示出了欢迎界面，抓到的包也同样是 11 个：先是三次握手，然后是两次 HTTP 传输。</p>
+<p>这是因为C:\WINDOWS\system32\drivers\etc\hosts已经存在映射关系</p>
+<p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016162921016.png" alt="image-20221016162921016"></p>
+<p>浏览器就知道了域名对应的 IP 地址，就可以愉快地建立 TCP 连接发送 HTTP 请求了。</p>
+<p>假设你要访问的是 Apple 网站，显然你是不知道它的真实 IP 地址的，在浏览器里只能使用域名“<a target="_blank" rel="noopener" href="http://www.apple.com”访问,那么接下来要做的必然是域名解析.这就要用/">www.apple.com”访问，那么接下来要做的必然是域名解析。这就要用</a> DNS 协议开始从操作系统、本地 DNS、根 DNS、顶级 DNS、权威 DNS 的层层解析，当然这中间有缓存，可能不会费太多时间就能拿到结果。</p>
+<p>别忘了互联网上还有另外一个重要的角色 CDN，它也会在 DNS 的解析过程中“插上一脚”。DNS 解析可能会给出 CDN 服务器的 IP 地址，这样你拿到的就会是 CDN 服务器而不是目标网站的实际地址。</p>
+<p>因为 CDN 会缓存网站的大部分资源，比如图片、CSS 样式表，所以有的 HTTP 请求就不需要再发到 Apple，CDN 就可以直接响应你的请求，把数据发给你。</p>
+<h2 id="HTTP报文结构"><a href="#HTTP报文结构" class="headerlink" title="HTTP报文结构"></a>HTTP报文结构</h2><p>HTTP 协议的请求报文和响应报文的结构基本相同，由三大部分组成：</p>
+<ol>
+<li>起始行（start line）：描述请求或响应的基本信息；</li>
+<li>头部字段集合（header）：使用 key-value 形式更详细地说明报文；</li>
+<li>消息正文（entity）：实际传输的数据，它不一定是纯文本，可以是图片、视频等二进制数据。</li>
+</ol>
+<p>这其中前两部分起始行和头部字段经常又合称为“<strong>请求头</strong>”或“<strong>响应头</strong>”，消息正文又称为“<strong>实体</strong>”，但与“<strong>header</strong>”对应，很多时候就直接称为“<strong>body</strong>”。</p>
+<p>HTTP 协议规定报文必须有 header，但可以没有 body，而且在 header 之后必须要有一个“空行”，也就是“CRLF”，十六进制的“0D0A”。</p>
+<p>所以，一个完整的 HTTP 报文就像是下图的这个样子，注意在 header 和 body 之间有一个“空行”。</p>
+<p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016163733527.png" alt="image-20221016163733527"></p>
+<p>查看之前wireshark抓的包</p>
+<p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016164049915.png" alt="image-20221016164049915"></p>
+<p>在这个浏览器发出的请求报文里，第一行“GET / HTTP/1.1”就是请求行，而后面的“Host”“Connection”等等都属于 header，报文的最后是一个空白行结束，没有 body。</p>
+<h3 id="请求行或状态行"><a href="#请求行或状态行" class="headerlink" title="请求行或状态行"></a>请求行或状态行</h3><p>了解了 HTTP 报文的基本结构后，我们来看看请求报文里的起始行也就是<strong>请求行</strong>（request line），它简要地描述了<strong>客户端想要如何操作服务器端的资源</strong>。</p>
+<p>请求行由三部分构成：</p>
+<ol>
+<li>请求方法：是一个动词，如 GET/POST，表示对资源的操作；</li>
+<li>请求目标：通常是一个 URI，标记了请求方法要操作的资源；</li>
+<li>版本号：表示报文使用的 HTTP 协议版本。</li>
+</ol>
+<p>这三个部分通常使用空格（space）来分隔，最后要用 CRLF 换行表示结束。</p>
+<p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016164156519.png" alt="image-20221016164156519"></p>
+<p>还是用 Wireshark 抓包的数据来举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p>在这个请求行里，“GET”是请求方法，“/”是请求目标，“HTTP/1.1”是版本号，把这三部分连起来，意思就是“服务器你好，我想获取网站根目录下的默认文件，我用的协议版本号是 1.1，请不要用 1.0 或者 2.0 回复我。”</p>
+<p>看完了请求行，我们再看响应报文里的起始行，在这里它不叫“响应行”，而是叫“<strong>状态行</strong>”（status line），意思是<strong>服务器响应的状态</strong>。</p>
+<p>比起请求行来说，状态行要简单一些，同样也是由三部分构成：</p>
+<ol>
+<li>版本号：表示报文使用的 HTTP 协议版本；</li>
+<li>状态码：一个三位数，用代码的形式表示处理的结果，比如 200 是成功，500 是服务器错误；</li>
+<li>原因：作为数字状态码补充，是更详细的解释文字，帮助人理解原因。</li>
+</ol>
+<p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016164609397.png" alt="image-20221016164609397"></p>
+<p>看一下上一讲里 Wireshark 抓包里的响应报文，状态行是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br></pre></td></tr></table></figure>
+
+<p>意思就是：“浏览器你好，我已经处理完了你的请求，这个报文使用的协议版本号是 1.1，状态码是 200，一切 OK。”</p>
+<p>而另一个“GET /favicon.ico HTTP/1.1”的响应报文状态行是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 404 Not Found</span><br></pre></td></tr></table></figure>
+
+<p>翻译成人话就是：“抱歉啊浏览器，刚才你的请求收到了，但我没找到你要的资源，错误代码是 404，接下来的事情你就看着办吧。”</p>
+<h3 id="头部字段"><a href="#头部字段" class="headerlink" title="头部字段"></a>头部字段</h3><p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016164711765.png" alt="image-20221016164711765"></p>
+<p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016164724546.png" alt="image-20221016164724546"></p>
+<p>请求头和响应头的结构是基本一样的，唯一的区别是起始行，所以我把请求头和响应头里的字段放在一起介绍。</p>
+<p>头部字段是 key-value 的形式，key 和 value 之间用“:”分隔，最后用 CRLF 换行表示字段结束。比如在“Host: 127.0.0.1”这一行里 key 就是“Host”，value 就是“127.0.0.1”。</p>
+<p><strong>HTTP 头字段非常灵活，不仅可以使用标准里的 Host、Connection 等已有头，也可以任意添加自定义头</strong>，这就给 HTTP 协议带来了无限的扩展可能。</p>
+<h3 id="头字段注意点"><a href="#头字段注意点" class="headerlink" title="头字段注意点"></a>头字段注意点</h3><ol>
+<li>字段名不区分大小写，例如“Host”也可以写成“host”，但首字母大写的可读性更好；</li>
+<li>字段名里不允许出现空格，可以使用连字符“-”，但不能使用下划线“_”。例如，“test-name”是合法的字段名，而“test name”“test_name”是不正确的字段名；</li>
+<li>字段名后面必须紧接着“:”，不能有空格，而“:”后的字段值前可以有多个空格；</li>
+<li>字段的顺序是没有意义的，可以任意排列不影响语义；</li>
+<li>字段原则上不能重复，除非这个字段本身的语义允许，例如 Set-Cookie。</li>
+<li>HTTP/1.1 里唯一要求必须提供的头字段是 Host，它必须出现在请求头里，标记虚拟主机名。</li>
+</ol>
+<h2 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h2><p>目前 HTTP/1.1 规定了八种方法，单词<strong>都必须是大写的形式</strong>，我先简单地列把它们列出来，后面再详细讲解。</p>
+<ol>
+<li>GET：获取资源，可以理解为读取或者下载数据；</li>
+<li>HEAD：获取资源的元信息；</li>
+<li>POST：向资源提交数据，相当于写入或上传数据；</li>
+<li>PUT：类似 POST；</li>
+<li>DELETE：删除资源；</li>
+<li>CONNECT：建立特殊的连接隧道；</li>
+<li>OPTIONS：列出可对资源实行的方法；</li>
+<li>TRACE：追踪请求 - 响应的传输路径。</li>
+</ol>
+<h3 id="GET-HEAD"><a href="#GET-HEAD" class="headerlink" title="GET/HEAD"></a>GET/HEAD</h3><p><strong>GET</strong>方法应该是 HTTP 协议里最知名的请求方法了，也应该是用的最多的，自 0.9 版出现并一直被保留至今，是名副其实的“元老”。</p>
+<p>它的含义是请求<strong>从服务器获取资源</strong>，这个资源既可以是静态的文本、页面、图片、视频，也可以是由 PHP、Java 动态生成的页面或者其他格式的数据。</p>
+<p>GET 方法虽然基本动作比较简单，但搭配 URI 和其他头字段就能实现对资源更精细的操作。</p>
+<p>例如，在 URI 后使用“#”，就可以在获取页面后直接定位到某个标签所在的位置；使用 If-Modified-Since 字段就变成了“有条件的请求”，仅当资源被修改时才会执行获取动作；使用 Range 字段就是“范围请求”，只获取资源的一部分数据。</p>
+<p><strong>HEAD</strong>方法与 GET 方法类似，也是请求从服务器获取资源，服务器的处理机制也是一样的，但服务器不会返回请求的实体数据，只会传回响应头，也就是资源的“元信息”。</p>
+<p>HEAD 方法可以看做是 GET 方法的一个“简化版”或者“轻量版”。因为它的响应头与 GET 完全相同，所以可以用在很多并不真正需要资源的场合，避免传输 body 数据的浪费。</p>
+<p>比如，想要检查一个文件是否存在，只要发个 HEAD 请求就可以了，没有必要用 GET 把整个文件都取下来。再比如，要检查文件是否有最新版本，同样也应该用 HEAD，服务器会在响应头里把文件的修改时间传回来。</p>
+<h3 id="POST-PUT"><a href="#POST-PUT" class="headerlink" title="POST/PUT"></a>POST/PUT</h3><p>接下来要说的是<strong>POST</strong>和<strong>PUT</strong>方法，这两个方法也很像。</p>
+<p>GET 和 HEAD 方法是从服务器获取数据，而 POST 和 PUT 方法则是相反操作，向 URI 指定的资源提交数据，数据就放在报文的 body 里。</p>
+<p>POST 也是一个经常用到的请求方法，使用频率应该是仅次于 GET，应用的场景也非常多，只要向服务器发送数据，用的大多数都是 POST。</p>
+<p>比如，你上论坛灌水，敲了一堆字后点击“发帖”按钮，浏览器就执行了一次 POST 请求，把你的文字放进报文的 body 里，然后拼好 POST 请求头，通过 TCP 协议发给服务器。</p>
+<p>又比如，你上购物网站，看到了一件心仪的商品，点击“加入购物车”，这时也会有 POST 请求，浏览器会把商品 ID 发给服务器，服务器再把 ID 写入你的购物车相关的数据库记录。</p>
+<p>PUT 的作用与 POST 类似，也可以向服务器提交数据，但与 POST 存在微妙的不同，通常 POST 表示的是“新建”“create”的含义，而 PUT 则是“修改”“update”的含义。</p>
+<p>在实际应用中，PUT 用到的比较少。而且，因为它与 POST 的语义、功能太过近似，有的服务器甚至就直接禁止使用 PUT 方法，只用 POST 方法上传数据。</p>
+<h3 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h3><p>讲完了 GET/HEAD/POST/PUT，还剩下四个标准请求方法，它们属于比较“冷僻”的方法，应用的不是很多。</p>
+<p><strong>DELETE</strong>方法指示服务器删除资源，因为这个动作危险性太大，所以通常服务器不会执行真正的删除操作，而是对资源做一个删除标记。当然，更多的时候服务器就直接不处理 DELETE 请求。</p>
+<p><strong>CONNECT</strong>是一个比较特殊的方法，要求服务器为客户端和另一台远程服务器建立一条特殊的连接隧道，这时 Web 服务器在中间充当了代理的角色。</p>
+<p><strong>OPTIONS</strong>方法要求服务器列出可对资源实行的操作方法，在响应头的 Allow 字段里返回。它的功能很有限，用处也不大，有的服务器（例如 Nginx）干脆就没有实现对它的支持。</p>
+<p><strong>TRACE</strong>方法多用于对 HTTP 链路的测试或诊断，可以显示出请求 - 响应的传输路径。它的本意是好的，但存在漏洞，会泄漏网站的信息，所以 Web 服务器通常也是禁止使用。</p>
+<h2 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h2><h3 id="URI-的格式"><a href="#URI-的格式" class="headerlink" title="URI 的格式"></a>URI 的格式</h3><p>URI 本质上是一个字符串，这个字符串的作用是<strong>唯一地标记资源的位置或者名字</strong>。</p>
+<p>它不仅能够标记万维网的资源，也可以标记其他的，如邮件系统、本地文件系统等任意资源。而“资源”既可以是存在磁盘上的静态文本、页面数据，也可以是由 Java、PHP 提供的动态服务。</p>
+<p>下面的这张图显示了 URI 最常用的形式，由 scheme、host:port、path 和 query 四个部分组成，但有的部分可以视情况省略。</p>
+<p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016170331845.png" alt="image-20221016170331845"></p>
+<h4 id="scheme"><a href="#scheme" class="headerlink" title="scheme"></a>scheme</h4><p>URI 第一个组成部分叫<strong>scheme</strong>，翻译成中文叫“<strong>方案名</strong>”或者“<strong>协议名</strong>”，表示<strong>资源应该使用哪种协议</strong>来访问。</p>
+<p>最常见的当然就是“http”了，表示使用 HTTP 协议。另外还有“https”，表示使用经过加密、安全的 HTTPS 协议。此外还有其他不是很常见的 scheme，例如 ftp、ldap、file、news 等。</p>
+<p>在 scheme 之后，必须是<strong>三个特定的字符</strong>“**://**”，它把 scheme 和后面的部分分离开。</p>
+<h4 id="host-port"><a href="#host-port" class="headerlink" title="host:port"></a>host:port</h4><p>在“://”之后，是被称为“<strong>authority</strong>”的部分，表示<strong>资源所在的主机名</strong>，通常的形式是“host:port”，即主机名加端口号。</p>
+<p>主机名可以是 IP 地址或者域名的形式，必须要有，否则浏览器就会找不到服务器。但端口号有时可以省略，浏览器等客户端会依据 scheme 使用默认的端口号，例如 HTTP 的默认端口号是 80，HTTPS 的默认端口号是 443。</p>
+<h4 id="path"><a href="#path" class="headerlink" title="path"></a>path</h4><p>有了协议名和主机地址、端口号，再加上后面<strong>标记资源所在位置</strong>的<strong>path</strong>，浏览器就可以连接服务器访问资源了。</p>
+<p>URI 里 path 采用了类似文件系统“目录”“路径”的表示方式，因为早期互联网上的计算机多是 UNIX 系统，所以采用了 UNIX 的“/”风格。其实也比较好理解，它与 scheme 后面的“://”是一致的。</p>
+<p>这里我也要再次提醒你注意，URI 的 path 部分必须以“/”开始，也就是必须包含“/”，不要把“/”误认为属于前面 authority。</p>
+<h4 id="query"><a href="#query" class="headerlink" title="query"></a>query</h4><p>使用“协议名 + 主机名 + 路径”的方式，已经可以精确定位网络上的任何资源了。但这还不够，很多时候我们还想在操作资源的时候附加一些额外的修饰参数。</p>
+<p>举几个例子：获取商品图片，但想要一个 32×32 的缩略图版本；获取商品列表，但要按某种规则做分页和排序；跳转页面，但想要标记跳转前的原始页面。</p>
+<p>仅用“协议名 + 主机名 + 路径”的方式是无法适应这些场景的，所以 URI 后面还有一个“<strong>query</strong>”部分，它在 path 之后，用一个“?”开始，但不包含“?”，表示对资源附加的额外要求。这是个很形象的符号，比“://”要好的多，很明显地表示了“查询”的含义。</p>
+<p>查询参数 query 有一套自己的格式，是多个“<strong>key=value</strong>”的字符串，这些 KV 值用字符“**&amp;**”连接，浏览器和客户端都可以按照这个格式把长串的查询参数解析成可理解的字典或关联数组形式。</p>
+<p>运行 Chrome，用 F12 打开开发者工具，然后在地址栏里输入“”，得到的结果如下图。在开发者工具里依次选“Network”“Doc”，就可以找到请求的 URI。然后在 Headers 页里看 Request Headers，用“view source”就可以看到浏览器发的原始请求头了。</p>
+<p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016171037932.png" alt="image-20221016171037932"></p>
+<p>Chrome 的开发者工具也能解码出 query 里的 KV 对，省得我们“人肉”分解。</p>
+<p><img src="/../images/20221016-HTTP%E5%8D%8F%E8%AE%AE/image-20221016171125125.png" alt="image-20221016171125125"></p>
+<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><p>RFC 标准把状态码分成了五类，用数字的第一位表示分类，而 0<del>99 不用，这样状态码的实际可用范围就大大缩小了，由 000</del>999 变成了 100~599。</p>
+<p>这五类的具体含义是：</p>
+<ul>
+<li>1××：提示信息，表示目前是协议处理的中间状态，还需要后续的操作；</li>
+<li>2××：成功，报文已经收到并被正确处理；</li>
+<li>3××：重定向，资源位置发生变动，需要客户端重新发送请求；</li>
+<li>4××：客户端错误，请求报文有误，服务器无法处理；</li>
+<li>5××：服务器错误，服务器在处理请求时内部发生了错误。</li>
+</ul>
+<h3 id="1××"><a href="#1××" class="headerlink" title="1××"></a>1××</h3><p>1××类状态码属于提示信息，是协议处理的中间状态，实际能够用到的时候很少。</p>
+<p>我们偶尔能够见到的是“<strong>101 Switching Protocols</strong>”。它的意思是客户端使用 Upgrade 头字段，要求在 HTTP 协议的基础上改成其他的协议继续通信，比如 WebSocket。而如果服务器也同意变更协议，就会发送状态码 101，但这之后的数据传输就不会再使用 HTTP 了。</p>
+<h3 id="2××"><a href="#2××" class="headerlink" title="2××"></a>2××</h3><p>2××类状态码表示服务器收到并成功处理了客户端的请求，这也是客户端最愿意看到的状态码。</p>
+<p>“<strong>200 OK</strong>”是最常见的成功状态码，表示一切正常，服务器如客户端所期望的那样返回了处理结果，如果是非 HEAD 请求，通常在响应头后都会有 body 数据。</p>
+<p>“<strong>204 No Content</strong>”是另一个很常见的成功状态码，它的含义与“200 OK”基本相同，但响应头后没有 body 数据。所以对于 Web 服务器来说，正确地区分 200 和 204 是很必要的。</p>
+<p>“<strong>206 Partial Content</strong>”是 HTTP 分块下载或断点续传的基础，在客户端发送“范围请求”、要求获取资源的部分数据时出现，它与 200 一样，也是服务器成功处理了请求，但 body 里的数据不是资源的全部，而是其中的一部分。</p>
+<p>状态码 206 通常还会伴随着头字段“<strong>Content-Range</strong>”，表示响应报文里 body 数据的具体范围，供客户端确认，例如“Content-Range: bytes 0-99/2000”，意思是此次获取的是总计 2000 个字节的前 100 个字节。</p>
+<h3 id="3××"><a href="#3××" class="headerlink" title="3××"></a>3××</h3><p>3××类状态码表示客户端请求的资源发生了变动，客户端必须用新的 URI 重新发送请求获取资源，也就是通常所说的“重定向”，包括著名的 301、302 跳转。</p>
+<p>“<strong>301 Moved Permanently</strong>”俗称“永久重定向”，含义是此次请求的资源已经不存在了，需要改用改用新的 URI 再次访问。</p>
+<p>与它类似的是“<strong>302 Found</strong>”，曾经的描述短语是“<strong>Moved Temporarily</strong>”，俗称“临时重定向”，意思是请求的资源还在，但需要暂时用另一个 URI 来访问。</p>
+<p>301 和 302 都会在响应头里使用字段<strong>Location</strong>指明后续要跳转的 URI，最终的效果很相似，浏览器都会重定向到新的 URI。两者的根本区别在于语义，一个是“永久”，一个是“临时”，所以在场景、用法上差距很大。</p>
+<p>比如，你的网站升级到了 HTTPS，原来的 HTTP 不打算用了，这就是“永久”的，所以要配置 301 跳转，把所有的 HTTP 流量都切换到 HTTPS。</p>
+<p>再比如，今天夜里网站后台要系统维护，服务暂时不可用，这就属于“临时”的，可以配置成 302 跳转，把流量临时切换到一个静态通知页面，浏览器看到这个 302 就知道这只是暂时的情况，不会做缓存优化，第二天还会访问原来的地址。</p>
+<p>“<strong>304 Not Modified</strong>” 是一个比较有意思的状态码，它用于 If-Modified-Since 等条件请求，表示资源未修改，用于缓存控制。它不具有通常的跳转含义，但可以理解成“重定向已到缓存的文件”（即“缓存重定向”）。</p>
+<p>301、302 和 304 分别涉及了 HTTP 协议里重要的“重定向跳转”和“缓存控制”，在之后的课程中我还会细讲。</p>
+<h3 id="4××"><a href="#4××" class="headerlink" title="4××"></a>4××</h3><p>4××类状态码表示客户端发送的请求报文有误，服务器无法处理，它就是真正的“错误码”含义了。</p>
+<p>“<strong>400 Bad Request</strong>”是一个通用的错误码，表示请求报文有错误，但具体是数据格式错误、缺少请求头还是 URI 超长它没有明确说，只是一个笼统的错误，客户端看到 400 只会是“一头雾水”“不知所措”。所以，在开发 Web 应用时应当尽量避免给客户端返回 400，而是要用其他更有明确含义的状态码。</p>
+<p>“<strong>403 Forbidden</strong>”实际上不是客户端的请求出错，而是表示服务器禁止访问资源。原因可能多种多样，例如信息敏感、法律禁止等，如果服务器友好一点，可以在 body 里详细说明拒绝请求的原因，不过现实中通常都是直接给一个“闭门羹”。</p>
+<p>“<strong>404 Not Found</strong>”可能是我们最常看见也是最不愿意看到的一个状态码，它的原意是资源在本服务器上未找到，所以无法提供给客户端。但现在已经被“用滥了”，只要服务器“不高兴”就可以给出个 404，而我们也无从得知后面到底是真的未找到，还是有什么别的原因，某种程度上它比 403 还要令人讨厌。</p>
+<p>4××里剩下的一些代码较明确地说明了错误的原因，都很好理解，开发中常用的有：</p>
+<ul>
+<li>405 Method Not Allowed：不允许使用某些方法操作资源，例如不允许 POST 只能 GET；</li>
+<li>406 Not Acceptable：资源无法满足客户端请求的条件，例如请求中文但只有英文；</li>
+<li>408 Request Timeout：请求超时，服务器等待了过长的时间；</li>
+<li>409 Conflict：多个请求发生了冲突，可以理解为多线程并发时的竞态；</li>
+<li>413 Request Entity Too Large：请求报文里的 body 太大；</li>
+<li>414 Request-URI Too Long：请求行里的 URI 太大；</li>
+<li>429 Too Many Requests：客户端发送了太多的请求，通常是由于服务器的限连策略；</li>
+<li>431 Request Header Fields Too Large：请求头某个字段或总体太大；</li>
+</ul>
+<h3 id="5××"><a href="#5××" class="headerlink" title="5××"></a>5××</h3><p>5××类状态码表示客户端请求报文正确，但服务器在处理时内部发生了错误，无法返回应有的响应数据，是服务器端的“错误码”。</p>
+<p>“<strong>500 Internal Server Error</strong>”与 400 类似，也是一个通用的错误码，服务器究竟发生了什么错误我们是不知道的。不过对于服务器来说这应该算是好事，通常不应该把服务器内部的详细信息，例如出错的函数调用栈告诉外界。虽然不利于调试，但能够防止黑客的窥探或者分析。</p>
+<p>“<strong>501 Not Implemented</strong>”表示客户端请求的功能还不支持，这个错误码比 500 要“温和”一些，和“即将开业，敬请期待”的意思差不多，不过具体什么时候“开业”就不好说了。</p>
+<p>“<strong>502 Bad Gateway</strong>”通常是服务器作为网关或者代理时返回的错误码，表示服务器自身工作正常，访问后端服务器时发生了错误，但具体的错误原因也是不知道的。</p>
+<p>“<strong>503 Service Unavailable</strong>”表示服务器当前很忙，暂时无法响应服务，我们上网时有时候遇到的“网络服务正忙，请稍后重试”的提示信息就是状态码 503。</p>
+<p>503 是一个“临时”的状态，很可能过几秒钟后服务器就不那么忙了，可以继续提供服务，所以 503 响应报文里通常还会有一个“<strong>Retry-After</strong>”字段，指示客户端可以在多久以后再次尝试发送请求。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">长烟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yunf194.github.io/2022/10/16/20221016-HTTP%E5%8D%8F%E8%AE%AE/">http://yunf194.github.io/2022/10/16/20221016-HTTP%E5%8D%8F%E8%AE%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yunf194.github.io" target="_blank">fengyun's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/HTTP/">HTTP</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/sjk.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/"><img class="prev-cover" src="/images/cover/p25.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Go语言基础之函数</div></div></a></div><div class="next-post pull-right"><a href="/2022/09/11/2022911-DFS%E4%B8%8E%E5%9B%9E%E6%BA%AF/"><img class="next-cover" src="/images/cover/offer.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">DFS与回溯</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yunf194.github.io/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">长烟</div><div class="author-info__description">交际是分享快乐，独处是消化自我</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yunf194"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yunf194" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2846327307@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我明白你会来所以我等</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E5%9D%80%E6%8C%89%E4%B8%8B%E5%9B%9E%E8%BD%A6"><span class="toc-number">1.</span> <span class="toc-text">网址按下回车</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90"><span class="toc-number">1.1.</span> <span class="toc-text">抓包分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">三次握手</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP%E4%BA%A4%E4%BA%92"><span class="toc-number">1.1.2.</span> <span class="toc-text">HTTP交互</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AEweb%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">使用域名访问web服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">HTTP报文结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E8%A1%8C%E6%88%96%E7%8A%B6%E6%80%81%E8%A1%8C"><span class="toc-number">2.1.</span> <span class="toc-text">请求行或状态行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-number">2.2.</span> <span class="toc-text">头部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E5%AD%97%E6%AE%B5%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-number">2.3.</span> <span class="toc-text">头字段注意点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">请求方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GET-HEAD"><span class="toc-number">3.1.</span> <span class="toc-text">GET&#x2F;HEAD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST-PUT"><span class="toc-number">3.2.</span> <span class="toc-text">POST&#x2F;PUT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">其他方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URI"><span class="toc-number">4.</span> <span class="toc-text">URI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#URI-%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="toc-number">4.1.</span> <span class="toc-text">URI 的格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#scheme"><span class="toc-number">4.1.1.</span> <span class="toc-text">scheme</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#host-port"><span class="toc-number">4.1.2.</span> <span class="toc-text">host:port</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#path"><span class="toc-number">4.1.3.</span> <span class="toc-text">path</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#query"><span class="toc-number">4.1.4.</span> <span class="toc-text">query</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-number">5.</span> <span class="toc-text">状态码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%C3%97%C3%97"><span class="toc-number">5.1.</span> <span class="toc-text">1××</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%C3%97%C3%97"><span class="toc-number">5.2.</span> <span class="toc-text">2××</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%C3%97%C3%97"><span class="toc-number">5.3.</span> <span class="toc-text">3××</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%C3%97%C3%97"><span class="toc-number">5.4.</span> <span class="toc-text">4××</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%C3%97%C3%97"><span class="toc-number">5.5.</span> <span class="toc-text">5××</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于GO的双向tls通信"/></a><div class="content"><a class="title" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信">基于GO的双向tls通信</a><time datetime="2023-01-06T16:00:00.000Z" title="发表于 2023-01-07 00:00:00">2023-01-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL注入"/></a><div class="content"><a class="title" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入">SQL注入</a><time datetime="2022-12-06T16:00:00.000Z" title="发表于 2022-12-07 00:00:00">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件上传漏洞"/></a><div class="content"><a class="title" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2022-12-05T16:00:00.000Z" title="发表于 2022-12-06 00:00:00">2022-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之包"/></a><div class="content"><a class="title" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包">Go语言基础之包</a><time datetime="2022-10-22T16:00:00.000Z" title="发表于 2022-10-23 00:00:00">2022-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之函数"/></a><div class="content"><a class="title" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数">Go语言基础之函数</a><time datetime="2022-10-21T16:00:00.000Z" title="发表于 2022-10-22 00:00:00">2022-10-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/images/cover/sjk.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By 长烟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">其实，我回头等了你好久好久，你都没来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Yb0FJoeuYRJfbYGupEnFsg6E-gzGzoHsz',
+      appKey: 'Pjo4dvB3TbjfY8clnS7fxalh',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://yunf194.github.io/css/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://yunf194.github.io/css/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

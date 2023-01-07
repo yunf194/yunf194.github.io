@@ -1,0 +1,424 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>实模式与保护模式 | fengyun's Blog</title><meta name="keywords" content="OS"><meta name="author" content="长烟"><meta name="copyright" content="长烟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="x86从计算机的历史谈起 远古时期的程序开发 ： 直接操作物理内存 CPU 指令的操作数直接使用实地址（ 实际内存地址 ） 程序员拥有绝对的权利（ 利用 CPU 指哪打哪 ）    绝对的权利带来的问题  难以重定位程序每次都需要同样地址的内存执行，某一程序能在A电脑上运行，到了B电脑上就不一定能运行了（B电脑内存不一定够） 给多道程序设计带来障碍不管内存多大，但凡一个字节被其它程序占用都无法执行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实模式与保护模式">
+<meta property="og:url" content="http://yunf194.github.io/2022/05/08/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="fengyun&#39;s Blog">
+<meta property="og:description" content="x86从计算机的历史谈起 远古时期的程序开发 ： 直接操作物理内存 CPU 指令的操作数直接使用实地址（ 实际内存地址 ） 程序员拥有绝对的权利（ 利用 CPU 指哪打哪 ）    绝对的权利带来的问题  难以重定位程序每次都需要同样地址的内存执行，某一程序能在A电脑上运行，到了B电脑上就不一定能运行了（B电脑内存不一定够） 给多道程序设计带来障碍不管内存多大，但凡一个字节被其它程序占用都无法执行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yunf194.github.io/images/cover/os.jpg">
+<meta property="article:published_time" content="2022-05-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-14T04:05:41.438Z">
+<meta property="article:author" content="长烟">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yunf194.github.io/images/cover/os.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="http://yunf194.github.io/2022/05/08/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5b5317a4316878223f02ccad7d028fa5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '实模式与保护模式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-14 12:05:41'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yunf194.github.io/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover/os.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">fengyun's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">实模式与保护模式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-07T16:00:00.000Z" title="发表于 2022-05-08 00:00:00">2022-05-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-14T04:05:41.438Z" title="更新于 2022-05-14 12:05:41">2022-05-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="实模式与保护模式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="x86"><a href="#x86" class="headerlink" title="x86"></a>x86</h2><h3 id="从计算机的历史谈起"><a href="#从计算机的历史谈起" class="headerlink" title="从计算机的历史谈起"></a>从计算机的历史谈起</h3><ul>
+<li>远古时期的程序开发 ： <strong>直接操作物理内存</strong></li>
+<li>CPU 指令的操作数<strong>直接使用实地址</strong>（ 实际内存地址 ）</li>
+<li><strong>程序员拥有绝对的权利</strong>（ 利用 CPU 指哪打哪 ）  </li>
+</ul>
+<p>绝对的权利带来的问题</p>
+<ul>
+<li>难以重定位<br>程序每次都需要同样地址的内存执行，某一程序能在A电脑上运行，到了B电脑上就不一定能运行了（B电脑内存不一定够）</li>
+<li>给多道程序设计带来障碍<br>不管内存多大，但凡一个字节被其它程序占用都无法执行，对于A程序和外设备交互，不再需要处理机了，这个时候处理机去调度B程序，如果A程序和B程序有重合那么问题就很大了</li>
+</ul>
+<h3 id="CPU-历史的里程碑-8086"><a href="#CPU-历史的里程碑-8086" class="headerlink" title="CPU 历史的里程碑- 8086"></a>CPU 历史的里程碑- 8086</h3><ul>
+<li>地址线宽度为 20 位 ， 可访问 1M(2^20)内存空间</li>
+<li>引入 [ 段地址 ： 偏移地址 ] 的内存访问方式<br>8086的段寄存器和通用寄存器为16位<br>单个寄存器寻址最多访问64K 的内存空间<br>需要两个寄存器配合 ， 完成所有内存空间的访问  </li>
+</ul>
+<p>这个时候重定位就非常简单了，只需要写死偏移地址，如果有冲突就修改段基址即可</p>
+<p>深入解析 [ 段地址 ： 偏移地址 ]<br>- 硬件所做的工作<br>    <strong>段地址左移4 位</strong> ， 构成<strong>20 位的基地址</strong>（ 起始地址 ）<br>    基地址 + 偏移地址 = 实地址<br>- 对于开发者的意义<br>    更有效的划分内存的功能（ 数据段 ， 代码段 ， 等 ）<br>    当出现程序地址冲突时 ， 通过修改段地址解决冲突  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ax, [0x1234]	; 实地址 : (ds &lt;&lt; 4) + 0x1234 如果不指定段地址，硬件会选择默认段地址，默认段地址存储在寄存器ds</span><br><span class="line">mov ax, [es:0xl234]	; 实地址 : (es &lt;&lt; 4) + 0x1234</span><br></pre></td></tr></table></figure>
+
+<p>一个问题：[ 段地址 ： 偏移地址 ] 能访问的最大地址为 0xFFFF : 0xFFFF即 ： 10FFEF; 超过了（0xFFFFF）1MB 的空间 ， CPU 如何处理 ？  </p>
+<p>8086 中的高端地址区（ High Memory Area )  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0XFFFF : 0XFFFF</span><br><span class="line">= 0XFFFF0 + 0XFFFF</span><br><span class="line">= 0XFFFF0 + (0XF + 0XFFF0)</span><br><span class="line">= (0XFFFF0 + 0xF) + 0XFFF0</span><br><span class="line">= 0xFFFFF + 0xFFF0</span><br></pre></td></tr></table></figure>
+
+<p>8086的处理方式</p>
+<p>由于 8086 只有 20 位地址线 ， 因此最高位被丟弃（ 溢出 ） ！  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0XFFFF : 0XFFFF</span><br><span class="line">= 10FFEF 				#16进制</span><br><span class="line">= 100001111111111101111	#2进制 总共21位，超出一位</span><br><span class="line">-&gt; 00001111111111101111 #2进制 舍弃最高位变为20位  内存回卷</span><br><span class="line">=0XFFEF</span><br></pre></td></tr></table></figure>
+
+<p>再谈 8086 历史</p>
+<ul>
+<li>8086 在当时是非常成功的一款产品</li>
+<li>因此 ， 拥有一大批的开发者和应用程序</li>
+<li>各种基于 8086 程序设计的技术得到了发展</li>
+<li>不幸的是 ， 各种奇技淫巧也应运而生  </li>
+</ul>
+<p>8086 时期应用程序中的问题</p>
+<ol>
+<li>1MB 内存完全不够用（ 内存在任何时期都不够用 ）</li>
+<li>开发者在程序中大量使用内存回卷技术（ <strong>HMA 地址被使用</strong> ）</li>
+<li>应用程序之间<strong>没有界限，相互之间随意干扰</strong><br>• A 程序可以随意访问 B 程序中的数据<br>• C 程序可以修改系统调度程序的指令  </li>
+</ol>
+<h3 id="80286的登场"><a href="#80286的登场" class="headerlink" title="80286的登场"></a>80286的登场</h3><ul>
+<li>8086已经有那么多应用程序了 ， 所以必须兼容再兼容</li>
+<li>加大内存容量 ， 増加地址线数量（ 24位 ）</li>
+<li>[段地址:偏移地址] 的方式可以强化一下<br><strong>为每个段提供更多属性（ 如：范围，特权级，等 ）</strong><br><strong>为每个段的定义提供固定方式</strong>  </li>
+</ul>
+<p>80286的兼容性</p>
+<ul>
+<li>默认情况下完全兼容 8086 的运行方式（ <strong>实模式</strong> ）</li>
+<li>默认可直接访问1MB 的内存空间</li>
+<li>通过<strong>保护模式</strong>访问1MB+ 的内存空间 （地址线24位）</li>
+</ul>
+<h3 id="保护模式"><a href="#保护模式" class="headerlink" title="保护模式"></a>保护模式</h3><p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220508175754093.png" alt="image-20220508175754093"></p>
+<p>初识保护模式</p>
+<ul>
+<li>每一段内存的拥有一个<strong>属性定义 描述符</strong>，类似于<strong>变量</strong>（ 描述符 Descriptor )</li>
+<li>所有段的属性定义构成一张表，类似于<strong>数组</strong>（ <strong>描述符表</strong> Descriptor Table )</li>
+<li>段寄存器保存的是属性定义在表中的索引，访问数组需要<strong>“下标”</strong>（ 选择子 Selector )  </li>
+</ul>
+<h4 id="描述符的内存结构"><a href="#描述符的内存结构" class="headerlink" title="描述符的内存结构"></a><strong>描述符的内存结构</strong></h4><p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220508175925665.png" alt="image-20220508175925665"></p>
+<p>段基址为什么放三个段然后拼接起来？这是个历史原因，硬件会帮我们拼接起来</p>
+<h4 id="描述符表"><a href="#描述符表" class="headerlink" title="描述符表"></a><strong>描述符表</strong></h4><p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220508183358674.png" alt="image-20220508183358674"></p>
+<h4 id="选择子"><a href="#选择子" class="headerlink" title="选择子"></a><strong>选择子</strong></h4><p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220508183446585.png" alt="image-20220508183446585"></p>
+<p>进入保护模式的方法</p>
+<ol>
+<li>定义描述符表</li>
+<li>打开 A20 地址线<br>80286默认情况下兼容8086运行方式，只使用0-19这20根地址线，访问超过<strong>1MB</strong>内存时，会自动回卷，<br>但是打开了A20地址线就可以使用更多地址线，访问的地址范围更大了</li>
+<li>加载描述表<br>将描述表的地址放入一个特殊寄存器</li>
+<li>通知 CPU 进入保护模式<br>将一个特殊寄存器的值0变为1</li>
+</ol>
+<h3 id="80286-的光荣退场"><a href="#80286-的光荣退场" class="headerlink" title="80286 的光荣退场"></a>80286 的光荣退场</h3><ul>
+<li>历史意义<br>引入了保护模式 ， 为现代操作系统和应用程序奠定了基础</li>
+<li>奇葩设计<br>段寄存器为 24 位 ， 通用寄存器为 16 位（ 不伦不类 ），实模式下只有16位可以使用<pre><code>    理论上 ， 段寄存器中的数值可以直接作为段基址
+    16 位通用寄存器最多**访问 64K 的内存**
+    为了访问16M 内存，**必须不停切换段基址**  
+</code></pre>
+</li>
+</ul>
+<h3 id="80386的登场（-计算机新时期的标志）"><a href="#80386的登场（-计算机新时期的标志）" class="headerlink" title="80386的登场（ 计算机新时期的标志）"></a>80386的登场（ 计算机新时期的标志）</h3><ul>
+<li>32 位地址总线（ 可支持 4G 的内存空间 ）</li>
+<li>段寄存器和通用寄存器都为 <strong>32 位</strong><br><strong>任何一个寄存器都能访问到内存的任意角落</strong><br>开启了平坦内存模式的新时代<br>段基址为 0 , 使用通用寄存器访问4G 内存空间</li>
+</ul>
+<p>新时期的内存使用方式</p>
+<ol>
+<li>实模式：兼容 8086的内存使用方式（ 指哪打哪 ）</li>
+<li>分段模式：通过[段地址:偏移地址]的方式将内存从功能上分段（数据段,代码段 ）</li>
+<li>平坦模式：所有内存就是一个段[0:32位偏移地址]  </li>
+</ol>
+<p>一个问题：x86指的究竟是什么处理器？<br>8086，80286，80386…</p>
+<h2 id="GDT表初始化"><a href="#GDT表初始化" class="headerlink" title="GDT表初始化"></a>GDT表初始化</h2><h3 id="GDT表项"><a href="#GDT表项" class="headerlink" title="GDT表项"></a>GDT表项</h3><p><strong>段属性定义：</strong></p>
+<p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220508201154545.png" alt="image-20220508201154545"></p>
+<p><strong>选择子属性定义：</strong></p>
+<p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220508201346654.png" alt="image-20220508201346654"></p>
+<p><strong>保护模式的段定义</strong><br>借助宏来实现</p>
+<p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220508201835202.png" alt="image-20220508201835202"></p>
+<h3 id="GDT的定义"><a href="#GDT的定义" class="headerlink" title="GDT的定义"></a><strong>GDT的定义</strong></h3><p>这样借助宏只需要传入三个参数即可</p>
+<p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220508202140787.png" alt="image-20220508202140787"></p>
+<p>汇编小贴士</p>
+<ul>
+<li>section 关键字用于”<strong>逻辑</strong>的“<strong>定义一段代码集合</strong></li>
+<li>section 定义的代码段<strong>不同于</strong> [ 段地址 ： 偏移地址 ] 的代码段（内存中可执行的代码）<br>section定义的代码段<strong>仅限于源码中的代码段</strong>（ 代码节 ），未经过编译以文本形式存在的代码段，只存在于源码，不会加载到物理内存中<br>[ 段地址 ： 偏移地址]的代码段指内存中的代码段<br><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220508202550629.png" alt="image-20220508202550629"></li>
+</ul>
+<p>汇编程序中以<code>.</code>开头的名称并不是指令的助记符，不会被翻译成机器指令，而是给汇编器一些特殊指示，称为汇编指示（Assembler Directive）或伪操作（Pseudo-operation），由于它不是真正的指令所以加个“伪”字。<code>.section</code>指示把代码划分成若干个段（Section），程序被操作系统加载执行时，每个段被加载到不同的地址，操作系统对不同的页面设置不同的读、写、执行权限。<code>.data</code>段保存程序的数据，是可读可写的，相当于C程序的全局变量。</p>
+<p>.s1代码段逻辑上是连续的，代码节之间存在内存对齐，必须四字节对齐，因此.s1补了两个字节的0</p>
+<ul>
+<li>[bits16] 用于指示编译器将代码按照16 位方式进行编译</li>
+<li>[bits32]用于指示编译器将代码按照32 位方式进行编译  </li>
+</ul>
+<h3 id="初始化GDT"><a href="#初始化GDT" class="headerlink" title="初始化GDT"></a>初始化GDT</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">; inc.asm</span><br><span class="line">; Segment Attribute</span><br><span class="line">DA_32    equ    0x4000</span><br><span class="line">DA_DR    equ    0x90</span><br><span class="line">DA_DRW   equ    0x92</span><br><span class="line">DA_DRWA  equ    0x93</span><br><span class="line">DA_C     equ    0x98</span><br><span class="line">DA_CR    equ    0x9A</span><br><span class="line">DA_CCO   equ    0x9C</span><br><span class="line">DA_CCOR  equ    0x9E</span><br><span class="line"></span><br><span class="line">; Selector Attribute</span><br><span class="line">SA_RPL0    equ    0</span><br><span class="line">SA_RPL1    equ    1</span><br><span class="line">SA_RPL2    equ    2</span><br><span class="line">SA_RPL3    equ    3</span><br><span class="line"></span><br><span class="line">SA_TIG    equ    0</span><br><span class="line">SA_TIL    equ    4</span><br><span class="line"></span><br><span class="line">; 描述符</span><br><span class="line">; usage: Descriptor Base, Limit, Attr</span><br><span class="line">;        Base:  dd</span><br><span class="line">;        Limit: dd (low 20 bits available)</span><br><span class="line">;        Attr:  dw (lower 4 bits of higher byte are always 0)</span><br><span class="line">%macro Descriptor 3	                          ; 段基址， 段界限， 段属性</span><br><span class="line">    dw    %2 &amp; 0xFFFF                         ; 段界限1</span><br><span class="line">    dw    %1 &amp; 0xFFFF                         ; 段基址1</span><br><span class="line">    db    (%1 &gt;&gt; 16) &amp; 0xFF                   ; 段基址2</span><br><span class="line">    dw    ((%2 &gt;&gt; 8) &amp; 0xF00) | (%3 &amp; 0xF0FF) ; 属性1 + 段界限2 + 属性2</span><br><span class="line">    db    (%1 &gt;&gt; 24) &amp; 0xFF                   ; 段基址3</span><br><span class="line">%endmacro                                     ; 共 8 字节</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这里<strong>实模式实现的功能</strong>非常的简单，将32位只执行代码段的GDT表项初始好了，然后jmp强制跳转到了32位保护模式下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">%include &quot;inc.asm&quot;</span><br><span class="line"></span><br><span class="line">org 0x9000</span><br><span class="line"></span><br><span class="line">jmp CODE16_SEGMENT</span><br><span class="line"></span><br><span class="line">[section .gdt]</span><br><span class="line">; GDT definition</span><br><span class="line">;                                 段基址，       段界限，       段属性</span><br><span class="line">GDT_ENTRY       :     Descriptor    0,            0,           0                ;段描述表第一个不使用，仅作为占位符</span><br><span class="line">CODE32_DESC     :     Descriptor    0,    Code32SegLen  - 1,   DA_C + DA_32     ;保护模式下的32位只执行代码段</span><br><span class="line">; GDT end</span><br><span class="line"></span><br><span class="line">GdtLen    equ   $ - GDT_ENTRY       ;全局描述符表的长度</span><br><span class="line"></span><br><span class="line">GdtPtr:                             </span><br><span class="line">          dw   GdtLen - 1           ;结构体界限</span><br><span class="line">          dd   0                    ;GDT的起始地址，4字节</span><br><span class="line">          </span><br><span class="line">          </span><br><span class="line">; GDT Selector</span><br><span class="line"></span><br><span class="line">Code32Selector    equ (0x0001 &lt;&lt; 3) + SA_TIG + SA_RPL0          ;选择子 索引1 + 属性GDT + 特权级0</span><br><span class="line"></span><br><span class="line">; end of [section .gdt]</span><br><span class="line"></span><br><span class="line">;实模式16位代码段 </span><br><span class="line">[section .s16]</span><br><span class="line">[bits 16]</span><br><span class="line">CODE16_SEGMENT:</span><br><span class="line">    mov ax, cs</span><br><span class="line">    mov ds, ax</span><br><span class="line">    mov es, ax</span><br><span class="line">    mov ss, ax</span><br><span class="line">    mov sp, 0x7c00</span><br><span class="line">    </span><br><span class="line">    ; initialize GDT for 32 bits code segment 获取CODE32的真实段基地址</span><br><span class="line">    mov eax, 0                                  ;eax寄存器值清0</span><br><span class="line">    mov ax, cs                                  ;eax = cs</span><br><span class="line">    shl eax, 4                                  ;eax = cs&lt;&lt;4</span><br><span class="line">    add eax, CODE32_SEGMENT                     ;得到32位代码段的真实段基地址[cs &lt;&lt; 4 + CODE32_SEGMENT]</span><br><span class="line">    </span><br><span class="line">    ;对段描述符的段基址部分进行初始化设置</span><br><span class="line">    mov word [CODE32_DESC + 2], ax              ;32位代码段的段基地址低16位放到偏移2处</span><br><span class="line">    shr eax, 16                                 ;低16位被移出去了，ax变为了高16位</span><br><span class="line">    mov byte [CODE32_DESC + 4], al              ;将段基地址17-23位放到偏移4处</span><br><span class="line">    mov byte [CODE32_DESC + 7], ah              ;将段基地址24-31位放到偏移7处</span><br><span class="line">    </span><br><span class="line">    ; initialize GDT pointer struct</span><br><span class="line">    mov eax, 0                                  ;eax寄存器值清0</span><br><span class="line">    mov ax, ds                                  ;eax = cs</span><br><span class="line">    shl eax, 4                                  ;eax = cs&lt;&lt;4</span><br><span class="line">    add eax, GDT_ENTRY                          ;得到全局GDT段表的起始地址</span><br><span class="line">    mov dword [GdtPtr + 2], eax                 ;放入到结构体GdtPtr起始地址处</span><br><span class="line"></span><br><span class="line">    ; 1. load GDT</span><br><span class="line">    lgdt [GdtPtr]</span><br><span class="line">    </span><br><span class="line">    ; 2. close interrupt</span><br><span class="line">    cli </span><br><span class="line">    </span><br><span class="line">    ; 3. open A20</span><br><span class="line">    in al, 0x92</span><br><span class="line">    or al, 00000010b</span><br><span class="line">    out 0x92, al</span><br><span class="line">    </span><br><span class="line">    ; 4. enter protect mode</span><br><span class="line">    mov eax, cr0</span><br><span class="line">    or eax, 0x01</span><br><span class="line">    mov cr0, eax</span><br><span class="line">    </span><br><span class="line">    ; 5. jump to 32 bits code</span><br><span class="line">    jmp dword Code32Selector : 0                    ;这里就已经使用的是选择子</span><br><span class="line"></span><br><span class="line">[section .s32]</span><br><span class="line">[bits 32]</span><br><span class="line">CODE32_SEGMENT:</span><br><span class="line">    mov eax, 0</span><br><span class="line">    jmp CODE32_SEGMENT</span><br><span class="line"></span><br><span class="line">Code32SegLen    equ    $ - CODE32_SEGMENT</span><br></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<ul>
+<li>段描述表中的<strong>第 0 个描述符不使用</strong>（ 仅用于占位 ）</li>
+<li>代码中<strong>必须显示的指明</strong>16 位代码段和 32 位代码段</li>
+<li>必须使用<strong>jmp</strong>指令从 16 位代码段韵啭到 32 位代码段  </li>
+</ul>
+<p>为什么不直接使用标签定义描述符中的段基地址，换种说法为什么CODE32_DESC在定义的时候设置段基地址为0，然后实模式下才去初始化好端基地址 ？</p>
+<ul>
+<li>NASM 将汇编文件当成一个独立的代码段编译</li>
+<li>汇编代码中的标签（ Label ) 代表的是段内偏移地址（逻辑地址）</li>
+<li>实模式下需要配合段寄存器中的值才能计算得到标签的真实物理地址  </li>
+</ul>
+<p>为什么16 位代码段到 32 位代码段必须无条件换种说法32位代码段和16位代码段相连，为什么需要跳转 ?  </p>
+<ul>
+<li>处理器为了提高效率将当前指令和后缴旨令预取到流水线</li>
+<li>因此 ， 可能同时预取的指令中既有16 位代码又有 32 位代码</li>
+<li>为了避免将 32 位代码用16 位的方式运行 ， 需要刷新流水线</li>
+<li>无条件jmp 能强制刷新流水</li>
+</ul>
+<p><strong>小结</strong></p>
+<ul>
+<li>80386 处理器是计算机发展史上的里程碑</li>
+<li>32 位的寄存器和地址总线能够直接访问 4G 内存的任意角落</li>
+<li>需要在16 位实模式中对 GDT 中的数据进行初始化</li>
+<li>代码中需要为 **GDT 定义一个标识数据结构（ GdtPtr )**，用于加载段描述符表</li>
+<li>需要使用jmp 指令从 16 位代码跳转到 32 位代码  </li>
+</ul>
+<h3 id="显存段"><a href="#显存段" class="headerlink" title="显存段"></a>显存段</h3><p>为了显示数据 ， 必须存在两大硬件 ： 显卡 + 显示器</p>
+<ul>
+<li>显卡<br>为显示器提供需要显示的数据<br>控制显示器的模式和状态</li>
+<li>显示器<br>将目标数据以可见的方式呈现在屏幕上  </li>
+</ul>
+<p>显存的概念和意义</p>
+<ul>
+<li>显卡拥有自己内部的数据存储器 ， 简称显存</li>
+<li>显存在本质上和普通内存无差别 ， 用于存储目标数据</li>
+<li>操作显存中的数据将导致显示器上内容的改变  </li>
+</ul>
+<p>显卡的工作模式 ： 文本模式 &amp; 图形模式</p>
+<ul>
+<li>在不同的模式下 ， 显卡对显存内容的解释是不同的</li>
+<li>可以使用专属指令或 <strong>int 0x10</strong> 中断改变显卡工作模式</li>
+<li><strong>文本模式</strong>下 ：<br>显存的地址范围映射为 ： [ 0XB8000,0xBFFFF ]<br>屏幕可以显示 25 行，每行 80 个字符（<strong>1个字符占用2字节</strong>，第一个字节存字符，第二个字节存属性，恰好可以用一个ax寄存器存下） </li>
+</ul>
+<p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220510100350498.png" alt="image-20220510100350498"></p>
+<h4 id="PrintString"><a href="#PrintString" class="headerlink" title="PrintString"></a>PrintString</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CODE32_SEGMENT:</span><br><span class="line">    mov ax, VideoSelector</span><br><span class="line">    mov gs, ax                                      ;将显存段的选择子放入gs寄存器</span><br><span class="line">    mov edi, (80 * 12 + 37) * 2                     ;每个字符占用两个单元字符和属性</span><br><span class="line">    mov ah, 0x0C                                    ;黑底红字方式显示</span><br><span class="line">    mov al, &#x27;P&#x27;                                     ;显示P字符</span><br><span class="line">    mov [gs:edi], ax                                ;放到显存段中</span><br><span class="line">    jmp CODE32_SEGMENT</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220510102036694.png" alt="image-20220510102036694"></p>
+<p>在保护模式下 ， 打印指定内存中的字符串</p>
+<ul>
+<li>定义全局堆栈段（ .gs ) ,用于保护模式下的函数调用</li>
+<li>定义全局数据段（ .dat ) , 用于定义只读数据 ( D.T.OS! )</li>
+<li>利用对显存段的操作定义字符串打印函数（ Printstring )  </li>
+</ul>
+<p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220510112728498.png" alt="image-20220510112728498"></p>
+<p>32 位保护模式下的乘法操作（ mul )</p>
+<ul>
+<li>被乘数放到 AX 寄存器</li>
+<li>乘数放到通用寄存器或内存单元（ 16位 ）</li>
+<li>相乘的结果放到 EAX 寄存器中  </li>
+</ul>
+<p>再 论 $ 和 $$</p>
+<ul>
+<li>$表示当前行相对于代码起始位置处的偏移量</li>
+<li>$$表示当前代码节（ section )的起始位置  </li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[section .dat]</span><br><span class="line">[bits 32]</span><br><span class="line">    FYOS	db &quot;FYOS!&quot;,0</span><br><span class="line">    ; 计算FYOS在当前代码节的偏移位置</span><br><span class="line">    FYOS_OFFSET	equ FYOS -$$</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">; ds:ebp    --&gt; string address</span><br><span class="line">; bx        --&gt; attribute</span><br><span class="line">; dx        --&gt; dh : row, dl : col</span><br><span class="line">PrintString:</span><br><span class="line">    push ebp</span><br><span class="line">    push eax</span><br><span class="line">    push edi</span><br><span class="line">    push cx</span><br><span class="line">    push dx</span><br><span class="line">print:</span><br><span class="line">    mov cl, [ds : ebp]  ;cl 取得当前字符</span><br><span class="line">    cmp cl, 0           </span><br><span class="line">    je end</span><br><span class="line">    mov eax, 80         </span><br><span class="line">    mul dh              ;80*row --&gt;eax</span><br><span class="line">    add al, dl</span><br><span class="line">    shl eax, 1</span><br><span class="line">    mov edi, eax        ;mov edi, (80 * 12 + 37) * 2</span><br><span class="line">    mov ah, bl          ;字符属性</span><br><span class="line">    mov al, cl          ;打印字符放入al</span><br><span class="line">    mov [gs:edi], ax    ;放入显存</span><br><span class="line">    inc ebp             ;下一个的位置</span><br><span class="line">    inc dl              ;显存中下一个字符的打印位置</span><br><span class="line"></span><br><span class="line">    jmp print</span><br></pre></td></tr></table></figure>
+
+<h4 id="全局栈段"><a href="#全局栈段" class="headerlink" title="全局栈段"></a>全局栈段</h4><p>32位代码段下调用一个函数，我们也需给32位代码段也应设置一个栈空间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">STACK_DESC      :     Descriptor    0,      TopOfStackInit,    DA_DRW + DA_32   ;GDT描述符32位 可读可写</span><br><span class="line"></span><br><span class="line">Stack32Selector   equ (0x0004 &lt;&lt; 3) + SA_TIG + SA_RPL0          ;选择子 索引4 + 属性GDT + 特权级0</span><br><span class="line">;....</span><br><span class="line">    mov ax, Stack32Selector</span><br><span class="line">    mov ss, ax</span><br><span class="line">;....</span><br><span class="line">    call PrintString</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这里并没有对esp指针进行初始化，似乎有bug？那么调用函数前esp的寄存器的值是多少？</p>
+<p>这边可以反编译<code>ndisasm -o 0x9000 loader &gt; loader.txt</code>看一下对应文件然后设置断点调试</p>
+<p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220513214306791.png" alt="image-20220513214306791"></p>
+<p>可以看到调用printstring函数前esp寄存器的值就是栈顶，是我们所预期的，那么这是为什么呢？</p>
+<p>因为在16位实模式代码段就已经赋值0x7c000了，只要16位代码段的操作正确不乱修改栈，那么到32位下初始值也为0x7c00</p>
+<p><strong>保护模式下的栈段（ Stack Segment )</strong></p>
+<ol>
+<li>指定一段空间 ， 并为其定义段描述符</li>
+<li> 根据段描述符表中的位置定义筆子</li>
+<li>初始化栈段寄存器（ ss &lt;- StackSelector )</li>
+<li>初始化栈顶指针（ esp &lt;- TopOfStack )  </li>
+</ol>
+<p>因此对栈段进行修改，添加一个section</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[section .gs]</span><br><span class="line">[bits 32]</span><br><span class="line">STACK32_SEGMENT:</span><br><span class="line">    times 1024 * 4 db 0</span><br><span class="line"></span><br><span class="line">Stack32SegLen equ $ - STACK32_SEGMENT</span><br><span class="line">TopOfStack32 equ Stack32SegLen - 1</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><span class="line">%include &quot;inc.asm&quot;</span><br><span class="line"></span><br><span class="line">org 0x9000</span><br><span class="line"></span><br><span class="line">jmp CODE16_SEGMENT</span><br><span class="line"></span><br><span class="line">[section .gdt]</span><br><span class="line">; GDT definition</span><br><span class="line">;                                 段基址，       段界限，       段属性</span><br><span class="line">GDT_ENTRY       :     Descriptor    0,            0,           0                ;段描述表第一个不使用，仅作为占位符     </span><br><span class="line">CODE32_DESC     :     Descriptor    0,    Code32SegLen - 1,    DA_C + DA_32     ;保护模式下的32位只执行代码段</span><br><span class="line">VIDEO_DESC      :     Descriptor  0xB8000,     0x07FFF,        DA_DRWA + DA_32  ;显存段描述符 可读可写且显存已经被访问过了 </span><br><span class="line">DATA32_DESC     :     Descriptor    0,    Data32SegLen - 1,    DA_DR + DA_32    ;32位 只读段   </span><br><span class="line">STACK_DESC      :     Descriptor    0,      TopOfStackInit,    DA_DRW + DA_32   ;32位 可读可写，注意这个栈空间段基址无需初始化，从0~0x7c00作为我们的全局栈空间</span><br><span class="line"></span><br><span class="line">; GDT end</span><br><span class="line"></span><br><span class="line">GdtLen    equ   $ - GDT_ENTRY       ;全局描述符表的长度</span><br><span class="line"></span><br><span class="line">GdtPtr:                             </span><br><span class="line">          dw   GdtLen - 1           ;结构体界限</span><br><span class="line">          dd   0                    ;GDT的起始地址，4字节</span><br><span class="line">          </span><br><span class="line">          </span><br><span class="line">; GDT Selector</span><br><span class="line"></span><br><span class="line">Code32Selector    equ (0x0001 &lt;&lt; 3) + SA_TIG + SA_RPL0          ;选择子 索引1 + 属性GDT + 特权级0</span><br><span class="line">VideoSelector     equ (0x0002 &lt;&lt; 3) + SA_TIG + SA_RPL0          ;选择子 索引2 + 属性GDT + 特权级0</span><br><span class="line">Data32Selector    equ (0x0003 &lt;&lt; 3) + SA_TIG + SA_RPL0          ;选择子 索引3 + 属性GDT + 特权级0</span><br><span class="line">Stack32Selector   equ (0x0004 &lt;&lt; 3) + SA_TIG + SA_RPL0          ;选择子 索引4 + 属性GDT + 特权级0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">; end of [section .gdt]</span><br><span class="line"></span><br><span class="line">TopOfStackInit    equ 0x7c00</span><br><span class="line">[section .dat]</span><br><span class="line">[bits 32]</span><br><span class="line">DATA32_SEGMENT:</span><br><span class="line">    FYOS    db &quot;F.Y.OS!&quot;, 0</span><br><span class="line">    FYOS_OFFSET equ FYOS - $$                  ;数据段内偏移地址</span><br><span class="line">Data32SegLen equ $ - DATA32_SEGMENT</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;实模式16位代码段 </span><br><span class="line">[section .s16]</span><br><span class="line">[bits 16]</span><br><span class="line">CODE16_SEGMENT:</span><br><span class="line">    mov ax, cs</span><br><span class="line">    mov ds, ax</span><br><span class="line">    mov es, ax</span><br><span class="line">    mov ss, ax</span><br><span class="line">    mov sp, TopOfStackInit</span><br><span class="line">    </span><br><span class="line">    ; initialize GDT for 32 bits code segment</span><br><span class="line">    mov esi, CODE32_SEGMENT</span><br><span class="line">    mov edi, CODE32_DESC</span><br><span class="line"></span><br><span class="line">    call InitDescItem</span><br><span class="line"></span><br><span class="line">    mov esi, DATA32_SEGMENT</span><br><span class="line">    mov edi, DATA32_DESC</span><br><span class="line">    call InitDescItem</span><br><span class="line"></span><br><span class="line">    ; initialize GDT pointer struct</span><br><span class="line">    mov eax, 0                                  ;eax寄存器值清0</span><br><span class="line">    mov ax, ds                                  ;eax = cs</span><br><span class="line">    shl eax, 4                                  ;eax = cs&lt;&lt;4</span><br><span class="line">    add eax, GDT_ENTRY                          ;得到全局GDT段表的起始地址</span><br><span class="line">    mov dword [GdtPtr + 2], eax                 ;放入到结构体GdtPtr起始地址处</span><br><span class="line"></span><br><span class="line">    ; 1. load GDT</span><br><span class="line">    lgdt [GdtPtr]</span><br><span class="line">    </span><br><span class="line">    ; 2. close interrupt</span><br><span class="line">    cli </span><br><span class="line">    </span><br><span class="line">    ; 3. open A20</span><br><span class="line">    in al, 0x92</span><br><span class="line">    or al, 00000010b</span><br><span class="line">    out 0x92, al</span><br><span class="line">    </span><br><span class="line">    ; 4. enter protect mode</span><br><span class="line">    mov eax, cr0</span><br><span class="line">    or eax, 0x01</span><br><span class="line">    mov cr0, eax</span><br><span class="line">    </span><br><span class="line">    ; 5. jump to 32 bits code</span><br><span class="line">    jmp dword Code32Selector : 0                    ;这里就已经使用的是选择子</span><br><span class="line"></span><br><span class="line">; esi   --&gt; code segment label</span><br><span class="line">; edi   --&gt; descriptor label</span><br><span class="line">InitDescItem:</span><br><span class="line">    push eax</span><br><span class="line">    mov eax, 0                                  ;eax寄存器值清0</span><br><span class="line">    mov ax, cs                                  ;eax = cs</span><br><span class="line">    shl eax, 4                                  ;eax = cs&lt;&lt;4</span><br><span class="line">    add eax, esi                                ;得到32位代码段的真实段基地址[cs &lt;&lt; 4 + CODE32_SEGMENT]</span><br><span class="line">    </span><br><span class="line">    ;对段描述符的段基址部分进行初始化设置</span><br><span class="line">    mov word [edi + 2], ax                      ;32位代码段的段基地址低16位放到偏移2处</span><br><span class="line">    shr eax, 16                                 ;低16位被移出去了，ax变为了高16位</span><br><span class="line">    mov byte [edi + 4], al                      ;将段基地址17-23位放到偏移4处</span><br><span class="line">    mov byte [edi + 7], ah                      ;将段基地址24-31位放到偏移7处</span><br><span class="line">    pop eax</span><br><span class="line">    ret</span><br><span class="line"></span><br><span class="line">[section .s32]</span><br><span class="line">[bits 32]</span><br><span class="line">CODE32_SEGMENT:</span><br><span class="line">    mov ax, VideoSelector</span><br><span class="line">    mov gs, ax                                  ;将显存段的选择子放入gs寄存器</span><br><span class="line"></span><br><span class="line">    mov ax, Stack32Selector</span><br><span class="line">    mov ss, ax</span><br><span class="line"></span><br><span class="line">    mov ax, Data32Selector</span><br><span class="line">    mov ds, ax</span><br><span class="line"></span><br><span class="line">    mov ebp, FYOS_OFFSET						;都是32位段下面的，因此使用FYOS_OFFSET偏移</span><br><span class="line">    mov bx, 0x0C</span><br><span class="line">    mov dh, 12</span><br><span class="line">    mov dl, 33</span><br><span class="line"></span><br><span class="line">    call PrintString</span><br><span class="line"></span><br><span class="line">    jmp $</span><br><span class="line"></span><br><span class="line">; ds:ebp    --&gt; string address</span><br><span class="line">; bx        --&gt; attribute</span><br><span class="line">; dx        --&gt; dh : row, dl : col</span><br><span class="line">PrintString:</span><br><span class="line">    push ebp</span><br><span class="line">    push eax</span><br><span class="line">    push edi</span><br><span class="line">    push cx</span><br><span class="line">    push dx</span><br><span class="line">print:</span><br><span class="line">    mov cl, [ds : ebp]	;cl保存需要打印的字符</span><br><span class="line">    cmp cl, 0			;判断是否为0</span><br><span class="line">    je end</span><br><span class="line">    mov eax, 80			;</span><br><span class="line">    mul dh              ;80*row --&gt;eax</span><br><span class="line">    add al, dl			</span><br><span class="line">    shl eax, 1			;*</span><br><span class="line">    mov edi, eax        ;mov edi, (80 * 12 + 37) * 2</span><br><span class="line">    mov al, cl</span><br><span class="line">    mov [gs:edi], ax</span><br><span class="line">    inc ebp</span><br><span class="line">    inc dl</span><br><span class="line"></span><br><span class="line">    jmp print</span><br><span class="line">    </span><br><span class="line">end:</span><br><span class="line">    pop dx</span><br><span class="line">    pop cx</span><br><span class="line">    pop edi</span><br><span class="line">    pop eax</span><br><span class="line">    pop ebp</span><br><span class="line">    ret</span><br><span class="line"></span><br><span class="line">Code32SegLen    equ    $ - CODE32_SEGMENT</span><br></pre></td></tr></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>实模式下可以使用32位寄存器和32位地址</li>
+<li>显存是显卡内部的存储单元，本质和普通内存无差别</li>
+<li>显卡有两种工作模式：文本模式&amp;图形模式</li>
+<li>文本模式下操作显存单元中的数据能够立即反应到显示器上</li>
+</ul>
+<h2 id="保护模式返回实模式"><a href="#保护模式返回实模式" class="headerlink" title="保护模式返回实模式"></a>保护模式返回实模式</h2><p>本质上是处理器的两种工作模式，因此应该是允许相互跳转的。</p>
+<p><strong>处理器中的设计简介</strong></p>
+<ul>
+<li>80286 之后的处理器都提供兼容 8086 的实模式</li>
+<li>然而，<strong>绝大多时候</strong>处理器都运行于保护模式</li>
+<li>因此，<strong>保护模式的运行效率至关重要</strong>，性能瓶颈在于段描述符位于内存，必须读内存</li>
+<li>处理器的速度远远快于内存读取速度，那么，<strong>处理器如何高效的访问内存中的段描述符 ？？？</strong>  </li>
+</ul>
+<p><strong>解决方案：高速缓冲存储器</strong></p>
+<p>当使用选择子设置段寄存器时(mov操作)<br>• 根据选择子访问内存中的段描述符<br>• 将<strong>段描述符加载到段寄存器的高速缓冲存储器</strong><br>• 需要段描述符信息时 ， <strong>直接从高速缓冲存储器中获得</strong>  </p>
+<p>一个问题：当处理器运行于实模式时 ， 段寄存器的高速缓冲存储器是否会用到 ？  </p>
+<ul>
+<li>在实模式下，高速缓冲存储器仍然发挥作用</li>
+<li>高速缓冲区的段基址是 32 位 ， <strong>实模式下其值是相应段寄存器的值乘以16</strong></li>
+<li>实模式下段基址有效位为 20 位 （32位的空间完全容纳的下），段界限固定为<strong>0xFFFF( 64K )</strong></li>
+<li><strong>段属性的值不可设置</strong>（实模式下都是指哪打哪内存<strong>属性都是可读可写</strong>） ， 只能继续沿用保护方式下所设置的值  </li>
+</ul>
+<p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220513222332686.png" alt="image-20220513222332686"></p>
+<p>高速缓冲存储器依然发挥作用，但是进入实模式时必须保证高速缓冲存储器段界限和段属性是正确的</p>
+<p><strong>然而高速缓冲存储器不允许直接访问但是又需要设置它的值</strong><br>因此需要借助段描述符(mov)修改高速缓冲存储器的值，具体就是通过<strong>加载一个合适的描述符选择子到有关段寄存器</strong> ， 以使得对应段描述符高速缓冲寄存器中含有合适的段界限和属性 ！ ！  </p>
+<p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220513223200672.png" alt="image-20220513223200672"></p>
+<p>80x86 中的一个神秘限制</p>
+<ul>
+<li><strong>无法直接</strong>从 32 位代码段回到实模式</li>
+<li>只能从 16 位代码段<strong>间接返回实模式</strong></li>
+<li><strong>在返回前必须用合适的选择子对段寄存器赋值</strong>  </li>
+</ul>
+<p><strong>保护模式下也是可以定义16位代码段</strong>，并且16位代码段也是存在运行于保护模式中，中转代码段不干任何其他操作，只用合适选择子给段寄存器赋值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">CODE16_DESC     :     Descriptor    0,          0xFFFF,        DA_C          </span><br><span class="line">UPDATE_DESC     :     Descriptor    0,          0xFFFF,        DA_DRW           ;16位 可读可写</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Code16Selector    equ (0x0005 &lt;&lt; 3) + SA_TIG + SA_RPL0</span><br><span class="line">UPDATESelector    equ (0x0006 &lt;&lt; 3) + SA_TIG + SA_RPL0</span><br><span class="line"></span><br><span class="line">;16位保护模式代码段，保护模式下jmp Code16Selector : 0即可跳转到这</span><br><span class="line">[section .s16]</span><br><span class="line">[bits 16]</span><br><span class="line">CODE16_SEGMENT:</span><br><span class="line">    mov ax, UPDATESelector                      ;定义一个特殊的段描述符用于刷新高速缓冲存储器</span><br><span class="line">    mov ds, ax</span><br><span class="line">    mov es, ax</span><br><span class="line">    mov fs, ax</span><br><span class="line">    mov gs, ax</span><br><span class="line">    mov ss, ax                                  ;注意不能刷新cs寄存器，因为这段代码还在保护模式下面</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ;退出保护模式</span><br><span class="line">    mov eax, cr0            </span><br><span class="line">    and al, 11111110b</span><br><span class="line">    mov cr0, eax</span><br><span class="line"></span><br><span class="line">BACK_TO_REAL_MODE:</span><br><span class="line">    jmp 0 : BACK_ENTRY_SEGMENT                      ;段间跳转，cs是未知的，因此应该在前面动态填入</span><br></pre></td></tr></table></figure>
+
+<p><strong>深入讲解jmp指令</strong>：段内跳转和段间跳转是不同的，因此在实模式下可以考虑动态修改<strong>操作数</strong>，可以跳转到另一个段中期望的地址</p>
+<p><img src="/../images/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/image-20220513223426970.png" alt="image-20220513223426970"></p>
+<p>因此在刚开始最先进入实模式时就可以<code>mov [BACK_TO_REAL_MODE + 3], ax</code>动态的修改了这个段基址<code>jmp 0 : BACK_ENTRY_SEGMENT---&gt;jmp cs : BACK_ENTRY_SEGMENT</code></p>
+<p>另外注意<code>jmp 0 : BACK_ENTRY_SEGMENT</code>这里已经是在保护模式下运行了，但是我们并没有刷新cs寄存器对应的高速缓冲存储器，段界限段属性无法刷新，而如果设置的段界限太小了会直接报错，因为实模式下寻址范围是64k</p>
+<p>因此在开始初始化的时候就应该将cs寄存器对应的高速缓冲存储器的偏移地址设置为0xFFFF</p>
+<p>跳转到16位实模式后，对段寄存器的赋值只会改变相应高速缓冲区的段基地址，段界限和段属性沿用UPDATE_DESC中的定义</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">BACK_ENTRY_SEGMENT:</span><br><span class="line">    mov ax, cs</span><br><span class="line">    mov ds, ax</span><br><span class="line">    mov es, ax</span><br><span class="line">    mov ss, ax</span><br><span class="line">    mov sp, TopOfStack16</span><br><span class="line"></span><br><span class="line">    in al, 0x92                                 ;关闭A20地址线</span><br><span class="line">    and al, 11111110b</span><br><span class="line">    out 0x92, al</span><br><span class="line"></span><br><span class="line">    sti                                         ;启用硬件中断                </span><br><span class="line">    mov bp, HELLO</span><br><span class="line">    mov cx, 12</span><br><span class="line">    mov dx, 0</span><br><span class="line">    mov ax, 0x1301</span><br><span class="line">    mov bx, 0x0007</span><br><span class="line">    int 0x10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    jmp $</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">长烟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yunf194.github.io/2022/05/08/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/">http://yunf194.github.io/2022/05/08/202258-%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%88%B0%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yunf194.github.io" target="_blank">fengyun's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OS/">OS</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/os.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/13/2022513-%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"><img class="prev-cover" src="/images/cover/offer.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">贪心算法</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/01/202251-%E7%AA%81%E7%A0%B4512%E5%AD%97%E8%8A%82%E9%99%90%E5%88%B6/"><img class="next-cover" src="/images/cover/os.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MBR加载LOADER</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/04/23/2022423-BIOS/" title="BIOS"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-23</div><div class="title">BIOS</div></div></a></div><div><a href="/2022/04/23/2022423-%E4%B8%BB%E5%BC%95%E5%AF%BC%E7%A8%8B%E5%BA%8F/" title="利用FAT12文件系统加载指定程序"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-23</div><div class="title">利用FAT12文件系统加载指定程序</div></div></a></div><div><a href="/2022/05/01/202251-%E7%AA%81%E7%A0%B4512%E5%AD%97%E8%8A%82%E9%99%90%E5%88%B6/" title="MBR加载LOADER"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-01</div><div class="title">MBR加载LOADER</div></div></a></div><div><a href="/2022/05/14/2022514-%E5%B1%80%E9%83%A8%E6%AE%B5%E6%8F%8F%E8%BF%B0%E8%A1%A8/" title="局部段描述表"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-14</div><div class="title">局部段描述表</div></div></a></div><div><a href="/2022/05/15/2022515-%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%89%B9%E6%9D%83%E7%BA%A7/" title="保护模式的特权级"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-15</div><div class="title">保护模式的特权级</div></div></a></div><div><a href="/2022/05/18/2022517-%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86/" title="页式存储管理"><img class="cover" src="/images/cover/os.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-18</div><div class="title">页式存储管理</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yunf194.github.io/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">长烟</div><div class="author-info__description">交际是分享快乐，独处是消化自我</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yunf194"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yunf194" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2846327307@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我明白你会来所以我等</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#x86"><span class="toc-number">1.</span> <span class="toc-text">x86</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%8E%86%E5%8F%B2%E8%B0%88%E8%B5%B7"><span class="toc-number">1.1.</span> <span class="toc-text">从计算机的历史谈起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CPU-%E5%8E%86%E5%8F%B2%E7%9A%84%E9%87%8C%E7%A8%8B%E7%A2%91-8086"><span class="toc-number">1.2.</span> <span class="toc-text">CPU 历史的里程碑- 8086</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#80286%E7%9A%84%E7%99%BB%E5%9C%BA"><span class="toc-number">1.3.</span> <span class="toc-text">80286的登场</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.4.</span> <span class="toc-text">保护模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E7%AC%A6%E7%9A%84%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.1.</span> <span class="toc-text">描述符的内存结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8"><span class="toc-number">1.4.2.</span> <span class="toc-text">描述符表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%AD%90"><span class="toc-number">1.4.3.</span> <span class="toc-text">选择子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#80286-%E7%9A%84%E5%85%89%E8%8D%A3%E9%80%80%E5%9C%BA"><span class="toc-number">1.5.</span> <span class="toc-text">80286 的光荣退场</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#80386%E7%9A%84%E7%99%BB%E5%9C%BA%EF%BC%88-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%96%B0%E6%97%B6%E6%9C%9F%E7%9A%84%E6%A0%87%E5%BF%97%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">80386的登场（ 计算机新时期的标志）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GDT%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">GDT表初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GDT%E8%A1%A8%E9%A1%B9"><span class="toc-number">2.1.</span> <span class="toc-text">GDT表项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GDT%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">2.2.</span> <span class="toc-text">GDT的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96GDT"><span class="toc-number">2.3.</span> <span class="toc-text">初始化GDT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E5%AD%98%E6%AE%B5"><span class="toc-number">2.4.</span> <span class="toc-text">显存段</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PrintString"><span class="toc-number">2.4.1.</span> <span class="toc-text">PrintString</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E6%A0%88%E6%AE%B5"><span class="toc-number">2.4.2.</span> <span class="toc-text">全局栈段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E4%BB%A3%E7%A0%81"><span class="toc-number">2.4.3.</span> <span class="toc-text">最终代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">2.5.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E8%BF%94%E5%9B%9E%E5%AE%9E%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">保护模式返回实模式</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于GO的双向tls通信"/></a><div class="content"><a class="title" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信">基于GO的双向tls通信</a><time datetime="2023-01-06T16:00:00.000Z" title="发表于 2023-01-07 00:00:00">2023-01-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL注入"/></a><div class="content"><a class="title" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入">SQL注入</a><time datetime="2022-12-06T16:00:00.000Z" title="发表于 2022-12-07 00:00:00">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件上传漏洞"/></a><div class="content"><a class="title" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2022-12-05T16:00:00.000Z" title="发表于 2022-12-06 00:00:00">2022-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之包"/></a><div class="content"><a class="title" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包">Go语言基础之包</a><time datetime="2022-10-22T16:00:00.000Z" title="发表于 2022-10-23 00:00:00">2022-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之函数"/></a><div class="content"><a class="title" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数">Go语言基础之函数</a><time datetime="2022-10-21T16:00:00.000Z" title="发表于 2022-10-22 00:00:00">2022-10-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/images/cover/os.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By 长烟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">其实，我回头等了你好久好久，你都没来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Yb0FJoeuYRJfbYGupEnFsg6E-gzGzoHsz',
+      appKey: 'Pjo4dvB3TbjfY8clnS7fxalh',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://yunf194.github.io/css/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://yunf194.github.io/css/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

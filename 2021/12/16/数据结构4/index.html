@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>数组与广义表 | fengyun's Blog</title><meta name="keywords" content="数组,广义表"><meta name="author" content="长烟"><meta name="copyright" content="长烟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="线性表：L&#x3D;(a1,a2,…,an)，ai是同类型的元素，1≤i≤n  数组: A&#x3D; (a1,a2,…,an) 若ai是同类型的元素，A是一维数组，1≤i≤n 若ai是同类型的定长线性表，A是多维数组，1≤i≤n  广义表：Ls&#x3D; (a1,a2,…,an) ai可以是同类型的元素或广义表，1≤i≤n数组的基本概念及其操作数组的递归定义  1.一维数组： 是一个定长线性表(a1,a2,…,an)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组与广义表">
+<meta property="og:url" content="http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%844/index.html">
+<meta property="og:site_name" content="fengyun&#39;s Blog">
+<meta property="og:description" content="线性表：L&#x3D;(a1,a2,…,an)，ai是同类型的元素，1≤i≤n  数组: A&#x3D; (a1,a2,…,an) 若ai是同类型的元素，A是一维数组，1≤i≤n 若ai是同类型的定长线性表，A是多维数组，1≤i≤n  广义表：Ls&#x3D; (a1,a2,…,an) ai可以是同类型的元素或广义表，1≤i≤n数组的基本概念及其操作数组的递归定义  1.一维数组： 是一个定长线性表(a1,a2,…,an)。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yunf194.github.io/images/cover/sjjg.jpg">
+<meta property="article:published_time" content="2021-12-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-15T16:00:00.000Z">
+<meta property="article:author" content="长烟">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="广义表">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yunf194.github.io/images/cover/sjjg.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%844/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5b5317a4316878223f02ccad7d028fa5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数组与广义表',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-16 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yunf194.github.io/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover/sjjg.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">fengyun's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数组与广义表</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-15T16:00:00.000Z" title="发表于 2021-12-16 00:00:00">2021-12-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-15T16:00:00.000Z" title="更新于 2021-12-16 00:00:00">2021-12-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">800</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数组与广义表"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ol>
+<li>线性表：L=(a1,a2,…,an)，ai是同类型的元素，1≤i≤n </li>
+<li>数组: A= (a1,a2,…,an) 若ai是同类型的元素，A是一维数组，1≤i≤n 若ai是同类型的定长线性表，A是多维数组，1≤i≤n </li>
+<li>广义表：Ls= (a1,a2,…,an) ai可以是同类型的元素或广义表，1≤i≤n<h3 id="数组的基本概念及其操作"><a href="#数组的基本概念及其操作" class="headerlink" title="数组的基本概念及其操作"></a>数组的基本概念及其操作</h3><h4 id="数组的递归定义"><a href="#数组的递归定义" class="headerlink" title="数组的递归定义"></a>数组的递归定义</h4></li>
+</ol>
+<p><strong>1.一维数组</strong>： 是一个定长线性表(a1,a2,…,an)。 其中：ai为数据元素，i为下标/序号，1≤i≤n (a1,a2,…,an )又称为向量</p>
+<p>**2.二维数组: **<br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cc8171d9ded64fe6be8b734172a9c7b3~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><strong>3.三维数组</strong><br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4981fba2c18742aaa0934d424b119971~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h4 id="数组的操作"><a href="#数组的操作" class="headerlink" title="数组的操作"></a>数组的操作</h4><ul>
+<li>1.生成一个数组： int a[7]；//生成静态一维数组 </li>
+<li>2.赋值/修改 a[1]=15；(a[1])++； </li>
+<li>3.取元素的值： a[0]=a[1]*2； </li>
+<li>4.销毁一个数组</li>
+</ul>
+<p>int a[10];属于静态分配；<br>静态分配的内存在栈里，每进入一个函数时都会建栈，栈里会存放函数用到的参数、局部变量等信息，函数执行完以后，会出栈销毁栈，这个过程就会释放你静态分配的数组内存，这是由系统自动完成的。</p>
+<p>pa=(int <em>)malloc(n</em>sizeof(int))；//生成动态数组*pa<br>pa = new int[n];//生成动态数组<br>动态分配的内存，实际在堆上，系统没法自动帮你去释放堆上的内存，需要你自己写free或者delete来告诉操作系统需要帮你去释放堆上哪个位置的内存</p>
+<h3 id="数组的顺序表示和实现"><a href="#数组的顺序表示和实现" class="headerlink" title="数组的顺序表示和实现"></a>数组的顺序表示和实现</h3><h4 id="顺序表示-顺序存储结构）"><a href="#顺序表示-顺序存储结构）" class="headerlink" title="顺序表示(顺序存储结构）"></a>顺序表示(顺序存储结构）</h4><ul>
+<li>1.以行序为主序的顺序存储方式，按行向量排列 左边的下标后变化，右边的下标先变化 </li>
+<li>2.以列序为主序的顺序存储方式，按列向量排列 左边的下标先变化，右边的下标后变化</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b7f42c0c84f84b56a5acf2b33ae1fd18~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/651c951ff0524f1d9b40c7e1a22e5ac7~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h4 id="数组的映象函数"><a href="#数组的映象函数" class="headerlink" title="数组的映象函数"></a>数组的映象函数</h4><p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0cc6823319e64219b5921d9945e32060~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/af76912523404cceac02f1ad7f540070~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d85545a740864af2a22cdd29dca3e847~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f0e77ad464034f589f5cda4f09b51a2a~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d5cdd8ed1f0245099aec1714fc4c8d5a~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f18a1181a3154732a4038264c8979493~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/009fd4ace8914af589f9f22f566e6ea6~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bcb580f9fc154d2484b2623c2d51ff45~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4948cd093bb9402e85391ec513356e10~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="矩阵的压缩存储"><a href="#矩阵的压缩存储" class="headerlink" title="矩阵的压缩存储"></a>矩阵的压缩存储</h3><h4 id="1-n阶对称矩阵"><a href="#1-n阶对称矩阵" class="headerlink" title="1.n阶对称矩阵"></a>1.n阶对称矩阵</h4><p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e20006d15fc94a2f97d4585efd40cc13~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a4cf30131dea4075963929720e6e8ff7~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4b3010c14e584c3a9e40b9b558ed3a80~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h4 id="2-对角矩阵"><a href="#2-对角矩阵" class="headerlink" title="2.对角矩阵"></a>2.对角矩阵</h4><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/86993e183dd14a8a8bd2ee6d6e2d2a3f~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h4 id="3-稀疏矩阵的压缩存储"><a href="#3-稀疏矩阵的压缩存储" class="headerlink" title="3.稀疏矩阵的压缩存储"></a>3.稀疏矩阵的压缩存储</h4><h5 id="三元组表"><a href="#三元组表" class="headerlink" title="三元组表"></a>三元组表</h5><p>注意三元组表查找元素只能靠遍历并且三元组表不存储节点个数<br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/10923da0ab9d44a9815e90f862fb5798~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p>转置矩阵<br><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1aa88ddbdb8245ec88a19a83e33823ae~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d5e7ef881a994847a16629fb7a82cbc2~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h5 id="十字链接表"><a href="#十字链接表" class="headerlink" title="十字链接表"></a>十字链接表</h5><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/61ce092bf3b34017b9cfca2125334575~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="广义表"><a href="#广义表" class="headerlink" title="广义表"></a>广义表</h3><p><strong>广义表的定义和术语：</strong></p>
+<ul>
+<li>n(n≥0)个<strong>数据元素或广义表</strong>的一个有限序列叫做广义表。 </li>
+<li>记作: LS=(e1,e2,…,en)。 n为LS的长度。</li>
+<li>其中: LS—-广义表名 </li>
+<li>ei—-单元素、原子,约定用小写, 既可以代表单个元素，也可以代表另一个广义表</li>
+<li>1≤i≤n ei—-广义表，约定用大写, 1≤i≤n </li>
+<li>(1)空表 LS=( ),n=0 </li>
+<li>(2)非空表 LS=(e1,e2,…,en) n&gt;0 注意，A = ( ) 和 A = ( ( ) ) 是不一样的。前者是空表，而后者是包含一个子表的广义表，只不过这个子表是空表。</li>
+<li>其中: e1—LS的表头/首部，记作: Head(LS)=e1 ；；而 (e2,…,en)— LS的表尾/尾部, 记作： Tail(LS)=(e2,…,en)</li>
+<li>当广义表不是空表时，称第一个数据（原子或子表）为”表头”，剩下的数据构成的新广义表为”表尾”。</li>
+</ul>
+<p><strong>广义表的存储结构</strong></p>
+<p>广义表的元素具有不同结构，一般用链式存储结构。<br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/11d39100143d4daea12a9608bfc9eb43~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/305dd823334d4b2fb083ef5b73a57d13~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">长烟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%844/">http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%844/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yunf194.github.io" target="_blank">fengyun's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E7%BB%84/">数组</a><a class="post-meta__tags" href="/tags/%E5%B9%BF%E4%B9%89%E8%A1%A8/">广义表</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/sjjg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%842/"><img class="prev-cover" src="/images/cover/sjjg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">线性表</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%845/"><img class="next-cover" src="/images/cover/sjjg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">树和二叉树</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%842/" title="线性表"><img class="cover" src="/images/cover/sjjg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-16</div><div class="title">线性表</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yunf194.github.io/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">长烟</div><div class="author-info__description">交际是分享快乐，独处是消化自我</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yunf194"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yunf194" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2846327307@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我明白你会来所以我等</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%85%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">数组的基本概念及其操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%80%92%E5%BD%92%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">数组的递归定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.</span> <span class="toc-text">数组的操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%A4%BA%E5%92%8C%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">数组的顺序表示和实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%A4%BA-%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">顺序表示(顺序存储结构）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%98%A0%E8%B1%A1%E5%87%BD%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">数组的映象函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8E%8B%E7%BC%A9%E5%AD%98%E5%82%A8"><span class="toc-number">3.</span> <span class="toc-text">矩阵的压缩存储</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-n%E9%98%B6%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5"><span class="toc-number">3.1.</span> <span class="toc-text">1.n阶对称矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AF%B9%E8%A7%92%E7%9F%A9%E9%98%B5"><span class="toc-number">3.2.</span> <span class="toc-text">2.对角矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8E%8B%E7%BC%A9%E5%AD%98%E5%82%A8"><span class="toc-number">3.3.</span> <span class="toc-text">3.稀疏矩阵的压缩存储</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%89%E5%85%83%E7%BB%84%E8%A1%A8"><span class="toc-number">3.3.1.</span> <span class="toc-text">三元组表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%81%E5%AD%97%E9%93%BE%E6%8E%A5%E8%A1%A8"><span class="toc-number">3.3.2.</span> <span class="toc-text">十字链接表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BF%E4%B9%89%E8%A1%A8"><span class="toc-number">4.</span> <span class="toc-text">广义表</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于GO的双向tls通信"/></a><div class="content"><a class="title" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信">基于GO的双向tls通信</a><time datetime="2023-01-06T16:00:00.000Z" title="发表于 2023-01-07 00:00:00">2023-01-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL注入"/></a><div class="content"><a class="title" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入">SQL注入</a><time datetime="2022-12-06T16:00:00.000Z" title="发表于 2022-12-07 00:00:00">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件上传漏洞"/></a><div class="content"><a class="title" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2022-12-05T16:00:00.000Z" title="发表于 2022-12-06 00:00:00">2022-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之包"/></a><div class="content"><a class="title" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包">Go语言基础之包</a><time datetime="2022-10-22T16:00:00.000Z" title="发表于 2022-10-23 00:00:00">2022-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之函数"/></a><div class="content"><a class="title" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数">Go语言基础之函数</a><time datetime="2022-10-21T16:00:00.000Z" title="发表于 2022-10-22 00:00:00">2022-10-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/images/cover/sjjg.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By 长烟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">其实，我回头等了你好久好久，你都没来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Yb0FJoeuYRJfbYGupEnFsg6E-gzGzoHsz',
+      appKey: 'Pjo4dvB3TbjfY8clnS7fxalh',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://yunf194.github.io/css/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://yunf194.github.io/css/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

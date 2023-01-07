@@ -1,0 +1,438 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>计算机网络自顶向下第一章 | fengyun's Blog</title><meta name="keywords" content="网络"><meta name="author" content="长烟"><meta name="copyright" content="长烟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="什么是因特网我们可以从两个角度来回答这个问题：其一，我们能够描述因特网的具体构成，即构成因特网的基本硬件和软件组件；其二，我们能够根据为分布式应 用提供服务的联网基础设施来描述因特网. 组成描述因特网是一个世界范围的计算机网络，这意味着它互联了数以亿计的计算设备（不仅仅是计算机哦）；这些设备包括但不限于传统PC、工作站以及所谓的服务器。现在有更多的设备加入到因特网中，比如便携式计算机、电视机、汽车">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络自顶向下第一章">
+<meta property="og:url" content="http://yunf194.github.io/2021/12/13/1.1%20%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/index.html">
+<meta property="og:site_name" content="fengyun&#39;s Blog">
+<meta property="og:description" content="什么是因特网我们可以从两个角度来回答这个问题：其一，我们能够描述因特网的具体构成，即构成因特网的基本硬件和软件组件；其二，我们能够根据为分布式应 用提供服务的联网基础设施来描述因特网. 组成描述因特网是一个世界范围的计算机网络，这意味着它互联了数以亿计的计算设备（不仅仅是计算机哦）；这些设备包括但不限于传统PC、工作站以及所谓的服务器。现在有更多的设备加入到因特网中，比如便携式计算机、电视机、汽车">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yunf194.github.io/images/cover/net.jpg">
+<meta property="article:published_time" content="2021-12-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-28T07:54:09.102Z">
+<meta property="article:author" content="长烟">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yunf194.github.io/images/cover/net.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="http://yunf194.github.io/2021/12/13/1.1%20%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5b5317a4316878223f02ccad7d028fa5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机网络自顶向下第一章',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-28 15:54:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yunf194.github.io/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover/net.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">fengyun's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">计算机网络自顶向下第一章</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-12T16:00:00.000Z" title="发表于 2021-12-13 00:00:00">2021-12-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-28T07:54:09.102Z" title="更新于 2021-12-28 15:54:09">2021-12-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">13.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>42分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="计算机网络自顶向下第一章"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="什么是因特网"><a href="#什么是因特网" class="headerlink" title="什么是因特网"></a>什么是因特网</h2><p>我们可以从两个角度来回答这个问题：其一，我们能够描述因特网的具体构成，即构成因特网的基本硬件和软件组件；其二，我们能够根据为分布式应 用提供服务的联网基础设施来描述因特网.</p>
+<h3 id="组成描述"><a href="#组成描述" class="headerlink" title="组成描述"></a>组成描述</h3><p>因特网是一个世界范围的计算机网络，这意味着它互联了数以亿计的计算设备（不仅仅是计算机哦）；这些设备包括但不限于传统PC、工作站以及所谓的服务器。现在有更多的设备加入到因特网中，比如便携式计算机、电视机、汽车、传感器等。</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d861be8ea0844d209f59f4fa8e00c902~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><strong>主机或者端系统</strong>：用因特网的术语来说，所有连入因特网的设备（如便携机、智能手机、平板电脑、电视、游戏机、温度调节装置、家用安全系统、家用电器、手表、眼镜、汽车、运输控制系统等）</p>
+<p><strong>通信链路</strong> 光纤、同轴电缆、无线电、卫星，传输速率 =带宽（bps）</p>
+<p><strong>分组交换设备</strong>转发分组 (packets)，路由器和交换机 端系统通过通信链路和分组交换机连接到一起。</p>
+<p>端系统之间发送数据时，发送端系统将其数据分成一段一段，然后加上必要的信息后形成一个个的数据包，这个数据包用术语来说叫做分组。于是分组==用户数据+必要信息。链路系统就是用来传输分组的。分组到达接收端系统后，接收端系统将根据必要信息来抽取用户数据；</p>
+<p>分组交换机从它的一条入链路接收分组，并且选择一条出链路将分组转发出去；分组交换机也有很多种类，最为有名的是路由器和链路层交换机；两者的的不同之处在于，链路层交换机主要用在接入网中，路由器主要用在网络核心.</p>
+<p>端系统通过因特网服务提供商（Internet Service Provider，简称ISP）接入因特网；</p>
+<p>很有名的协议有：TCP（Transport Control Protocol，传输控制协议）和IP(Internet Protocol，网际协议)；因为协议控制了信息的传递，所以对协议达成一致就很重要，所以需要一个标准来规范协议，以便创造可以协同工作的系统和产品</p>
+<h3 id="服务描述"><a href="#服务描述" class="headerlink" title="服务描述"></a>服务描述</h3><p>使用通信设施进行通信的分布式应用（Web、VoIP、email、分布式游戏、电子商务、社交网络）</p>
+<p>通信基础设施为apps提供编程套接字接口（socket interface）（通信服务）。将发送和接收数据的apps与互联网连接起来，为app应用提供服务选择，类似于邮政服务。</p>
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><p>前面提到了分组这一概念，分组==用户数据+必要数据；这些必要数据为分组接收者理解用户数据提供保障，而协议就是如何使用必要数据理解用户数据的方法或者规则；分组接收者接收到分组并按照协议获得了用户数据后，还应该对此消息做出反应，而如何做出反应也是协议规范的一部分（不反应也是一种反应哦）</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e0165723d70a4dfd90a44620b35d6d6e~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>协议:定义了两个或多个通信实体（不一定是端系统，还有可能是分组交换机等）之间交换信息的格式和次序以及对该信息所采取的动作</p>
+<p>凡是通信实体的所有活动都要受到协议的约束。比如，硬件实现的控制协议控制了两块网卡之间的比特流；在端系统中，拥塞控制协议控制了发送方和接收方之间传输数据的速率等</p>
+<h2 id="网络边缘"><a href="#网络边缘" class="headerlink" title="网络边缘"></a>网络边缘</h2><p>回想前一节中计算机网络的术语，通常把与因特网相连的计算机和其他设备称为端系统。如图所示，因为它们位于因特网的边缘，故而被称为端系统。因特网的端系统包括了桌面计算机(例如，桌面PC、Mac 和Linux设备)、服务器(例如，Web和电子邮件服务器)和移动计算机(例如，便携机、智能手机和平板电脑)。</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c3588abc190144ef9ede5d7cafa1e901~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>端系统也称为主机（ host)， 因为它们容纳 （ 即运行） 应用程序， 如 Web 浏览器程序 、 Web 服务器程序、 电子邮件客户程序或电子邮件服务器程序等。</p>
+<p>主机 = 端系统。</p>
+<p>主机有时又被进一步划分为两类： 客户( client ) 和服务器（ server)。 客户通常是桌面 PC、 移动 PC 和智能手机等， 而服务器通常是更为强大的机器， 用于存储和发布 Web 页面、 流视频 、 中继电子邮件等。还可以划分为对等模式peer-peer，即很少甚至没有专门的服务器如Gnutella，KaZaA，Emule。</p>
+<h3 id="接入网"><a href="#接入网" class="headerlink" title="接入网"></a>接入网</h3><p>怎样将端系统和边缘路由器连接？</p>
+<ol>
+<li>住宅接入网络</li>
+<li>单位接入网络 （学校、公司）</li>
+<li>无线接入网络</li>
+</ol>
+<h4 id="家-庭-接-入：-DSL、-电-缆、-FTTH-拨-号-和-卫-星"><a href="#家-庭-接-入：-DSL、-电-缆、-FTTH-拨-号-和-卫-星" class="headerlink" title="家 庭 接 入： DSL、 电 缆、 FTTH, 拨 号 和 卫 星"></a>家 庭 接 入： DSL、 电 缆、 FTTH, 拨 号 和 卫 星</h4><p><strong>数 字 用 户 线（ Digital Subscriber Line，DSL)<strong>：当使用 DSL 时， 用户的本地电话公司也是它的 ISP。 如图 所示， 每个用户的 DSL调制解调器使用现有的电话线 （ 即双绞铜线， 将在 1.2. 2 节中讨论它） 与位于电话公司的计算机网络和因特网本地中心局 ( C0) 中的数字用户线接人复用器 （ DSLAM ) 交换数据。 家庭的 DSL 调制解调器</strong>得到数字数据后将其转换为高频音， 以通过电话线传输给本地中心局</strong>； 来自许多家庭的模拟信号在 DSLAM 处被转换回数字形式。在用户一侧， 一个分配器把到达家庭的数据信号和电话信号分隔开， 并将数据信号转发给 DSL 调制解调器。 在电话公司一侧， 在本地中心局中， DSLAM 把数据和电话信号分隔开， 并将数据送往因特网。</p>
+<p>这种方法使单根DSL线路看起来就像有3根单独的线路一样，因此一个电话呼叫和一个因特网连接能够同时共享DSL链路。</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/57514a081cac4664bd0e6261d9471b5c~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><strong>电缆因特网接入（ cable Internet access)</strong> 利用了有线电视公司现有的有线电视基础设施。 住宅从提供有线电视的公司获得了电缆因特网接入。如图 1-6 所示， 光缆将电缆头端连接到地区枢纽， 从这里使用传统的同轴电缆到达各家各户和公寓。 毎个地区枢纽通常支持500~5000个家庭。因为在这个系统应用了光纤和同轴电缆， 所以它经常被称为<strong>混合光纤同轴（Hybrid Fiber Coax，HFC) 系统</strong></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3c16e5c3b51e435dbccbd52725a6e265~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>电缆因特网接人需要特殊的调制解调器， 这种调制解调器称为电缆调制解调器 (cablemodem)。 如同 DSL 调制解调器， 电缆调制解调器通常是一个外部设备， 通过一个以太网端口连接到家庭 PC。</p>
+<p>电缆因特网接入的一个重要特征是共享广播媒体。 特别是， 由头端发送的每个分组向下行经每段链路到每个家庭； 每个家庭发送的每个分组经上行信道向头端传输。 因此， 如果几个用户同时经下行信道下载一个视频文件， 每个用户接收视频文件的实际速率将大大低于电缆总计的下行速率。 而另一方面， 如果仅有很少的活跃用户在进行 Web 冲浪， 则每个用户都可以以全部的下行速率接收 Web 网页， 因为用户们很少在完全相同的时刻请求网页。 因为上行信道也是共享的， 需要一个分布式多路访问协议来协调传输和避免碰撞。</p>
+<p><strong>光纤到户（ Fiber To The Home, FTTH)</strong> [ FTTH Council 2016]。 顾名思义，FTTH 概念简单， 从本地中心局直接到家庭提供了一条光纤路径。</p>
+<p>最简单的光纤分布网络称为直接光纤， 从本地中心局到每户设置一根光纤。 更为一般的是， 从中心局出来的每根光纤实际上由许多家庭共享， 直到相对接近这些家庭的位置， 该光纤才分成每户一根光纤。 进行这种分配有两种有竞争性的光纤分布体系结构： 主动光纤网络（ Active Optical Network,AON ) 和被动光纤网络（ Passive Optical Network , PON )。</p>
+<p>我们简要讨论一下 PON， 该技术用于 Verizon 的 FIOS 服务中。 图 1-7 显示了使用 P0N 分布体系结构的 FTTH。 每个家庭具有一个光纤网络端接器 ( Optical Network Terminator, 0NT), 它由专门的光纤连接到邻近的分配器 ( splitter)。 该分配器把一些家庭 （ 通常少于 100 个） 集结到一根共享的光纤， 该光纤再连接到本地电话和公司的中心局中的光纤线路端接器 （ Optical Line Terminator， OLT)。 该 OLT 提供了光信号和电信号之间的转换， 经过本地电话公司路由器与因特网相连。 在家庭中， 用户将一台家庭路由器 （ 通常是无线路由器） 与 0NT 相连， 并经过这台家庭路由器接入因特网。 在 P0N 体系结构中， 所有从 OLT 发送到分配器的分组在分配器（ 类似于一个电缆头端） 处复制。</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8ea6fb7f6626478d83c38a0bb4ebed11~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>在无法提供 DSL、 电缆和FTTH 的地方（ 例如在某些乡村环境） ， 能够使用<strong>卫星链路</strong>将住宅以超过 1 Mbps 的速率与因特网相连。 StarBand 和 HughesNet 是两家这样的卫星接人提供商。 使用传统电话线的拨号接入与 DSL 基于相同的模式： 家庭的调制解调器经过电话线连接到 ISP 的调制解调器。与 DSL 和其他宽带接人网相比， 拨号接人 56kbps 的慢速率是令人痛苦的。</p>
+<h4 id="企业（-和家庭）-接人：-以太网和-WiFi"><a href="#企业（-和家庭）-接人：-以太网和-WiFi" class="headerlink" title="企业（ 和家庭） 接人： 以太网和 WiFi"></a>企业（ 和家庭） 接人： 以太网和 WiFi</h4><p>在公司和大学校园以及越来越多的家庭环境中， 使用局域网（ LAN ) 将端系统连接到边缘路由器。 尽管有许多不同类型的局域网技术， 但是以太网到目前为止是公司、 大学和家庭网络中最为流行的接入技术。</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/77f7a64c10e74b859fbb6e0b287cdac2~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>如图以太网用户使用双绞铜线与一台以太网交换机相连。</p>
+<p>然而， 越来越多的人从便携机、 智能手机、 平板电脑和其他物品<strong>无线接入因特网</strong> （ 参见前面的插入内容 “ 物联网” ）。 在无线 LAN 环境中， 无线用户从/到一个接人点发送/接收分组， 该接入点与企业网连接（ 很可能使用了有线以太网） ， 企业网再与有线因特网相连。 一个无线 LAN 用户通常必须位于接入点的几十米范围内。 <strong>基于 IEEE 802.11 技术的无线 LAN 接入， 更通俗地称为 WiFi</strong>， 目前几乎无所不在， 如大学、 商业办公室、 咖啡厅、机场、 家庭， 甚至在飞机上。</p>
+<p>今天许多家庭将宽带住宅接入（ 即电缆调制解调器SDSL) 与廉价的无线局域网技术结合起来， 以产生强大的家用网络 [ Edwards 2011]。 图1-9 显示了典型的家庭网络。 这个家庭网络组成如下： 一台漫游的便携机和一台有线 PC; 一个与无线 PC 和家中其他无线设备通信的基站（ 无线接入点） ； 一个提供与因特网宽带接入的电缆调制解调器； 一台互联了基站及带有电缆调制解调器的固定 PC 的路由器。 该网络允许家庭成员经宽带接人因特网， 其中任何一个家庭成员都可以在厨房、 院子或卧室漫游上网。</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/75198e8870a14f8e97391f6957a7f4a1~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h4 id="广域无线接入-3G和-LTE"><a href="#广域无线接入-3G和-LTE" class="headerlink" title="广域无线接入 3G和 LTE"></a>广域无线接入 3G和 LTE</h4><p>iPhone和安卓等设备越来越多地用来在移动中发信息、在社交网络中分享照片、观看 视频和放音乐。这些设备应用了与蜂窝移动电话相同的无线基础设施，通过蜂窝网提供商 运营的基站来发送和接收分组。与WiFi不同的是，一个用户仅需要位于基站的数万米（而不是几十米）范围内。</p>
+<h3 id="物-理-媒-体"><a href="#物-理-媒-体" class="headerlink" title="物 理 媒 体"></a>物 理 媒 体</h3><p>考虑一个比特从一个端系统开始传输， 通过一系列链路和路由器， 到达另一个端系统。 这个比特被漫不经心地传输了许许多多次！ 源端系统首先发射这个比特， 不久后其中的第一台路由器接收该比特； 第一台路由器发射该比特， 接着不久后第二台路由器接收该比特； 等等。 因此， 这个比特当从源到目的地传输时， 通过一系列 “ 发射器- 接收器” 对。<strong>对于每个发射器- 接收器对，通过跨越一种物理媒体（ physical medium ) 传播电磁波或光脉冲来发送该比特。</strong> 该物理媒体可具有多种形状和形式， 并且对沿途的每个发射器- 接收器对而言不必具有相同的类型。 物理媒体的例子包括双绞铜线、 同轴电缆、 多模光纤缆、 陆地无线电频谱和卫星无线电频谱。 物理媒体分成两种类型： 导引型媒体（ guided media ) 和非导引型媒体 （ unguided media)。 对于导引型媒体， 电波沿着固体媒体前行， 如光缆、 双绞铜线或同轴电缆。 对于非导引型媒体， 电波在空气或外层空间中传播， 例如在无线局域网或数字卫星频道中。</p>
+<ul>
+<li><ol>
+<li>双绞铜线</li>
+</ol>
+</li>
+</ul>
+<p>最便宜并且最常用的导引型传输媒体是双绞铜线。 一百多年来， 它一直用于电话网。  双绞线由两根绝缘的铜线组成， 每根大约 lmm粗， 以规则的螺旋状排列着。通常许多双绞线捆扎在一起形成一根电缆， 并在这些双绞线外面覆盖上保护性防护层。 一对电线构成了一个通信链路。 无屏蔽双绞线 （ Unshielded Twisted Pair， UTP) 常用在建筑物内的计算机网络中， 即用于局域网 （ LAN ) 中。目前局域网中的双绞线数据传输速率在10Mbps到10Gbps之间，所能达到的数据传输速率取决于线的粗细以及传输距离；双绞线实际上已经成为高速局域网联网的主要方式；因为现代的双绞线技术速率和传输距离都是很不错的；</p>
+<ul>
+<li><ol>
+<li>同轴电缆</li>
+</ol>
+</li>
+</ul>
+<p>与双绞线类似， 同轴电缆由两个铜导体组成， 但是这两个导体是同心的而不是并行的。 借助于这种结构及特殊的绝缘体和保护层， 同轴电缆能够达到较高的数据传输速率。 同轴电缆在电缆电视系统中相当普遍。 我们前面已经看到， 电缆电视系统最近与电缆调制解调器结合起来， 为住宅用户提供数十 Mbps 速率的因特网接入。 在电缆电视和电缆因特网接人中， 发送设备将数字信号调制到某个特定的频段， 产生的模拟信号从发送设备传送到一个或多个接收方。 同轴电缆能被用作导引型共享媒体 （ shared medium)。特别是， 许多端系统能够直接与该电缆相连， 每个端系统都能接收由其他端系统发送的内容。</p>
+<ul>
+<li><ol>
+<li>光纤</li>
+</ol>
+</li>
+</ul>
+<p>光纤是一种细而柔软的、 能够导引光脉冲的媒体， 每个脉冲表示一个比特。 一根光纤能够支持极髙的比特速率， 髙达数十甚至数百 Gbps。 它们不受电磁干扰， 长达 100km的光缆信号衰减极低， 并且很难窃听。 这些特征使得光纤成为长途导引型传输媒体， 特别是跨海链路。 在美国和别的地方， 许多长途电话网络现在全面使用光纤。 光纤也广泛用于因特网的主干。 然而， 高成本的光设备， 如发射器、 接收器和交换机， 阻碍光纤在短途传输中的应用， 如在 LAN 或家庭接人网中就不使用它们。 光载波（ Optical Carrier,0C) 标准链路速率的范围从 51.8Mbps 到 39.8Gbps;</p>
+<ul>
+<li><ol>
+<li>陆地无线电信道</li>
+</ol>
+</li>
+</ul>
+<p>无线电信道承载电磁频谱中的信号。 它不需要安装物理线路， 并具有穿透墙壁、 提供与移动用户的连接以及长距离承载信号的能力， 因而成为一种有吸引力的媒体。 无线电信道的特性极大地依赖于传播环境和信号传输的距离。 环境上的考虑取决于路径损耗和遮挡衰落（ 即当信号跨距离传播和绕过/通过阻碍物体时信号强度降低） 、 多径衰落 （ 由于干扰对象的信号反射） 以及干扰 （ 由于其他传输或电磁信号）。陆地无线电信道能够大致划分为三类： 一类运行在很短距离 （ 如 1 米或 2 米） ； 另一类运行在局域， 通常跨越数十到几百米； 第三类运行在广域， 跨越数万米。 个人设备如无线头戴式耳机、 键盘和医疗设备跨短距离运行； 在 1.2.1 节中描述的无线 LAN 技术使用了局域无线电信道； 蜂窝接入技术使用了广域无线电信道。 我们将在第 7 章中详细讨论无线电信道。</p>
+<ul>
+<li><ol>
+<li>卫星无线电信道</li>
+</ol>
+</li>
+</ul>
+<p>一颗通信卫星连接地球上的两个或多个微波发射器/接收器， 它们被称为地面站。 该卫星在一个频段上接收传输， 使用一个转发器（ 下面讨论） 再生信号， 并在另一个频率上发射信号。 通信中常使用两类卫星： 同步卫星（ geostationary satellite) 和近地轨道（ Low- EarthOrbiting, LEO) 卫星 [ Wiki Satellite 2016]。同步卫星永久地停留在地球上方的相同点上。 这种静止性是通过将卫星置于地球表面上方 36000km 的轨道上而取得的。 从地面站到卫星再回到地面站的巨大距离引人了可观的 280ms 信号传播时延。 不过， 能以数百 Mbps 速率运行的卫星链路通常用于那些无法使用 DSL 或电缆因特网接入的区域。近地轨道卫星放置得非常靠近地球， 并且不是永久地停留在地球上方的一个点。 它们围绕地球旋转， 就像月亮围绕地球旋转那样， 并且彼此之间可进行通信， 也可以与地面站通信。 为了提供对一个区域的连续覆盖， 需要在轨道上放置许多卫星。 当前有许多低轨道通信系统在研制中。 LEO 卫星技术未来也许能够用于因特网接人。</p>
+<h2 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h2><p>网络核心：路由器的网状网络</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f2d7c0b6b04f421caa43333f680c4411~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<ul>
+<li>基本问题：数据怎样通过网络进行传输？</li>
+<li>电路交换：为每个呼叫预留一条专有电路：如电话网</li>
+<li>分组交换：将要传送的数据分成一个个单位：分组将分组从一个路由器传到相邻路由器（hop），一段段最终从源端传到目标端每段：采用链路的最大传输能力（带宽）</li>
+</ul>
+<h3 id="电路交换"><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h3><p>数据交换过程<br> • 第一步：建立连接；第二步：交换数据；第三步：释放连接<br> 电路交换的特性<br> • 电路交换网络中（数字通信）<br> – 电路—一条连接（信道）<br> – 链路—多条电路<br> • 数据交换前需建立起一条从发端到收端的电路（预留资源）<br> • 在数据交换的全部时间内用户始终占用端到端的固定传输信道<br> • 交换双方可实时进行数据交换而不会存在任何延迟\</p>
+<p>当两台主机要通信时， 该网络在两台主机之间创建一条专用的端到端连接 （ end- to- endconnection)。 因此， 主机 A 为了向主机 B 发送报文， 网络必须在两条链路的每条上先预留一条电路。 在这个例子中， 这条专用的端到端连接使用第一条链路中的第二条电路和第二条链路中的第四条电路。 因为每条链路具有 4 条电路， 对于由端到端连接所使用的每条链路而言， 该连接在连接期间获得链路总传输容量的 1/4。 例如， 如果两台邻近交换机之间每条链路具有 1 Mbps 传输速率， 则每个端到端电路交换连接获得 250kbps 专用的传输速率。 <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/82005c06c68e4b668ebca1f48d4f7c6d~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>网络资源（如带宽）被分成片，而每一次为呼叫分配片，如果某个呼叫没有数据，则其资源片处于空闲状态（不共享），而分片方式有频分(Frequencydivision multiplexing)，时分(Time-divisionmultiplexing)，波分(Wave-divisionmultiplexing) <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1a7c4586b6374211a251e65fb72d53d0~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a1602e5ff073445f8d3da3a4cebf35d9~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>存在的问题\</p>
+<ul>
+<li>计算机之间的数据交换往往具有突发性和间歇性特征，而对电路交换而言，用户支付的费用则是按用户占用线路的时间来收费的</li>
+<li>不够灵活。只要在通话双方建立的通路中的任何一点出了故障，就必须重新拨号建立新的连接，这对紧急和重要通信是很不利的</li>
+</ul>
+<h3 id="分组交换"><a href="#分组交换" class="headerlink" title="分组交换"></a>分组交换</h3><p>在各种网络应用中， 端系统彼此交换**报文 （ message )**。 报文能够包含协议设计者需要的任何东西。 报文可以执行一种控制功能（ 例如， 图 1- 2 所示例子中的 “ 你好” 报文） ， 也可以包含数据， 例如电子邮件数据、 JPEG 图像或 MP3 音频文件。 为了从源端系统向目的端系统发送一个报文， 源将长报文划分为较小的数据块， 称之为分组( packet )。 在源和目的地之间， 每个分组都通过通信链路和分组交换机（ packet switch )传送。 （ 交换机主要有两类： 路由器（ router) 和链路层交换机 ( link-layer switch ) 。) 分组以等于该链路最大传输速率的速度传输通过通信链路。 因此， <strong>如果某源端系统或分组交换机经过一条链路发送一个 L 比特的分组， 链路的传输速率为比特/秒， 则传输该分组的时间为 L/R 秒。</strong></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5ebfc2fc49704bd5bff0aa846d92119c~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h4 id="存储转发传输"><a href="#存储转发传输" class="headerlink" title="存储转发传输"></a>存储转发传输</h4><p><strong>分组交换：</strong></p>
+<ol>
+<li>以分组为单位存储-转发方式：网络带宽资源不再分分为一个个片，<strong>传输时使用全部带宽</strong>。主机之间传输的<strong>数据被分为一个个分组</strong></li>
+<li>资源共享，按需使用：存储-转发：分组每次移动一跳（ hop ）</li>
+</ol>
+<ul>
+<li>在转发之前，节点必须收到整个分组</li>
+<li>延迟比线路交换要大</li>
+<li>存在排队时间</li>
+</ul>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a55583f513a746769de0e21d571e628c~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<ul>
+<li>被传输到下一个链路之前，整个分组必须到达路由器：存储-转发</li>
+<li>在一个速率为R bps的链路，一个长度为L bits的分组的存储转发延时： L/R s</li>
+</ul>
+<p>L = 7.5 Mbits<br> R = 1.5 Mbps<br> 3次存储转发的延时= 15 s</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/eb2a476295984414bcf70083b46b0790~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/585121ef597341388102f0f4cc2b27c5~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d6a5e561f1ed45629b50349607dc4703~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/da18b3fc40c9430d8a595e9f68618887~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h4 id="排队和延迟："><a href="#排队和延迟：" class="headerlink" title="排队和延迟："></a>排队和延迟：</h4><p>对于每条相连的链路， 该分组交换机具有一个输出缓存（ output buffer, 也称为输出队列（ output queue)), 它用于存储路由器准备发往那条链路的分组。</p>
+<p>如果到达速率&gt;链路的输出速率:<br> 分组将会排队，等待传输<br> 如果路由器的缓存用完了，分组将会被抛弃</p>
+<h4 id="转发表和路由选择协议"><a href="#转发表和路由选择协议" class="headerlink" title="转发表和路由选择协议"></a>转发表和路由选择协议</h4><p>前面我们说过， 路由器从与它相连的一条通信链路得到分组， 然后向与它相连的另一条通信链路转发该分组。在因特网中， 每个端系统具有一个称为 IP 地址的地址。 当源主机要向目的端系统发送一个分组时， 源在该分组的首部包含了目的地的 IP 地址。 如同邮政地址那样， 该地址具有一种等级结构。 当一个分组到达网络中的路由器时， 路由器检査该分组的目的地址的一部分， 并向一台相邻路由器转发该分组。 更特别的是， 每台路由器具有一个转发表( forwarding table), 用于将目的地址（ 或目的地址的一部分） 映射成为输出链路。 当某分组到达一台路由器时， 路由器检査该地址， 并用这个目的地址搜索其转发表， 以发现适当的出链路。 路由器则将分组导向该出链路。</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c7bec793dc4f44f5aec2fecde1669e89~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>分组首部包含目的地址， 路由器里面有转发表</p>
+<ul>
+<li>转发表： 到哪个地址走哪条链路（出口）</li>
+<li>在转发表里面检索目的地址，获取转发的链路</li>
+</ul>
+<h3 id="分组交换-VS-电路交换"><a href="#分组交换-VS-电路交换" class="headerlink" title="分组交换 VS 电路交换"></a>分组交换 VS 电路交换</h3><p>假设：<br> • 1Mbps的链路，每个用户需要100kbps<br> • 分组交换下1个用户活跃的概率为0.1<br>  电路交换：<strong>仅支持10个用户</strong>（1Mbps/100kbps）<br>  分组交换： 35个用户条件下， 11个及以上用户同时活动的概率为0.0004，即10个及10个以内用户同时活跃的概率为0.9996，基本上与电路交换性能相当</p>
+<p>分组交换是“突发数据的胜利者？” 适合于对突发式数据传输：资源共享，简单，不必建立呼叫 过度使用会造成网络拥塞：分组延时和丢失。对可靠地数据传输需要协议来约束：拥塞控制\</p>
+<h3 id="网络分类"><a href="#网络分类" class="headerlink" title="网络分类"></a>网络分类</h3><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a67af810e9564fbc82614b1e5df9805e~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h3 id="网络的网络"><a href="#网络的网络" class="headerlink" title="网络的网络"></a>网络的网络</h3><p>我们在前面看到， 端系统 （ PC 、 智能手机 、 Web 服务器、 电子邮件服务器等） 经过一个接人 ISP 与因特网相连。 该接入 ISP 能够提供有线或无线连接， 使用了包括 DSL、 电缆、 FTTH 、 Win 和蜂窝等多种接人技术。值得注意的是， 接人 ISP 不必是电信局或电缆公司， 相反， 它能够是如大学（ 为学生、 教职员工和从业人员提供因特网接人） 或公司( 为其雇员提供接入） 这样的单位。 但让端用户和内容提供商连接到接人 ISP 仅解决了连接难题中的很小一部分， 因为因特网是由数以亿计的用户构成的。</p>
+<p>构成因特网的 “ 网络的网络” 已经演化成为一个非常复杂的结构。 这种演化很大部分是由经济和国家策略驱动的， 而不是由性能考虑驱动的。 为了理解今天的因特网的网络结构， 我们以逐步递进方式建造一系列网络结构， 其中的每个新结构都更好地接近现在的复杂因特网。</p>
+<p>网络结构1：存在唯一的全球承载ISP互联所有的接入ISP，这是指，全球ISP是一个又路由器和通信链路构成的网络，该网络跨越全球，并且其他的接入ISP都至少和一个它的路由器相连； <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ee3d194576ba415790c3296f05fa9d15~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>网络结构2：存在多个全球承载ISP，它们分别于一部分的接入ISP互联；为了实现端系统的互联，这多个全球ISP也必须互联；网络结构是一个两层结构，其中全球承载ISP位于顶层，接入ISP处于底层； <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/35fa1fa0e35a4d908df990050f4166ec~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>网络结构3：顶层全球承载ISP基本上已经定型，但是接入ISP现在还很混乱，比如，它们直接同顶层ISP相连；而网络结构3中，接入ISP也是分层的：较小区域中的ISP连入较大区域的ISP，而不是直接与顶层ISP相连；为什么会出现这样的结构呢？这是因为，如果都直接同顶层ISP相连，那么两个同一较小区域内，分属不同ISP的端系统之间通信的数据也会到顶层ISP中心去一趟，如果它们不是直接接入顶层ISP，而是接入了一个较大区域的ISP，那么它们之间的通信数据就不用去顶层ISP中心了，因为它们通过较大区域的ISP已经实现了互连，所以通信速度肯定就上去了。</p>
+<p>网络结构4：是在网络结构3的基础上，增加了以下特点而形成的结构：存在点（Point of Presence，PoP）、多宿、对等、因特网交换点（Internet exchange point，IXP）。 <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/96b61e7d273b47bcbe937340391d0b18~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>PoP存在于等级结构中所有层次，但是底层ISP除外；一个PoP是ISP网络中的一台或者多台路由器群组，其中客户ISP能够通过第三方提供的高速链路直接将它的路由器和供应商的PoP连接，从而实现与提供商ISP连接。这样接入速度很明显就提高了。 多宿（multi-home）是指，任何ISP（除第一层ISP）都可以与两个或者多个提供商ISP连接，这被称为多宿；这样网络的可靠性就提高了 对等（peer） 是指，位于相同等级结构层次的一对邻近ISP能够直接将它们的网络连接到一起，使它们之间流量经直接连接而不是经过上游的中间ISP传输，这样既不用付费，速度也可能会快一些； 因特网交换点是为了实现多个ISP可以对等而创建的。</p>
+<p>网络结构5：网络结构5是在网络结构4的基础上增加了内容提供商网络而构成。内容提供商构建自己的网络，并且通过与较低层ISP对等而“绕过”较高层因特网ISP，而且内容提供商对端用户也有了更多的控制。 <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3dd4b3f87ad947deae940af7fc895cfd~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"> <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d3d77ce7ca6d4d9f9cb9b1635ebd12cd~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>总体来说，今天的因特网是一个“网络的网络”，其结构复杂，由十多个顶层ISP和数十万个较低层ISP构成。近年来，主要的内容提供商创建自己的网络，直接在可能的地方与较低层ISP互联</p>
+<h2 id="分组交换网中的时延、-丢包和吞吐量"><a href="#分组交换网中的时延、-丢包和吞吐量" class="headerlink" title="分组交换网中的时延、 丢包和吞吐量"></a>分组交换网中的时延、 丢包和吞吐量</h2><p>当分组从一个节点（ 主机或路由器） 沿着这条路径到后继节点（ 主机或路由器） ， 该分组在沿途的每个节点经受了几种不同类型的时延。 这些时延最为重要的是节点处理时延 （ nodal processing delay )、 排队时延（ queuing delay)、 传输时延( transmission delay ) 和传播时延 ( propagation delay ), 这些时延总体累加起来是节点总时延（ total nodal delay)。</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/649c344ce4b5468cb01aa3b1b270bd52~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h3 id="时延概述"><a href="#时延概述" class="headerlink" title="时延概述"></a>时延概述</h3><p>(1) 处理时延<br> 检査分组首部和决定将该分组导向何处所需要的时间是处理时延的一部分。 处理时延也能够包括其他因素， 如检査比特级别的差错所需要的时间， 该差错出现在从上游节点向路由器 A 传输这些分组比特的过程中。 高速路由器的处理时延通常是微秒或更低的数量级。 在这种节点处理之后， 路由器将该分组引向通往路由器 B 链路之前的队列。 （ 在第4章中， 我们将研究路由器运行的细节。）<br> (2) 排队时延<br> 在队列中， 当分组在链路上等待传输时， 它经受排队时延。 一个特定分组的排队时延长度将取决于先期到达的正在排队等待向链路传输的分组数量。 如果该队列是空的， 并且当前没有其他分组正在传输， 则该分组的排队时延为 0。 另一方面， 如果流量很大， 并且许多其他分组也在等待传输， 该排队时延将很长。 我们将很快看到， 到达分组期待发现的分组数量是到达该队列的流量的强度和性质的函数。 实际的排队时延可以是毫秒到微秒量级。<br> (3) 传输时延<br> 假定分组以先到先服务方式传输一这在分组交换网中是常见的方式， 仅当所有已经到达的分组被传输后， 才能传输刚到达的分组。 用 L 比特表示该分组的长度， 用 R bPs( 即 b/s) 表示从路由器 A 到路由器 B 的链路传输速率。 例如， 对于一条 10Mbps 的以太网链路， 速率 R =10Mbps; 对于 100Mbps 的以太网链路， 速率 R = 100Mbps。 传输时延是 L/R。这是将所有分组的比特推向链路 （ 即传输， 或者说发射） 所需要的时间。 实际的传输时延通常在毫秒到微秒量级。<br> (4) 传播时延<br> 一旦一个比特被推向链路， 该比特需要向路由器 B 传播。 从该链路的起点到路由器 B传播所需要的时间是传播时延。 该比特以该链路的传播速率传播。 该传播速率取决于该链路的物理媒体（ 即光纤 、 双绞铜线等） ， 其速率范围是2 xl0^8或3 xl0^8 m/s， 这等于或略小于光速。 该传播时延等于两台路由器之间的距离除以传播速率。 即传播时延是其中d 是路由器 A 和路由器 B 之间的距离， s 是该链路的传播速率。 一旦该分组的最后一个比特传播到节点 B， 该比特及前面的所有比特被存储于路由器 B。 整个过程将随着路由器 B执行转发而持续下去。 在广域网中， 传播时延为毫秒量级。<br> (5) 传输时延和传播时延的比较<br> <strong>传输时延是路由器推出分组所需要的时间， 它是分组长度和链路传输速率的函数， 两台路由器之间的距离无关。 另一方面， 传播时延是一个比特从一台路由器传播到另一台路由器所需要的时间， 它是两台路由器之间距离的函数， 而与分组长度或链路传输速率无关</strong><br> <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/43355814023b448897e22dec9ffafacb~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3adb3ad9a9c148f9a410bc753d59415f~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/eb63ef32a1904b2ab7ef1e69422981eb~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h3 id="排队时延和丢包"><a href="#排队时延和丢包" class="headerlink" title="排队时延和丢包"></a>排队时延和丢包</h3><p>什么时候排队时延大， 什么时候又不大呢？ 该问题的答案很大程度取决于流量到达该队列的速率、 链路的传输速率和到达流量的性质， 即流量是周期性到达还是以突发形式到达。<br> <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e2cd7d9c51394e1a875d376a8fbcf0c7~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>在现实中， 一条链路前的队列只有有限的容量， 尽管排队容量极大地依赖于路由器设计和成本。 因为该排队容量是有限的， 随着流量强度接近 1， 排队时延并不真正趋向无穷大。 相反， 到达的分组将发现一个满的队列。 由于没有地方存储这个分组， 路由器将丢弃 ( drop) 该分组， 即该分组将会丢失（ lost )。 当流量强度大于 1 时， 队列中的这种溢出也能够在用于队列的 Java 小程序中看到<br> <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/541ee5dc41bc4cf2ae901f859633797c~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h3 id="端与端时延"><a href="#端与端时延" class="headerlink" title="端与端时延"></a>端与端时延</h3><p>前面的讨论一直集中在节点时延上， 即在单台路由器上的时延。 我们现在考虑从源到目的地的总时延。 为了能够理解这个概念， 假定在源主机和目的主机之间有 N- 1 台路由器。 我们还要假设该网络此时是无拥塞的 （ 因此排队时延是微不足道的） ， 在每台路由器和源主机上的处理时延是 dproc ， 每台路由器和源主机的输出速率是R bps， 每条链路的传播时延是 dprop。 节点时延累加起来， 得到端到端时延：<br> <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/871dc7b752e4467e98bd46f81b8a096e~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h3 id="计算机网络中的吞吐量"><a href="#计算机网络中的吞吐量" class="headerlink" title="计算机网络中的吞吐量"></a>计算机网络中的吞吐量</h3><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1485e72246c54d6b8f5fa8fd03b453c5~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"> <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4f88ae3a9ea34f2aa227a211f5480a9a~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"> <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a554b9e825f241de877ba3a2d5aac9e2~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0c21b196d6cd4f2a992e1459329456d6~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h2 id="协-议-层-次-及-其-服-务-模-型"><a href="#协-议-层-次-及-其-服-务-模-型" class="headerlink" title="协 议 层 次 及 其 服 务 模 型"></a>协 议 层 次 及 其 服 务 模 型</h2><p><strong>现实：网络的复杂性</strong></p>
+<ul>
+<li>包含了太多的元素• 主机、服务器、路由器、交换机、各种链路、网络，应用程序、协议、网络服务….</li>
+<li>需要完成的功能太多• 网络应用数据的生成、数据宿主的判断、目的地的，寻找、网络路径的产生与选择、数据的安全性、可靠性…</li>
+</ul>
+<p><strong>问题：</strong> 如何组织这种复杂的系统？</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c5cce5dac7cd4844a018f737b7009f79~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/68296b3cedf141d8858f688765a9fa90~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><strong>层次化方式实现复杂网络功能:</strong></p>
+<ul>
+<li>将网络复杂的功能分层功能明确的层次，每一层实现了其中一个或一组功能，功能中有其上层可以使用的功能：服务</li>
+<li>本层协议实体相互交互执行本层的协议动作，目的是实现本层功能，通过接口为上层提供更好的服务</li>
+<li>在实现本层协议的时候，直接利用了下层所提供的服务</li>
+<li>本层的服务：借助下层服务实现的本层协议实体之间交互带来的新功能（上层可以利用的）+更下层所提供的服务</li>
+</ul>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e20d7f783dce4d4badc3319aa12f1634~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e0369dc0a1c3475ab4e649c518601a97~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"> <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/08377b6ddcc846a69c6a37083999662e~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/468dcde29ba64e5b8afad17030fdeed0~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"> <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/17a5d1164bda4687a72cac63722e1a00~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7c0daeca8b324071944e19f3d2f38899~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h3 id="Internet协议栈"><a href="#Internet协议栈" class="headerlink" title="Internet协议栈"></a>Internet协议栈</h3><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/55279f430b654271807e0f82037dd88c~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"> <strong>应用层:网络应用</strong></p>
+<ul>
+<li>为人类用户或者其他应用进程提供网络应用服务</li>
+<li>因特网的应用层包括许多协议， 例如 HTTP ( 它提供了 Web 文档的请求和传送） 、 SMTP ( 它提供了电子邮件报文的传输） 和 FTP (它提供两个端系统之间的文件传送）。</li>
+<li>应用层协议分布在多个端系统上， 而一个端系统中的应用程序使用协议与另一个端系统中的应用程序交换信息分组。 我们把这种位于应用层的信息分组称为**报文 （ message)**。</li>
+</ul>
+<p><strong>传输层:主机之间的数据传输</strong></p>
+<ul>
+<li>在网络层提供的端到端通信基础上，细分为<strong>进程到进程</strong>，将不可靠的通信变成可靠地通信（由于TCP的存在）</li>
+<li>TCP, UDP。TCP 向它的应用程序提供了面向连接的服务。 这种服务包括了应用层报文向目的地的确保传递和流量控制 （ 即发送方/接收方速率匹配）。 TCP 也将长报文划分为短报文， 并提供拥塞控制机制， 因此当网络拥塞时， 源抑制其传输速率。 UDP 协议向它的应用程序提供无连接服务。 这是一种不提供不必要服务的服务， 没有可靠性， 没有流量控制， 也没有拥塞控制。</li>
+<li>在本书中， 我们把运输层的分组称为**报文段（ segment )**。</li>
+</ul>
+<p><strong>网络层:为数据报从源到目的选择路由</strong></p>
+<ul>
+<li>因特网的网络层负责将称为数据报 ( datagram) 的网络层分组从一台主机移动到另一台主机。</li>
+<li>主机主机之间的通信，端到端通信，不可靠</li>
+<li>IP， 该协议定义了在数据报中的各个字段以及端系统和路由器如何作用于这些字段。路由选择协议， 它根据该路由将数据报从源传输到目的地。</li>
+</ul>
+<p><strong>链路层:相邻网络节点间的数据传输</strong></p>
+<ul>
+<li>2个相邻2点的通信，点到点通信，可靠或不可靠</li>
+<li>点对对协议PPP, 802.11(wifi), Ethernet</li>
+<li>在本书中， 我们把链路层分组称为帧（ frame)。</li>
+</ul>
+<p><strong>物理层:在线路上传送bit</strong></p>
+<p><strong>ISO/OSI 参考模型</strong><br> <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bdfb73a6f8f34fc8bb2b0eb8fd1b88ed~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>封装 （ encapsulation )。 在发送主机端， 一个应用层报文 (application-layer message) (图 中的 M) 被传送给运输层。 在最简单的情况下，运输层收取到报文并附上附加信息 （ 所谓运输层首部信息， 图中的 H,)， 该首部将被接收端的运输层使用。 应用层报文和运输层首部信息一道构成了运输层报文段 （ transportlayer segment)。 运输层报文段因此封装了应用层报文。 附加的信息也许包括了下列信息：允许接收端运输层向上向适当的应用程序交付报文的信息； 差错检测位信息， 该信息让接收方能够判断报文中的比特是否在途中已被改变。 运输层则向网络层传递该报文段， 网络层增加了如源和目的端系统地址等网络层首部信息（ 图中的 Hn )， 生成了网络层数据报 ( network-layer datagram)0 该数据报接下来被传递给链路层， 链路层（ 自然而然地）增加它自己的链路层首部信息并生成链路层帧（ link-layer frame)。 所以我们看到， 在每一层， 一个分组具有两种类型的字段： 首部字段和有效载荷字段 ( payload field )。 有效载荷通常是来自上一层的分组。 <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a6207c96d83f46abad05981b8314f526~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"> <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f5c07e5f72f64948be1911997d585ec9~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<h2 id="第一章课后习题"><a href="#第一章课后习题" class="headerlink" title="第一章课后习题"></a>第一章课后习题</h2><p>R1.主机和端系统之间有什么不同？列举几种不同类型的端系统。 web 服务器是一种端系统吗\</p>
+<blockquote>
+<p>答：没有区别。端系统包括 PC，工作站， Web 服务器，邮件服务器， PDA，互联网连接的游戏机等。（在本书中， “主机”和“终端系统”是交替使用的。）\</p>
+</blockquote>
+<p>R8.能够运行以太网的物理媒体是什么？\</p>
+<blockquote>
+<p>答：今天，以太网最常见的运行在双绞线铜线上。它也可以运行在光纤链路上。\</p>
+</blockquote>
+<p>R9. 拨号调制解调器、 HFC、 DSL 和 FTTH 都用于住宅接人。 对于这些技术， 给出每种技术的传输速率的范围， 并讨论它们的传输速率是共享的还是专用的。\</p>
+<blockquote>
+<p>答案：<br> 拨号调制解调器： 速率56kbps 带宽专用<br> HFC（Hybrid Fiber Coax）混合光纤同轴： 下行速率：42.8Mbps 上行速率：30.7Mbps 带宽共享<br> DSL数字用户线： 下行速率：24Mbps 上行速率:2.5Mbps 带宽共享，电话呼叫和因特网连接同时共享<br> FTTH光纤到户: 平均下行速率：20Mbps 带宽共享</p>
+</blockquote>
+<p>R11. 假定在发送主机和接收主机间只有一台分组交换机。 发送主机和交换机间以及交换机和接收主机间的传输速率分别是 R1 和R2。 假设该交换机使用存储转发分组交换方式， 发送一个长度为【 的分组的端到端总时延是什么？（ 忽略排队时延 、 传播时延和处理时延。）\</p>
+<blockquote>
+<p>答：在 t0 时发送主机开始发送。 在时间 T1=L/R1 时，发送主机完成传输，整个数据包在路由器接收（没有传播延迟）。 因为路由器在 t1 时刻有整个数据包，所以它可以在 t1 时刻开始向接收主机发送数据包。 时间 t2=t1 + L/R2，路由器完成传输，整个数据包在接收主机接收（同样，没有传播延迟）。 因此，端到端延迟为 L/R1 + L/R2。\</p>
+</blockquote>
+<p>R12.与分组交换网络相比，电路交换网络有哪些优点？在电路交换网络中， TDM 比 FDM 有哪些优点？\</p>
+<blockquote>
+<p>答：一个电路交换网络预留了带宽等的资源，可以保证一定数量的端到端带宽的持续时间。 今天大多数分组交换网络（包括互联网）不能对带宽做出任何端到端的保证。 FDM 需要复杂的模拟硬件将信号转换成适当的频带。\</p>
+</blockquote>
+<p>R13. 假定用户共享一条 2MbpS 链路。 同时假定当每个用户传输时连续以 1 Mbps 传输， 但每个用户仅传输20% 的时间。<br> a.当使用电路交换时， 能够支持多少用户？<br> b. 作为该题的后继问题， 假定使用分组交换。 为什么如果两个或更少的用户同时传输的话， 在链路前面基本上没有排队时延？ 为什么如果 3 个用户同时传输的话， 将有排队时延？<br> c.求出某指定用户正在传输的概率。<br> d. 假定现在有 3 个用户。 求出在任何给定的时间， 所有 3 个用户在同时传输的概率。 求出队列增长<br> 的时间比率。\</p>
+<blockquote>
+<p>答： a. 可以支持 2 个用户，因为每个用户需要一半的链路带宽<br> b. 由于每个用户在传输时需要 1Mbps，如果两个或更少的用户同时传输，则最多需要2Mbps。 由于共享链路的可用带宽为 2Mbps，因此链路前不会出现排队延迟。 然而，如果三个用户同时传输，所需的带宽将是 3Mbps，超过共享链路的可用带宽。 在这种情况下，链接之前会有排队延迟。<br> c. 给定用户发送的概率=0.2<br> d. 三个用户同时传输的概率=<img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/40b6c1c21276470c85116da4fdffd01c~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png">。 由于队列在所有用户发送时增长，队列增长的时间比率（这等于所有三个用户同时发送的概率）为 0.008。\</p>
+</blockquote>
+<p>R14.为什么等级结构中级别相同的两个 ISP 通常互相对等？某 IXP 是如何挣钱的\</p>
+<blockquote>
+<p>答：当两个ISP之间需要传输流量时，如果没有对等，那么其中一个ISP需要先传输给提供商ISP然后再传递给另一个ISP，这时候产生了额外费用，如果对等的话则可以免去这些费用。IXP是一个汇合点，多个ISP能够在这里一起对等，可以根据交换的流量额收取费用。</p>
+</blockquote>
+<p>R15. 某些内容提供商构建了自己的网络。描述谷歌的网络。内容提供商构建这些网络的动机是什么？</p>
+<blockquote>
+<ol>
+<li>可以跟较底层的ISP对等，或者接入IXP来减少对提供商ISP的费用</li>
+<li>可以对其服务最终如何交付给端用户有了更多的控制</li>
+</ol>
+</blockquote>
+<p>R18. —个长度为 1000 字节的分组经距离为 2500km 的链路传播， 传播速率为 2.5 x 10^8 m/s 并且传输速率为 2Mbps, 它需要用多长时间？ 更为一般地， 一个长度为 L 的分组经距离为 d 的链路传播， 传播速c率为 s 并且传输速率为 R bps, 它需要用多长时间？ 该时延与传输速率相关吗？</p>
+<blockquote>
+<p>10ms<br> d/s<br> 传播延时于传输速率无关系，仅与距离与光速有关</p>
+</blockquote>
+<p>R19. 假定主机A要向主机B发送一个大文件。从主机A到主机B的路径上有3段链路，其速率分别为R1 = 500kbps，R2 = 2Mbps，R3 = 1Mbps。<br> a. 假定该网络中没有其他流量，该文件传送的吞吐量是多少？<br> b. 假定该文件为4MB。传输该文件到主机B大致需要多长时间？<br> c. 重复(a)和(b)，只是这时R2减小到100kbps。</p>
+<blockquote>
+<p>a. 500kbps<br> b. 32Mb/0.5Mbps = 64s(注意1B=8b)<br> c. 100kbps, 32Mb/0.1Mbps = 320s<br> 注意计算机中的B是byte（字节），网络中的b是bit（比特）。1B = 8b，即1byte = 8bit</p>
+</blockquote>
+<p>P2.式（1-1）给出了经传输速率为R的N段链路发送长度L的一个分组的端到端时延。对于经过N段链路连续地发送P个这样的分组，一般化地表示出这个公式。</p>
+<blockquote>
+<p>答：在 N*(L/R)时，第一个数据包已到达目的地， 第二个数据包存储在最后一个路由器中，第三 个数据包存储在下一个路由器中，等等。 当 N*(L/R) + L/R，第二个数据包已到达目的地，第三 个数据包存储在最后一个路由器中等。 继续这种逻辑，我们看到当 N*(L/R) + (P-1)<em>(L/R) = (N+P-1)</em>(L/R) 所有数据包都已到达目的地。【注意这些全都是存储转发的形式】\</p>
+</blockquote>
+<p>P4.考虑在图1-13中的电路交换网。回想在每条链路上有4条链路，以顺时针方向标记四台交换机A、B、C和D。<br> a.在该网络中，任何时候能够进行同时连接的最大数量是多少？<br> b.假定所有连接位于交换机A和C之间。能够进行同时连接的最大数量是多少？<br> c.假定我们要在交换机A和C之间建立4条连接，在交换机B和D之间建立另外4条连接。我们能够让这些呼叫通过这4条链路建立路由以容纳所有8条连接吗？</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/143f9dd0bda841378c081183cbba55b0~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<blockquote>
+<p>a.在左上⻆的开关和右上⻆的开关之间，我们可以有4个连接。类似地，我们可以在其他3对相邻开关之间各有四个连接。因此，这个⽹络可以⽀持多达16个连接。<br> ⽐如：<br> A 到 B ：4 条<br> B 到 C ：4 条<br> C 到 D ：4 条<br> D 到 A ：4 条<br> 这 16 条可以同时连接。<br> b.我们可以通过右上⻆的开关通过4个连接，在左下⻆有4个通过开关的连接，总共有8个连接。<br> A 到 B ：4 条<br> B 到 C ：4 条<br> 最多 8 条。<br> c.可以。对于A和C之间的连接，我们路由两个连接通过B，两个连接通过D。对于B和D之间的连接，我们路由两个连接通过A，两个连接通过C。这样，最多有4个连接通 过任何链接。<br> A 到 B ：2 条<br> B 到 A ：2 条<br> A 到 D ：2 条<br> B 到 C ：2 条</p>
+</blockquote>
+<p><strong>P5.回顾在l.4节中的车队的类比。假定传播速度还是100km/h。<br> a.假定车队旅行150km：在一个收费站前面开始，通过第二个收费站，并且在第三个收费站后面结束。其端到端时延是多少？<br> b.重复（a），现在假定车队中有8辆汽车而不是10辆。</strong></p>
+<blockquote>
+<p>答：收费亭相距 75 公里，汽车以每小时 100 公里的速度行驶。 收费亭每 12 秒为一辆车服务。<br> a)有十辆车。 第一个收费站为这 10 辆车服务需要 120 秒，即 2 分钟。 在到达第二个<br> 收费站之前，每辆车的传播延迟为 45 分钟(行程 75 公里。 因此，所有的汽车都排在第二个收<br> 费站之前， 47 分钟后。 整个过程在第二个和第三个收费站之间重复进行。 第三个收费站也需<br> 要 2 分钟的时间为这 10 辆车服务。 因此，总延迟为 96 分钟。【题目应是认为“整个车队均通过<br> 一个收费站后再一起发车，而不是某辆车通过收费站后不停留立刻发车”，即第一辆车等最后一<br> 辆车检查完再发车，而不是最后一辆车还在检查时，前面的 9 辆车已经在路上了，这不符合分<br> 组转发的逻辑但题目就是这么问的）<br> b)收费亭之间的延误为 8<em>12 秒加 45 分钟，即 46 分 36 秒。 总延迟是这个数量的两倍，<br> 加上 8</em>12 秒，即 94 分 48 秒。\</p>
+</blockquote>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/19182ccd8c074365b221d6b975d94036~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"> <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/aaee54a285984023b88b7f845a050839~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p>P8.假定用户共享一条3Mbps的链路。又设每个用户传输时要求150kbps，但是每个用户仅有10%的时间传输。（参见l.3节中关于“分组交换与电路交换的对比”的讨论。）<br> a.当使用电路交换时，能够支持多少用户？<br> b.对于本习题的后续小题，假定<strong>使用分组交换</strong>。求出给定用户正在传输的概率。<br> c.假定有120个用户。求出在任何给定时刻，实际有n个用户在同时传输的概率。（提示：使用二项式分布。）<br> d.求出有21个或更多用户同时传输的概率。</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/70394124a09e46a3991c82555156044a~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"> P10.考虑一个长度为L的分组从端系统A开始，经3段链路传送到目的端系统。令di、si，和Ri，表示链路i的长度、传播速度和传输速率（i=1，2，3）。该分组交换机对每个分组的时延为dproc。假定没有排队时延，根据di、si，Ri（i=1，2，3）和L，该分组总的端到端时延是什么？现在假定该分组是1500字节，在所有3条链路上的传播时延是2.5×10^8m／s，所有3条链路的传输速率是2Mbps，分组交换机的处理时延是3ms，第一段链路的长度是5000km，第二段链路的长度是4000km，并且最后一段链路的长度是1000km。对于这些值，该端到端时延为多少？</p>
+<blockquote>
+<p>答： 第一端系统要求 L/R1将数据包传输到第一链路上；数据包在 d1/s1中的第一链路上传播；数据包交换机增加了 dproc 的处理延迟；在接收到整个数据包后，连接第一和第二链路的数据包交换机要求 L/R2 将数据包传输到第二链路上；数据包在 d2/s2 中的第二链路上传播。 同样，我们可以找到由第二个开关和第三个链接： L/R3、 dproc 和 d3/s3 引起的延迟。 加上这五个延迟就可以了 <img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cdf93f24a85f41999c7a0a2e0f18d7e7~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+</blockquote>
+<p>P31.在包括因特网的现代分组交换网中，源主机将长应用层报文（如一个图像或音乐文件）分段为较小的分组并向网络发送。接收方则将这些分组重新装配为初始报文。我们称这个过程为根文分段。<br> 图1-27显示了一个报文在报文不分段或报文分段情况下的端到端传输。考虑一个长度为8×10^6比特的报文，它在图1-27中从源发送到目的地。假定在该图中的每段链路是2Mbps。忽略传播、排队和处理时延。<br> a.考虑从源到目的地发送该报文且没有报文分段。从源主机到第一台分组交换机移动报文需要多长时间？记住，每台交换机均使用存储转发分组交换，从源主机移动该报文到目的主机需要多长时间？<br> b.现在假定该报文被分段为800个分组，每个分组10000比特长。从源主机移动第一个分组到第一台交换机需要多长时间？从第一台交换机发送第一个分组到第二台交换机，从源主机发送第二个分组到第一台交换机各需要多长时间？什么时候第二个分组能被第一台交换机全部收到？<br> c.当进行报文分段时，从源主机向目的主机移动该文件需要多长时间？将该结果与（a）的答案进行比较并解释之。<br> d.除了减小时延外，使用报文分段还有什么原因？<br> e.讨论报文分段的缺点。 <img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b74181fdf840416991a71795d37a745f~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b853c5d1fbef4d42a8dc9f96034df392~tplv-k3u1fbpfcp-watermark.awebp" alt="image.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">长烟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yunf194.github.io/2021/12/13/1.1%20%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/">http://yunf194.github.io/2021/12/13/1.1%20%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yunf194.github.io" target="_blank">fengyun's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C/">网络</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/net.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/12/16/%E9%93%BE%E8%A1%A8%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE/"><img class="prev-cover" src="/images/cover/offer.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">链表面试题目</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/13/hello-world/"><img class="next-cover" src="/images/index3.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hello World</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/12/24/%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E7%AC%AC%E4%BA%8C%E7%AB%A0/" title="计算机网络自顶向下第二章应用层"><img class="cover" src="/images/cover/net.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-24</div><div class="title">计算机网络自顶向下第二章应用层</div></div></a></div><div><a href="/2021/12/28/%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E7%AC%AC%E4%B8%89%E7%AB%A0/" title="计算机网络自顶向下第三章运输层"><img class="cover" src="/images/cover/net.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-28</div><div class="title">计算机网络自顶向下第三章运输层</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yunf194.github.io/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">长烟</div><div class="author-info__description">交际是分享快乐，独处是消化自我</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yunf194"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yunf194" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2846327307@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我明白你会来所以我等</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91"><span class="toc-number">1.</span> <span class="toc-text">什么是因特网</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E6%88%90%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">组成描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.2.</span> <span class="toc-text">服务描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.3.</span> <span class="toc-text">协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98"><span class="toc-number">2.</span> <span class="toc-text">网络边缘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%85%A5%E7%BD%91"><span class="toc-number">2.1.</span> <span class="toc-text">接入网</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%B6-%E5%BA%AD-%E6%8E%A5-%E5%85%A5%EF%BC%9A-DSL%E3%80%81-%E7%94%B5-%E7%BC%86%E3%80%81-FTTH-%E6%8B%A8-%E5%8F%B7-%E5%92%8C-%E5%8D%AB-%E6%98%9F"><span class="toc-number">2.1.1.</span> <span class="toc-text">家 庭 接 入： DSL、 电 缆、 FTTH, 拨 号 和 卫 星</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%81%E4%B8%9A%EF%BC%88-%E5%92%8C%E5%AE%B6%E5%BA%AD%EF%BC%89-%E6%8E%A5%E4%BA%BA%EF%BC%9A-%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%92%8C-WiFi"><span class="toc-number">2.1.2.</span> <span class="toc-text">企业（ 和家庭） 接人： 以太网和 WiFi</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%BF%E5%9F%9F%E6%97%A0%E7%BA%BF%E6%8E%A5%E5%85%A5-3G%E5%92%8C-LTE"><span class="toc-number">2.1.3.</span> <span class="toc-text">广域无线接入 3G和 LTE</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%A9-%E7%90%86-%E5%AA%92-%E4%BD%93"><span class="toc-number">2.2.</span> <span class="toc-text">物 理 媒 体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="toc-number">3.</span> <span class="toc-text">网络核心</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2"><span class="toc-number">3.1.</span> <span class="toc-text">电路交换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2"><span class="toc-number">3.2.</span> <span class="toc-text">分组交换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E8%BD%AC%E5%8F%91%E4%BC%A0%E8%BE%93"><span class="toc-number">3.2.1.</span> <span class="toc-text">存储转发传输</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E9%98%9F%E5%92%8C%E5%BB%B6%E8%BF%9F%EF%BC%9A"><span class="toc-number">3.2.2.</span> <span class="toc-text">排队和延迟：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AC%E5%8F%91%E8%A1%A8%E5%92%8C%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.2.3.</span> <span class="toc-text">转发表和路由选择协议</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2-VS-%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2"><span class="toc-number">3.3.</span> <span class="toc-text">分组交换 VS 电路交换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%88%86%E7%B1%BB"><span class="toc-number">3.4.</span> <span class="toc-text">网络分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BD%91%E7%BB%9C"><span class="toc-number">3.5.</span> <span class="toc-text">网络的网络</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E7%BD%91%E4%B8%AD%E7%9A%84%E6%97%B6%E5%BB%B6%E3%80%81-%E4%B8%A2%E5%8C%85%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F"><span class="toc-number">4.</span> <span class="toc-text">分组交换网中的时延、 丢包和吞吐量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E5%BB%B6%E6%A6%82%E8%BF%B0"><span class="toc-number">4.1.</span> <span class="toc-text">时延概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E9%98%9F%E6%97%B6%E5%BB%B6%E5%92%8C%E4%B8%A2%E5%8C%85"><span class="toc-number">4.2.</span> <span class="toc-text">排队时延和丢包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%AF%E4%B8%8E%E7%AB%AF%E6%97%B6%E5%BB%B6"><span class="toc-number">4.3.</span> <span class="toc-text">端与端时延</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E5%90%9E%E5%90%90%E9%87%8F"><span class="toc-number">4.4.</span> <span class="toc-text">计算机网络中的吞吐量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F-%E8%AE%AE-%E5%B1%82-%E6%AC%A1-%E5%8F%8A-%E5%85%B6-%E6%9C%8D-%E5%8A%A1-%E6%A8%A1-%E5%9E%8B"><span class="toc-number">5.</span> <span class="toc-text">协 议 层 次 及 其 服 务 模 型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Internet%E5%8D%8F%E8%AE%AE%E6%A0%88"><span class="toc-number">5.1.</span> <span class="toc-text">Internet协议栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-number">5.2.</span> <span class="toc-text">封装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%E8%AF%BE%E5%90%8E%E4%B9%A0%E9%A2%98"><span class="toc-number">6.</span> <span class="toc-text">第一章课后习题</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于GO的双向tls通信"/></a><div class="content"><a class="title" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信">基于GO的双向tls通信</a><time datetime="2023-01-06T16:00:00.000Z" title="发表于 2023-01-07 00:00:00">2023-01-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL注入"/></a><div class="content"><a class="title" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入">SQL注入</a><time datetime="2022-12-06T16:00:00.000Z" title="发表于 2022-12-07 00:00:00">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件上传漏洞"/></a><div class="content"><a class="title" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2022-12-05T16:00:00.000Z" title="发表于 2022-12-06 00:00:00">2022-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之包"/></a><div class="content"><a class="title" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包">Go语言基础之包</a><time datetime="2022-10-22T16:00:00.000Z" title="发表于 2022-10-23 00:00:00">2022-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之函数"/></a><div class="content"><a class="title" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数">Go语言基础之函数</a><time datetime="2022-10-21T16:00:00.000Z" title="发表于 2022-10-22 00:00:00">2022-10-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/images/cover/net.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By 长烟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">其实，我回头等了你好久好久，你都没来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Yb0FJoeuYRJfbYGupEnFsg6E-gzGzoHsz',
+      appKey: 'Pjo4dvB3TbjfY8clnS7fxalh',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://yunf194.github.io/css/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://yunf194.github.io/css/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

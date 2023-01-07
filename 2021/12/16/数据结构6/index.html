@@ -1,0 +1,321 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>图 | fengyun's Blog</title><meta name="keywords" content="图"><meta name="author" content="长烟"><meta name="copyright" content="长烟"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="图的定义和术语 1.图： 图G由顶点集V和关系集E组成,记为: G&#x3D;(V,E)， V是顶点(元素)的有穷非空集， E是两个顶点之间的关系的集合。 2.有向图、弧（有向边）：若图G任意两顶点a,b之间的关系为有 序对,∈E, 则称为从a到 b的一条弧&#x2F;有向边； 其中： a是的弧尾， b是的弧头； 称该图G是有向图。 例 G1&#x3D;{V1,E1}, V1&#x3D;{A,B,C,D,E} E1&#x3D;{&lt;A,C&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图">
+<meta property="og:url" content="http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%846/index.html">
+<meta property="og:site_name" content="fengyun&#39;s Blog">
+<meta property="og:description" content="图的定义和术语 1.图： 图G由顶点集V和关系集E组成,记为: G&#x3D;(V,E)， V是顶点(元素)的有穷非空集， E是两个顶点之间的关系的集合。 2.有向图、弧（有向边）：若图G任意两顶点a,b之间的关系为有 序对,∈E, 则称为从a到 b的一条弧&#x2F;有向边； 其中： a是的弧尾， b是的弧头； 称该图G是有向图。 例 G1&#x3D;{V1,E1}, V1&#x3D;{A,B,C,D,E} E1&#x3D;{&lt;A,C&amp;g">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yunf194.github.io/images/cover/sjjg.jpg">
+<meta property="article:published_time" content="2021-12-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-15T16:00:00.000Z">
+<meta property="article:author" content="长烟">
+<meta property="article:tag" content="图">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yunf194.github.io/images/cover/sjjg.jpg"><link rel="shortcut icon" href="/images/favicon.png"><link rel="canonical" href="http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%846/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5b5317a4316878223f02ccad7d028fa5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '图',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-16 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yunf194.github.io/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover/sjjg.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">fengyun's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 媒体</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">图</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-15T16:00:00.000Z" title="发表于 2021-12-16 00:00:00">2021-12-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-15T16:00:00.000Z" title="更新于 2021-12-16 00:00:00">2021-12-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="图"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="图的定义和术语"><a href="#图的定义和术语" class="headerlink" title="图的定义和术语"></a>图的定义和术语</h3><ul>
+<li>1.图： 图G由顶点集V和关系集E组成,记为: G=(V,E)， V是顶点(元素)的有穷非空集， E是两个顶点之间的关系的集合。</li>
+<li>2.有向图、弧（有向边）：若图G任意两顶点a,b之间的关系为有 序对,∈E, 则称为从a到 b的一条弧/有向边； 其中： a是的弧尾， b是的弧头； 称该图G是有向图。 例 G1={V1,E1}, V1={A,B,C,D,E} E1={&lt;A,C&gt;,&lt;A,D&gt;,&lt;C,D&gt;,&lt;B,E&gt;,&lt;E,B&gt;}</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/878514ca755c4b0197bcd0403dc5add4~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ul>
+<li><ol start="3">
+<li>无向图、边（无向边）： 若图G的任意两顶点a,b之间的关系为 无序对(a,b), 则称(a,b)为无向边(边）, 称该图G是无向图。 无向图可简称为图。 (a,b)依附于a和b, (a,b)与a和b相关联 例 G2={V2,E2}, V2={1,2,3,4,5,6}, E2={(1,3),(1,5),(3,5),(4,6)}</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/04cdf7ae58104f0bbe20941e3cc642f2~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ul>
+<li><ol start="4">
+<li>完全图: 有n个顶点和n(n-1)/2条边的无向图<br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d32014b4b703404283c96f0451559110~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></li>
+</ol>
+</li>
+<li><ol start="5">
+<li>有向完全图: 有n个顶点和n(n-1)条弧的有向图。</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/917fe3276a3a44dcbbecffa056c9cd6a~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ul>
+<li><ol start="6">
+<li>网(Network): 边(弧)上加权(weight)的图。</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b78df9695e864ca2a3c595ba03378eef~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ul>
+<li><ol start="7">
+<li>子图： 对图 G=(V,E)和G’ =(V’ ,E’)，若V’是V子集 且 E’ 是E的子集， 则称G’是G的一个子图</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c7a8efe4af4a409bb440dd0b30728857~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ul>
+<li><ol start="8">
+<li>度： 与顶点x相关联的边(x,y)的数目,称 为x的度， 记作TD(x) 或D(x)， TD(1)=1 TD(2)=3 TD(3)=0</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a9bc61d7bafc48cd892b5e7a2b880fcc~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ul>
+<li>9.出度: 以顶点x为弧尾的弧的数目, 称为x的 出度，记作OD(x)。 OD(A)=1 OD(B)=2 OD(C)=0</li>
+</ul>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e2ebf6beb8d64b54a153722e299acd47~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ul>
+<li>10.入度： 以顶点x为弧头的弧的数目,称为x的 入度，记作ID(x)。 ID(A)=1 ID(B)=1 ID(C)=1 TD(A)=OD(A)+ID(A)=2 TD(B)=OD(B)+ID(B)=3<br><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5267c1261eaa49f68561df789dcb883b~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></li>
+<li>11.连通图及连通分量: (无向图G)<br>Ø 若从顶点vi到vj有路径,则称vi和vj是连通的。 </li>
+</ul>
+<p>Ø 若图G中任意两顶点是连通的,则称G是连通图。<br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5c0dabc0a463479fabdc00623e96da88~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p>若图G’是G的一个极大连通子图,则称G’是G的一个连通分量<br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e981c91a83ab4d4fa85b018b0e2d3ff6~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ul>
+<li>12.强连通图及强连通分量: (有向图G)<br>Ø 若在图G中,每对顶点vi和vj之间, 从vi到vj,且从 vj到vi 都存在路径,则称G是强连通图。</li>
+</ul>
+<p>Ø 若图G’是G的一个极大强连通子图,则称G’是G的一个<strong>强连通分量</strong>。(强连通图的强连通分量是自身)</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/65e8e476f3624c0682d016639df986ed~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ul>
+<li>13.生成树: 设G=(V,E),G’ =(V’ ,E’),V=V’ ,若G是连通图,G’是G的一个极小连通子图, 则G’是G的一棵生成树。</li>
+</ul>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/76e60abb05ad42cf8e4a8416dffb9df8~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="图的存储结构"><a href="#图的存储结构" class="headerlink" title="图的存储结构"></a>图的存储结构</h3><h4 id="数组表示法-邻接矩阵-顺序-顺序"><a href="#数组表示法-邻接矩阵-顺序-顺序" class="headerlink" title="数组表示法/邻接矩阵(顺序+顺序)"></a>数组表示法/邻接矩阵(顺序+顺序)</h4><p>顶点数组—用一维数组存储顶点(元素) 邻接矩阵—用二维数组存储顶点(元素)之间的关系(边 或弧)</p>
+<p><strong>无向图</strong><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f7a31e81df304505ad769f77e4042391~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><strong>有向图</strong><br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dd922c9ac275453aa1ab2e4f5cce2b10~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/97d9dd760b6e46ddbd61a66995eaa5c8~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h4 id="邻接表、逆邻接表-顺序-链式"><a href="#邻接表、逆邻接表-顺序-链式" class="headerlink" title="邻接表、逆邻接表(顺序+链式)"></a>邻接表、逆邻接表(顺序+链式)</h4><p>（1） 无向图的邻接表 : 为图G的每个顶点建立一个单链表，第i个单链 表中的结点表示依附于顶点vi的边。<br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a1121d4670b1449f823ce5a03812ce6e~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br>若无向图G有n个顶点和e条边，需n个表头结点和2e个表结点。 Ø 无向图G的邻接表，顶点vi的度为第i个单链表的长度。</p>
+<p>（2）有向图的邻接表 : 第i个单链表中的表结点，表示以顶点vi为尾的弧 (vi,vj)的弧头。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a36d9c0e10934e87b6aea3e423416106~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ol>
+<li>若有向图G有n个顶点和e条弧，则需n个表头结点和e个表结点。 </li>
+<li>有向图G的邻接表，顶点vi的出度为第i个单链表的长度。 </li>
+<li>求顶点vi的入度需遍历全部单链表，统计结点值为i的结点数</li>
+</ol>
+<p>（3）有向网的邻接表</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0e5610a0e0f94cbaac5233571f81e5ab~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p>（4）有向图的逆邻接表 第i个单链表中的表结点，表示以顶点vi为尾的弧 (vi,vj)的弧头。<br><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b64bdeea471a49fe85f6b795dd4dcd87~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ol>
+<li>若有向图G有n个顶点e条弧，则需n个表头结点和e个表结点。 </li>
+<li>有向图G的逆邻接表，顶点vi的入度为第i个单链表的长度。 </li>
+<li>求顶点vi的出度需遍历全部单链表，统计结点值为i的结点数。</li>
+</ol>
+<h4 id="有向图的十字链表"><a href="#有向图的十字链表" class="headerlink" title="有向图的十字链表"></a>有向图的十字链表</h4><p>将邻接表和逆邻接表合并而成的链接表。<br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/150d8b3b9e884606bc5af30ebf50e39e~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h4 id="邻接多重表"><a href="#邻接多重表" class="headerlink" title="邻接多重表"></a>邻接多重表</h4><p>（无向图的）的另一种链式存储结构</p>
+<p>（1）图的一个顶点用一个“头结点”表示， 其中： data域 存储和该顶点相关的信息， firstedge域 存储第一条依附于该顶点的边。<br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fbbde9cc12e849bf83dde4d48ab734de~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p>（2）图的一条边或弧用一个“结点”表示。</p>
+<p>其中： mark—-标志域，可用以标记该条边是否被搜索过； vi和vj—-该条边依附的两个顶点在图中的位置； vilink—-指向下一条依附于顶点vi的边； vjlink—-指向下一条依附于顶点vj的边。 避免了无向图邻接表的一条边用两个结点。<br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/346f404767384bea96e87484c046835d~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c10e6be00e74426f9e474c1004cbc988~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h3><p>从图G的某定点vi出发，访问G的每个顶点一次且一次的过程。</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4af4bcb15c66437c8c55da1168662b30~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/371206c377094758b716c2f8e7bd5afc~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/207b9bf345f846109821e41f7c71b998~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a6623b96599047b89660a127c99c9a98~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/641d4c2a45434668b3f663365b09006a~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ec76fc0c8e104df1b318cdeb1e54ce7f~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="网的最小生成树"><a href="#网的最小生成树" class="headerlink" title="网的最小生成树"></a>网的最小生成树</h3><p>在网G的各生成树中，其中各边的权之和最小的生 成树称为G的最小生成树</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4b6bf044c9b3474b98a4a966eddda257~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br>MST性质： 设G=（V，E）是一个连通网，U是V的一个非空子集。 如果边（u,v)是G中所有一端在U中（即u∈U）而另一端在 V-U中（即v∈V-U）具有最小值的一条边，则存在一棵包 含边（u,v)的最小生成树。</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/daf8df45176547888bd8075e3226306e~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h4 id="普里姆-prim-算法-以选顶点为主"><a href="#普里姆-prim-算法-以选顶点为主" class="headerlink" title="普里姆(prim)算法 以选顶点为主"></a>普里姆(prim)算法 以选顶点为主</h4><p>对n个顶点的连通网，初始时， T=（U，TE），U为一 个开始顶点，TE=φ，以后根据MST性质，每次增加一个顶 点和一条边，重复n-1次。Ｕ不断增大，Ｖ－Ｕ不断减小 直到为空。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5c9509d56b7c45ddb506a0f51a7525df~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fa0548908064f4888af01d934d16910~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1e9d99d7a97d465db79d18f3c9cc3d0e~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/858f676fd80b44579a41b7b708a9c2a3~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/75871e452fba4b5f8e8b524b2881eddd~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3e25b6b1ff364b848052c0a8038e6400~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3bee0d5e47ba4149875cad6cdae00a70~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bf5efd5600cc449c8f5a3a7f2f0c17d8~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a486c712f7d6493fa94c7d006eda4b37~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h4 id="克鲁斯卡尔（Kruskai-算法，以选边为主"><a href="#克鲁斯卡尔（Kruskai-算法，以选边为主" class="headerlink" title="克鲁斯卡尔（Kruskai)算法，以选边为主"></a>克鲁斯卡尔（Kruskai)算法，以选边为主</h4><p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/58e07c4d6fa44922aa5237712bf39b63~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1e72e6af9481462bb9c09cc3e0bfa818~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h4 id="管梅谷破圈法"><a href="#管梅谷破圈法" class="headerlink" title="管梅谷破圈法"></a>管梅谷破圈法</h4><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/49267bd8bae44e0bb420646916f4936a~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dfb821843fcf410a8e2cd0582ac7e4d8~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="有向无环图及其应用"><a href="#有向无环图及其应用" class="headerlink" title="有向无环图及其应用"></a>有向无环图及其应用</h3><p>一个无环的有向图称为有向无环图（directed acycline graph), 简称DAG图</p>
+<h4 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h4><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4a7e5e209509475693d4d7943cc09c09~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/682ce66cd4c1476296a0654dd65eb6be~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<ul>
+<li>拓扑排序算法思想：重复下列操作，直到所有顶点输出完。 </li>
+<li>（1）在有向图中选一个没有前驱的顶点输出(选择入度为0的顶点)； </li>
+<li>（2）从图中删除该顶点和所有以它为尾的弧(修改其它顶点入度) 。</li>
+</ul>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/617a4795ff964d9f90f625b2d31b0679~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br>有回路的有向图不存在拓扑排序</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/66c25f2a0dfe47c28c491549d6bf2f14~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h4 id="关键路径"><a href="#关键路径" class="headerlink" title="关键路径"></a>关键路径</h4><p>AOE网（Activity On Edge）： 是一个带权的有向无环图，其中以顶点表示事件，弧表示活 动，权表示活动持续的时间。 当AOE网用来估算工程的完成时间时，只有一个开始点（入 度为0,称为源点）和一个完成点（出度为0，称为汇点）</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d00ae26547244b40bbe14720bb9dffdc~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br>AOE网研究的问题： （1） 完成整项工程至少需要多少时间； （2） 哪些活动是影响工程进度的关键。 在AOE网中，部分活动可并行进行，所以完成工程 的最短时间是从开始点到完成点的最长路径长度。路径 长度最长的路径称为关键路径（Critical Path）</p>
+<p>(顶点）事件vi的最早发生时间ve(i)：<br><strong>从开始点到vi的最长路径长度</strong>。（ve(v1)=0） 既表示事件vi的最早发生时间，也表示所有以vi为尾的 弧所表示的活动ak的最早发生时间e(k)。(如下例的a7,a8)</p>
+<ul>
+<li>仅有一个前驱顶点： </li>
+<li>ve(v2)=ve(v1)+6=0+6=6 </li>
+<li>ve(v3)=ve(v1)+4=0+6=4 </li>
+<li>ve(v4)=ve(v1)+6=0+5=5<br>有多个前驱顶点： ve(v5)=max{ve(前驱顶点)+ 前驱活动时间} =max{6+1,4+1,5+5}=10<br>完成点（汇点）的ve(vn)为工程完成所需要的时间。</li>
+</ul>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5fb6c77918b9467c9996c98592dcce09~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d2e7fe94d3474be58ff69e9c3afce7d0~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p>关键路径算法步骤</p>
+<ul>
+<li>（1）从开始点v1出发，令ve(1)=0,按拓朴排序序列求其它各 顶点的最早发生时间 Ve(k)=max{ve(j)+dut()} (vj为以顶点vk为弧头的所有弧的弧尾 对应的顶点集合)</li>
+<li>（2）从完成点vn出发，令vl(n)=ve(n),按逆拓朴排序序列求 其它各顶点的最迟发生时间 Vl(j)=min{vl(k)-dut()} (vk为以顶点vj为弧尾的所有弧的弧头 对应的顶点集合</li>
+<li>（3）求每一项活动ai(vj,vk): e(i)=ve(j) l(i)=vl(k)-dut(ai)</li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c97eb604423b40d7b48c0383e5af3012~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c3124dc4553c4f6392e23d1536067947~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h3><ul>
+<li>算法1（Dijkstra算法）： 以每一个顶点为源点，重复执行Dijkstra算法n次， 即可求出每一对顶点之间的最短路径。 </li>
+</ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/74ae048149bf4c58916e7688f07061b4~tplv-k3u1fbpfcp-watermark.image" alt="image.png"><br>假设S为已求得最短路径的终点的集合，则可证明：下一条最短路径（设其终点为X）或者是弧(v,x)，或者是中间<strong>只经过S中的顶点</strong>而最后到达顶点X的路径。这个可以用反证法证明，假设此路径上有一个顶点不在S中，则说明存在一条终点不在S中而长度比此路径短的路径。但是这是不可能的。因为我们按长度递增的顺序来产生各最短路径，所以长度比此路径还短的所有路径均已产生，他们的终点一定在S中。故假设不成立</p>
+<p>因此，下一条长度次短的最短路径的长度必是D[j]=Min{D[i] | vi∈V-S}    其中，D[i]或者是弧(v,vi)上的权值，或者是D<a href="vk%E2%88%88S">k</a>和弧(vk,vi)上的权值之和</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b831362c9bb54323ad051e4f5c864f74~tplv-k3u1fbpfcp-watermark.image" alt="qq_pic_merged_1638970486072.jpg"></p>
+<ul>
+<li>算法2（Floyd算法）： 算法思想： 假设求Vi到Vj的最短路径，如果从Vi到Vj有弧，则存在 一条长度为arcs[i][j]的路径，该路径不一定是最短路径， 尚需进行n次试探</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">长烟</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%846/">http://yunf194.github.io/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%846/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yunf194.github.io" target="_blank">fengyun's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9B%BE/">图</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/sjjg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%845/"><img class="prev-cover" src="/images/cover/sjjg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">树和二叉树</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/16/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%847/"><img class="next-cover" src="/images/cover/sjjg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">内部排序</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yunf194.github.io/images/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">长烟</div><div class="author-info__description">交际是分享快乐，独处是消化自我</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">116</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yunf194"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yunf194" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2846327307@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我明白你会来所以我等</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E6%9C%AF%E8%AF%AD"><span class="toc-number">1.</span> <span class="toc-text">图的定义和术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">图的存储结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E8%A1%A8%E7%A4%BA%E6%B3%95-%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5-%E9%A1%BA%E5%BA%8F-%E9%A1%BA%E5%BA%8F"><span class="toc-number">2.1.</span> <span class="toc-text">数组表示法&#x2F;邻接矩阵(顺序+顺序)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%82%BB%E6%8E%A5%E8%A1%A8%E3%80%81%E9%80%86%E9%82%BB%E6%8E%A5%E8%A1%A8-%E9%A1%BA%E5%BA%8F-%E9%93%BE%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">邻接表、逆邻接表(顺序+链式)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E5%90%91%E5%9B%BE%E7%9A%84%E5%8D%81%E5%AD%97%E9%93%BE%E8%A1%A8"><span class="toc-number">2.3.</span> <span class="toc-text">有向图的十字链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%82%BB%E6%8E%A5%E5%A4%9A%E9%87%8D%E8%A1%A8"><span class="toc-number">2.4.</span> <span class="toc-text">邻接多重表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-number">3.</span> <span class="toc-text">图的遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%9A%84%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91"><span class="toc-number">4.</span> <span class="toc-text">网的最小生成树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%99%AE%E9%87%8C%E5%A7%86-prim-%E7%AE%97%E6%B3%95-%E4%BB%A5%E9%80%89%E9%A1%B6%E7%82%B9%E4%B8%BA%E4%B8%BB"><span class="toc-number">4.1.</span> <span class="toc-text">普里姆(prim)算法 以选顶点为主</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%8B%E9%B2%81%E6%96%AF%E5%8D%A1%E5%B0%94%EF%BC%88Kruskai-%E7%AE%97%E6%B3%95%EF%BC%8C%E4%BB%A5%E9%80%89%E8%BE%B9%E4%B8%BA%E4%B8%BB"><span class="toc-number">4.2.</span> <span class="toc-text">克鲁斯卡尔（Kruskai)算法，以选边为主</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%A1%E6%A2%85%E8%B0%B7%E7%A0%B4%E5%9C%88%E6%B3%95"><span class="toc-number">4.3.</span> <span class="toc-text">管梅谷破圈法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%90%91%E6%97%A0%E7%8E%AF%E5%9B%BE%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">有向无环图及其应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F"><span class="toc-number">5.1.</span> <span class="toc-text">拓扑排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84"><span class="toc-number">5.2.</span> <span class="toc-text">关键路径</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84"><span class="toc-number">6.</span> <span class="toc-text">最短路径</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于GO的双向tls通信"/></a><div class="content"><a class="title" href="/2023/01/07/202317-%E5%9F%BA%E4%BA%8EGO%E7%9A%84%E5%8F%8C%E5%90%91tls%E9%80%9A%E4%BF%A1/" title="基于GO的双向tls通信">基于GO的双向tls通信</a><time datetime="2023-01-06T16:00:00.000Z" title="发表于 2023-01-07 00:00:00">2023-01-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL注入"/></a><div class="content"><a class="title" href="/2022/12/07/2022127-SQL%E6%B3%A8%E5%85%A5/" title="SQL注入">SQL注入</a><time datetime="2022-12-06T16:00:00.000Z" title="发表于 2022-12-07 00:00:00">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞"><img src="/images/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件上传漏洞"/></a><div class="content"><a class="title" href="/2022/12/06/2022127-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2022-12-05T16:00:00.000Z" title="发表于 2022-12-06 00:00:00">2022-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之包"/></a><div class="content"><a class="title" href="/2022/10/23/20221023-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包">Go语言基础之包</a><time datetime="2022-10-22T16:00:00.000Z" title="发表于 2022-10-23 00:00:00">2022-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数"><img src="/images/cover/p25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言基础之函数"/></a><div class="content"><a class="title" href="/2022/10/22/20221022-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数">Go语言基础之函数</a><time datetime="2022-10-21T16:00:00.000Z" title="发表于 2022-10-22 00:00:00">2022-10-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/images/cover/sjjg.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By 长烟</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">其实，我回头等了你好久好久，你都没来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'Yb0FJoeuYRJfbYGupEnFsg6E-gzGzoHsz',
+      appKey: 'Pjo4dvB3TbjfY8clnS7fxalh',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://yunf194.github.io/css/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://yunf194.github.io/css/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
