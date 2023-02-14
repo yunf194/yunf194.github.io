@@ -655,7 +655,7 @@
 <p>举一个简单例子。客户 1000000005 现在有了电子邮件地址，因此他的<br>记录需要更新，语句如下：<br>输入▼</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE Customers</span><br><span class="line">SET cust_email = &#x27;kim@thetoystore.com&#x27;</span><br><span class="line">WHERE cust_id = 1000000005;</span><br></pre></td></tr></table></figure>
 
-<p>UPDATE 语句总是以要更新的表名开始。在这个例子中，要更新的表名为Customers。 SET 命令用来将新值赋给被更新的列。在这里， SET 子句设置 cust_email 列为指定的值：SET cust_email = ‘<a href="mailto:&#107;&#x69;&#x6d;&#x40;&#116;&#104;&#x65;&#116;&#x6f;&#121;&#x73;&#116;&#111;&#x72;&#101;&#x2e;&#99;&#x6f;&#x6d;">&#107;&#x69;&#x6d;&#x40;&#116;&#104;&#x65;&#116;&#x6f;&#121;&#x73;&#116;&#111;&#x72;&#101;&#x2e;&#99;&#x6f;&#x6d;</a>‘</p>
+<p>UPDATE 语句总是以要更新的表名开始。在这个例子中，要更新的表名为Customers。 SET 命令用来将新值赋给被更新的列。在这里， SET 子句设置 cust_email 列为指定的值：SET cust_email = ‘<a href="mailto:&#x6b;&#105;&#109;&#x40;&#116;&#x68;&#x65;&#116;&#111;&#121;&#115;&#x74;&#111;&#x72;&#x65;&#x2e;&#99;&#111;&#x6d;">&#x6b;&#105;&#109;&#x40;&#116;&#x68;&#x65;&#116;&#111;&#121;&#115;&#x74;&#111;&#x72;&#x65;&#x2e;&#99;&#111;&#x6d;</a>‘</p>
 <p>UPDATE 语句以 WHERE 子句结束，它告诉 DBMS 更新哪一行。没有 WHERE子句， DBMS 将会用这个电子邮件地址更新 Customers 表中的所有行，这不是我们希望的。  </p>
 <p><strong>提示：在 UPDATE 语句中使用子查询</strong><br>UPDATE 语句中可以使用子查询，使得能用 SELECT 语句检索出的数据更新列数据。关于子查询及使用的更多内容，请参阅第 11 课。<br><strong>提示： FROM 关键字</strong><br>有的 SQL 实现支持在 UPDATE 语句中使用 FROM 子句，用一个表的数据更新另一个表的行。如想知道你的 DBMS 是否支持这个特性，请参阅它的文档。  </p>
 <p>要删除某个列的值，可设置它为 NULL（假如表定义允许 NULL 值）。如下进行：<br>输入▼</p>
